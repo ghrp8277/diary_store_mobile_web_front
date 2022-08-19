@@ -5,7 +5,7 @@
       <button class="leftButton" @click="menuButton">
         <font-awesome-icon icon="fa-bars" style="width: 50%; height: auto" />
       </button>
-      <span class="title">{{ msg }}</span>
+      <span class="title" @click="titleButton">{{ msg }}</span>
       <div>
         <button class="rightButton" @click="searchButton">
           <font-awesome-icon
@@ -21,24 +21,31 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { defineComponent, ref, computed } from '@vue/composition-api';
+import router from '@/router';
 
-export default Vue.extend({
-  name: 'MainCategory, EmoticonCategory',
-  data() {
-    return {
-      msg: '이모티콘 스토어',
-    };
-  },
-  methods: {
+export default defineComponent({
+  name: 'HomeView',
+  setup() {
+    const msg = ref('이모티콘 스토어');
     // 메뉴버튼 클릭 함수
-    menuButton() {
+    const menuButton = () => {
       console.log('menubutton click');
-    },
+    };
+    // 타이틀 클릭 함수
+    const titleButton = () => {
+      router.push({ path: 'content' });
+    };
     // 검색버튼 클릭 함수
-    searchButton() {
-      this.$router.push({ path: 'search' });
-    },
+    const searchButton = () => {
+      router.push({ path: 'search' });
+    };
+    return {
+      msg,
+      menuButton,
+      titleButton,
+      searchButton,
+    };
   },
 });
 </script>
@@ -56,6 +63,8 @@ button {
   background: white;
   border: 0px;
   padding: 0px;
+
+  cursor: pointer;
 }
 .rightButton {
   float: right;
@@ -64,5 +73,7 @@ button {
   font-size: 18px;
   font-weight: bold;
   line-height: 35px;
+
+  cursor: pointer;
 }
 </style>

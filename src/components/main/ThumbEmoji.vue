@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div class="container grid-container">
     <div
       class="emoticon"
       style="position: relative"
-      v-for="index in emojiList"
+      v-for="(emoji, index) in emojiList"
       :key="index"
     >
       <button class="heart" @click="likeEmoji">
@@ -21,9 +21,12 @@
       </button>
       <div class="emojiThumb" @click="emojiDetailPage">
         <div class="img-container">
-          <img class="emocitonImage" :src="index.path" />
+          <img
+            class="emocitonImage"
+            :src="require(`@/assets/image/${emoji.imageName}`)"
+          />
         </div>
-        <div class="emoticonTitle">{{ index.title }}</div>
+        <div class="emoticonTitle">{{ emoji.title }}</div>
       </div>
     </div>
   </div>
@@ -52,7 +55,7 @@ export default Vue.extend({
   // 부모 자식간의 데이터 이동 구현
   mounted() {
     for (let i = 0; i < 30; i++) {
-      const emoji = new Emoji('@/assets/logo.png', `${i}_emoji`, 'test');
+      const emoji = new Emoji('logo.png', `${i}_emoji`, 'test');
 
       this.emojiList.push(emoji);
     }
@@ -66,6 +69,31 @@ export default Vue.extend({
   font-size: 15px;
   font-weight: bold;
   margin: 20px 10px;
+}
+
+.grid-container {
+  /**
+   * User input values.
+   */
+  --grid-layout-gap: 10px;
+  --grid-column-count: 4;
+  --grid-item--min-width: 200px;
+
+  /**
+   * Calculated values.
+   */
+  --gap-count: calc(var(--grid-column-count) - 1);
+  --total-gap-width: calc(var(--gap-count) * var(--grid-layout-gap));
+  --grid-item--max-width: calc(
+    (100% - var(--total-gap-width)) / var(--grid-column-count)
+  );
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr)
+  );
+  grid-gap: var(--grid-layout-gap);
 }
 
 .img-container {
