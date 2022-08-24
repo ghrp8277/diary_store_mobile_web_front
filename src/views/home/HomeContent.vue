@@ -17,9 +17,4 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss">
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-</style>
+<style scoped lang="scss"></style>

@@ -1,9 +1,12 @@
 <template>
   <div class="home">
     <!--slide menu-->
-    <SlideMenu />
+    <Transition name="slide-fade">
+      <SlideMenu v-if="isShow" />
+    </Transition>
     <!--menu bar-->
     <div class="menubar-container">
+      <!-- toggle button -->
       <button class="leftButton" @click="menuButton">
         <font-awesome-icon icon="fa-bars" style="width: 50%; height: auto" />
       </button>
@@ -18,7 +21,7 @@
       </div>
     </div>
 
-    <router-view />
+    <router-view class="main-view" :class="{ 'toggle-show': isShow }" />
   </div>
 </template>
 
@@ -31,11 +34,11 @@ export default defineComponent({
   name: 'HomeView',
   components: { SlideMenu },
   setup() {
+    const isShow = ref(false);
     const msg = ref('이모티콘 스토어');
     // 메뉴버튼 클릭 함수
     const menuButton = () => {
-      //this.$Event.$emit('toggleMenu');
-      console.log('menubutton click');
+      isShow.value = !isShow.value;
     };
     // 타이틀 클릭 함수
     const titleButton = () => {
@@ -45,7 +48,11 @@ export default defineComponent({
     const searchButton = () => {
       router.push({ path: 'search' });
     };
+
     return {
+      // toggle
+      isShow,
+      // etc
       msg,
       menuButton,
       titleButton,
@@ -83,5 +90,33 @@ button {
   line-height: 35px;
 
   cursor: pointer;
+}
+
+.main-view {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+// transitions
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 1s ease-in-out;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.toggle-show {
+  opacity: 0.3;
+  pointer-events: none;
+
+  // 드래그 금지
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 </style>
