@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <!--메뉴바-->
+    <!--slide menu-->
+    <SlideMenu />
+    <!--menu bar-->
     <div class="menubar-container">
       <button class="leftButton" @click="menuButton">
         <font-awesome-icon icon="fa-bars" style="width: 50%; height: auto" />
@@ -23,13 +25,16 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from '@vue/composition-api';
 import router from '@/router';
+import SlideMenu from '@/components/main/SlideMenu.vue';
 
 export default defineComponent({
   name: 'HomeView',
+  components: { SlideMenu },
   setup() {
     const msg = ref('이모티콘 스토어');
     // 메뉴버튼 클릭 함수
     const menuButton = () => {
+      //this.$Event.$emit('toggleMenu');
       console.log('menubutton click');
     };
     // 타이틀 클릭 함수
@@ -65,6 +70,9 @@ button {
   padding: 0px;
 
   cursor: pointer;
+}
+.leftButton {
+  float: left;
 }
 .rightButton {
   float: right;

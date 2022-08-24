@@ -23,9 +23,14 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/views/home/SearchView.vue'),
       },
       {
-        path: 'sort',
-        name: 'sort',
-        component: () => import('@/views/home/SortContent.vue'),
+        path: 'best',
+        name: 'best',
+        component: () => import('@/views/home/BestContent.vue'),
+      },
+      {
+        path: 'new',
+        name: 'new',
+        component: () => import('@/views/home/NewContent.vue'),
       },
     ],
   },

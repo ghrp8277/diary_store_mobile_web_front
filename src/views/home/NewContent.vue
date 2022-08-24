@@ -1,25 +1,17 @@
 <template>
-  <div class="container">
-    <ThumbEmoji />
-  </div>
+  <div><CategoryTab /> <ThumbEmoji /></div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import CategoryTab from '@/components/main/CategoryTab.vue';
 import ThumbEmoji from '@/components/main/ThumbEmoji.vue';
-
 export default Vue.extend({
-  name: 'EmoticonList',
   components: {
+    CategoryTab,
     ThumbEmoji,
   },
-  props: {},
 });
 </script>
 
-<style lang="scss" scoped>
-.container {
-  background: white;
-  font-size: 15px;
-}
-</style>
+<style scoped lang="scss"></style>

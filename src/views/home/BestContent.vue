@@ -1,5 +1,5 @@
 <template>
-  <div class="container"><CategoryTab /> <ThumbEmoji /></div>
+  <div><CategoryTab /> <ThumbEmoji /></div>
 </template>
 
 <script lang="ts">
@@ -14,4 +14,4 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped lang="scss"></style>

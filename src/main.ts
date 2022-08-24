@@ -13,6 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 Vue.config.productionTip = false;
+Vue.prototype.$Event = new Vue();
 
 Vue.use(VueCompositionAPI);
 

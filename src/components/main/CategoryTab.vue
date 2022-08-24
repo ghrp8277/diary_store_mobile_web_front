@@ -11,12 +11,12 @@
           <a :href="href" @click="navigate">홈</a>
         </li>
       </router-link>
-      <router-link to="/sort" custom v-slot="{ navigate, href, isExactActive }">
+      <router-link to="/best" custom v-slot="{ navigate, href, isExactActive }">
         <li :class="isExactActive && 'router-link-active'">
           <a :href="href" @click="navigate">인기</a>
         </li>
       </router-link>
-      <router-link to="/" custom v-slot="{ navigate, href, isExactActive }">
+      <router-link to="/new" custom v-slot="{ navigate, href, isExactActive }">
         <li :class="isExactActive && 'router-link-active'">
           <a :href="href" @click="navigate">신규</a>
         </li>
