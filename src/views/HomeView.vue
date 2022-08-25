@@ -102,17 +102,12 @@ button {
   transition: all 1s;
 }
 
-.slide-fade-enter-active {
-  transition: all 0.5s ease-in-out;
-}
+.slide-fade-enter-active,
 .slide-fade-leave-active {
   transition: all 0.5s ease-in-out;
 }
 
-.slide-fade-enter {
-  transform: translateX(-100%);
-  opacity: 0;
-}
+.slide-fade-enter,
 .slide-fade-leave-to {
   transform: translateX(-100%);
   opacity: 0;

@@ -62,4 +62,8 @@ li {
   text-align: left;
   line-height: 50px;
 }
+
+li:hover {
+  cursor: pointer;
+}
 </style>
