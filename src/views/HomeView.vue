@@ -98,12 +98,21 @@ button {
 }
 
 // transitions
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: all 1s ease-in-out;
+.slide-fade {
+  transition: all 1s;
 }
 
-.slide-fade-enter-from,
+.slide-fade-enter-active {
+  transition: all 0.5s ease-in-out;
+}
+.slide-fade-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.slide-fade-enter {
+  transform: translateX(-100%);
+  opacity: 0;
+}
 .slide-fade-leave-to {
   transform: translateX(-100%);
   opacity: 0;
