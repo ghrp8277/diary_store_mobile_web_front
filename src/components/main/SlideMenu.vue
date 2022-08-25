@@ -23,7 +23,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .container {
-  background-color: antiquewhite;
+  background-color: white;
   position: fixed;
   top: 70px;
 
@@ -31,5 +31,35 @@ export default defineComponent({
   height: 100%;
 
   z-index: 100;
+}
+
+.user-info {
+  width: 300px;
+  height: 250px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#user-name,
+#user-img {
+  width: 200px;
+  margin: 5px auto;
+  font-weight: bold;
+  font-size: 17px;
+}
+img {
+  border-radius: 100px;
+}
+
+li {
+  list-style: none;
+  width: 200px;
+  height: 50px;
+  margin: auto;
+  text-align: left;
+  line-height: 50px;
 }
 </style>

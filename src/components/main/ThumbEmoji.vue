@@ -112,7 +112,7 @@ export default Vue.extend({
 .heart {
   width: 30px;
   border: 0px;
-  background: white;
+  background: #f5f5f5;
 }
 .emocitonImage {
   width: 100%;
