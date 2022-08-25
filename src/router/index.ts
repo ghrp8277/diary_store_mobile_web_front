@@ -32,12 +32,12 @@ const routes: Array<RouteConfig> = [
         name: 'new',
         component: () => import('@/views/home/NewContent.vue'),
       },
-      {
-        path: 'payment',
-        name: 'payment',
-        component: () => import('@/components/myPage/PaymentHistory.vue'),
-      },
     ],
+  },
+  {
+    path: 'payment',
+    name: 'payment',
+    component: () => import('@/components/myPage/PaymentHistory.vue'),
   },
 ];
 
