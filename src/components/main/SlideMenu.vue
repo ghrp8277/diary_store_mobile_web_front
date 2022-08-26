@@ -6,18 +6,28 @@
     </div>
     <div class="menu">
       <li>홈</li>
-      <li>구매내역</li>
+      <li @click="payment">구매내역</li>
       <li>즐겨찾기</li>
       <li>고객센터</li>
     </div>
+    <router-link />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, computed } from '@vue/composition-api';
+import router from '@/router';
 
 export default defineComponent({
   name: 'slideMenu',
+  setup() {
+    const payment = () => {
+      router.push({ path: 'payment' });
+    };
+    return {
+      payment,
+    };
+  },
 });
 </script>
 
