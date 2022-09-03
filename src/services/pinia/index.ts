@@ -1,21 +1,20 @@
 import { defineStore } from 'pinia';
-import apiModule from '@/apis';
+import { state } from '@/services/pinia/state';
+import { getters } from '@/services/pinia/getters';
+import apis from '@/apis';
+
+const { apiModule } = apis();
 
 export const useStore = defineStore('main', {
-  state: () => {
-    return {
-      count: 0,
-      data: null as any,
-    };
-  },
+  state: () => state,
   actions: {
-    async getData() {
-      const { apis } = apiModule();
-      const response = await apis.fetchData();
+    async FETCH_PRODUCTS_INFO(username: string) {
+      const { data } = await apiModule.buyerApiModule.fetchProductsInfo(
+        username
+      );
 
-      const { data } = response;
-      this.data = data;
+      this.products = data;
     },
   },
-  // other options...
+  getters,
 });

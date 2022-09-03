@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import { component } from 'vue/types/umd';
 import HomeView from '../views/HomeView.vue';
 
 Vue.use(VueRouter);
