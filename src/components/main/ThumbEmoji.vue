@@ -27,6 +27,7 @@
           />
         </div>
         <div class="emoticonTitle">{{ emoji.title }}</div>
+        {{ count }}
       </div>
     </div>
   </div>
@@ -35,6 +36,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Emoji } from '@/test';
+import { useStore } from '@/services/pinia';
 
 export default Vue.extend({
   name: 'ThumbEmoji',
@@ -50,10 +52,17 @@ export default Vue.extend({
   data: function () {
     return {
       emojiList: [] as Emoji[],
+      count: 0 as number,
     };
   },
   // 부모 자식간의 데이터 이동 구현
   mounted() {
+    const store = useStore();
+    store.getData().then(() => {
+      this.count = store.data;
+    });
+    this.count = store.count;
+
     for (let i = 0; i < 30; i++) {
       const emoji = new Emoji('logo.png', `${i}_emoji`, 'test');
 
