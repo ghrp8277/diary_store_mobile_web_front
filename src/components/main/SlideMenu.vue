@@ -20,12 +20,7 @@ import router from '@/router';
 export default defineComponent({
   name: 'slideMenu',
   setup() {
-    // const payment = () => {
-    //   router.push({ path: 'payment' });
-    // };
-    return {
-      //payment,
-    };
+    return {};
   },
 });
 </script>

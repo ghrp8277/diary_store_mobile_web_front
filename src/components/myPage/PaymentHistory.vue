@@ -11,23 +11,51 @@
             <img src="@/assets/logo.png" alt="" />
           </div>
           <div class="emoji-info">
-            <p id="emoji-title">바람의 나라 바람의 나라~</p>
-            <p id="author">작가명명명</p>
-            <p id="price">2000마넌</p>
+            <p class="emoji-title">바람의 나라 바람의 나라~</p>
+            <p class="author">작가명명명</p>
+            <p class="price">2000마넌</p>
           </div>
         </div>
-        <button class="detail-btn">호에엥??</button>
+        <button class="detail-btn" @click="openModal">호에엥??</button>
       </div>
-      <div class="payment-content"></div>
     </div>
+
+    <!-- 구매내역 상세 MODAL -->
+    <ModalPayDetail @close="closeModal" v-if="modal" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { defineComponent, ref, computed } from '@vue/composition-api';
+import ModalPayDetail from './ModalPayDetail.vue';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 export default Vue.extend({
   name: 'PaymentHistory',
+  components: { ModalPayDetail },
+  // setup() {
+  //   const isShow = ref(false);
+  //   const isModalViewed = () => {
+  //     isShow.value = !isShow.value;
+  //   };
+  //   return {
+  //     isShow,
+  //     isModalViewed,
+  //   };
+  data() {
+    return {
+      modal: false,
+    };
+  },
+  methods: {
+    openModal() {
+      this.modal = true;
+    },
+    closeModal() {
+      this.modal = false;
+    },
+  },
 });
 </script>
 
@@ -41,7 +69,6 @@ export default Vue.extend({
   line-height: 80px;
   text-align: left;
 }
-
 .grid-container {
   /**
    * User input values.
@@ -74,6 +101,9 @@ export default Vue.extend({
   box-shadow: 0px 0px 7px lightgray;
 }
 
+/*
+  emoji info
+*/
 .emoji {
   display: flex;
   margin: 5px 20px;
@@ -88,17 +118,18 @@ export default Vue.extend({
   align-items: center;
   text-align: left;
 }
-#emoji-title {
+.emoji-title {
+  width: 100%;
   font-size: 16px;
   font-weight: bold;
   margin: 0;
 }
-#author {
+.author {
   font-size: 12px;
   color: gray;
   margin: 0px;
 }
-#price {
+.price {
   font-size: 14px;
   color: #dc143c;
   margin: 10px 0;
@@ -111,6 +142,7 @@ export default Vue.extend({
   border-radius: 10px;
   margin: 5px 0;
 }
+/* emoji info End */
 
 p {
   height: 25px;
@@ -119,14 +151,14 @@ p {
   text-align: left;
   font-size: small;
 }
-
 img {
   width: 100px;
   height: 100px;
   vertical-align: middle;
 }
-// p {
-//   width: 400px;
-//   height: 30px;
-// }
+h3 {
+  height: 40px;
+  padding-left: 10px;
+  text-align: left;
+}
 </style>
