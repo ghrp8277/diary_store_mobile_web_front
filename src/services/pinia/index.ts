@@ -10,7 +10,7 @@ export const useStore = defineStore('main', {
   actions: {
     async FETCH_PRODUCTS_INFO(username: string) {
       const { data } = await apiModule.buyerApiModule.fetchProductsInfo(
-        username
+        username,
       );
 
       this.products = data;
