@@ -2,27 +2,28 @@
   <div>
     <!--2차 카테고리-->
     <div class="emoticonCategory">
-      <button>강아지</button>
-      <button>강아지</button>
-      <button>강아지</button>
-      <button>강아지</button>
-      <button>강아지</button>
-      <button>강아지</button>
-      <button>강아지</button>
-      <button>강아지</button>
-      <button>강아지</button>
-      <button>강아지</button>
-      <button>강아지</button>
-      <button>강아지</button>
+      <button v-for="(category, index) in categories" :key="index">
+        {{ category }}
+      </button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-export default Vue.extend({
-  name: 'emoticonCategory',
-  props: {},
+import { defineComponent, ref, computed } from '@vue/composition-api';
+import { useStore } from '@/services/pinia';
+
+export default defineComponent({
+  name: 'CategoryTab',
+  setup() {
+    const store = useStore();
+
+    return {
+      categories: computed(() => {
+        return store.categories;
+      }),
+    };
+  },
 });
 </script>
 

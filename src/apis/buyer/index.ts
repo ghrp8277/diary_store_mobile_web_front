@@ -1,19 +1,7 @@
-import axios, { AxiosPromise } from 'axios';
+import { instance } from '@/apis';
 
-interface Axios {
-  fetchProductsInfo(username: string): AxiosPromise<any>;
+export async function fetchProductsInfo(username: string): Promise<void> {
+  const { data } = await instance.get(`buyer/${username}/products`);
+
+  return data;
 }
-
-export default (url: string) => {
-  const buyerApiModule: Axios = {
-    fetchProductsInfo: async (username: string) => {
-      const response = await axios.get(`${url}/${username}/test`);
-
-      return response;
-    },
-  };
-
-  return {
-    buyerApiModule,
-  };
-};

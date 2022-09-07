@@ -1,25 +1,17 @@
-import buyer from '@/apis/buyer';
 import axios from 'axios';
-export default () => {
-  const baseUrl = 'http://192.168.0.212';
-  const basePort = '3000';
-  const version = 'v1';
+import { setInterceptors } from './common/interceptors';
+import { setAxiosSetting } from './common/settings';
 
-  axios.create({
-    baseURL: `${baseUrl}:${basePort}/${version}`,
+function createInstance() {
+  const instance = axios.create({
+    baseURL: process.env.VUE_APP_API_BASE_URL,
   });
 
-  const apis = {
-    buyerURL: '/buyer',
-  };
+  setAxiosSetting(instance);
 
-  const { buyerApiModule } = buyer(apis.buyerURL);
+  return setInterceptors(instance);
+}
 
-  const apiModule = {
-    buyerApiModule,
-  };
+const instance = createInstance();
 
-  return {
-    apiModule,
-  };
-};
+export { instance };
