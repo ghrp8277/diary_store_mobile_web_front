@@ -3,7 +3,7 @@
     <div
       class="emoticon"
       style="position: relative"
-      v-for="(emoji, index) in emojiList"
+      v-for="(emoticon, index) in emoticons"
       :key="index"
     >
       <button class="heart" @click="likeEmoji">
@@ -21,26 +21,29 @@
       </button>
       <div class="emojiThumb" @click="emojiDetailPage">
         <div class="img-container">
-          <img
-            class="emocitonImage"
-            :src="require(`@/assets/image/${emoji.imageName}`)"
-          />
+          <img class="emocitonImage" :src="emoticon.image_file" />
         </div>
-        <div class="emoticonTitle">{{ emoji.title }}</div>
-        {{ count }}
+        <div class="emoticonTitle">{{ emoticon.product_name }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { Emoji } from '@/test';
-import { useStore } from '@/services/pinia';
+import { defineComponent, ref, computed } from '@vue/composition-api';
+import { useStore } from '@/services/pinia/buyer';
 
-export default Vue.extend({
+export default defineComponent({
   name: 'ThumbEmoji',
-  props: {},
+  setup() {
+    const store = useStore();
+
+    return {
+      emoticons: computed(() => {
+        return store.emoticons;
+      }),
+    };
+  },
   methods: {
     likeEmoji() {
       console.log('버튼 클릭됨');
@@ -49,26 +52,22 @@ export default Vue.extend({
       console.log('썸네일쓰 클릭');
     },
   },
-  data: function () {
-    return {
-      emojiList: [] as Emoji[],
-      count: 0 as number,
-    };
-  },
-  // 부모 자식간의 데이터 이동 구현
-  mounted() {
-    const store = useStore();
-    store.getData().then(() => {
-      this.count = store.data;
-    });
-    this.count = store.count;
+  // data: function () {
+  //   return {
+  //     emojiList: [] as Emoji[],
+  //     count: 0 as number,
+  //   };
+  // },
+  // // 부모 자식간의 데이터 이동 구현
+  // mounted() {
+  //   const store = useStore();
 
-    for (let i = 0; i < 30; i++) {
-      const emoji = new Emoji('logo.png', `${i}_emoji`, 'test');
+  //   for (let i = 0; i < 30; i++) {
+  //     const emoji = new Emoji('logo.png', `${i}_emoji`, 'test');
 
-      this.emojiList.push(emoji);
-    }
-  },
+  //     this.emojiList.push(emoji);
+  //   }
+  // },
 });
 </script>
 

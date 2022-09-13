@@ -7,7 +7,19 @@
     <router-view />
   </div>
 </template>
+<script lang="ts">
+import { computed, defineComponent } from '@vue/composition-api';
+import { useMainStore } from '@/services/pinia/main';
+export default defineComponent({
+  setup() {
+    const mainStore = useMainStore();
 
+    return {
+      isLoading: computed(() => mainStore.isLoading),
+    };
+  },
+});
+</script>
 <style lang="scss">
 body {
   margin: 0;

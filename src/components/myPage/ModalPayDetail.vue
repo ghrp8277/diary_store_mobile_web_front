@@ -176,4 +176,8 @@ img {
   font-size: 14px;
   margin: 10px 0;
 }
+#refund :hover {
+  cursor: pointer;
+  font-weight: bold;
+}
 </style>

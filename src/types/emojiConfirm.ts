@@ -17,4 +17,5 @@ export interface EmojiConfirm {
   created_at: Date;
   is_confirm: Confirm;
   emojiInfo: EmojiInfo;
+  imageFiles: ImageFile[];
 }
