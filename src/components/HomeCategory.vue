@@ -14,7 +14,7 @@ import { defineComponent, ref, computed } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 
 export default defineComponent({
-  name: 'CategoryTab',
+  name: 'HomeCategory',
   setup() {
     const store = useStore();
 

@@ -1,40 +1,54 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
+    name: 'main',
+    component: () => import('@/views/MainView.vue'),
     redirect: 'content',
     children: [
       {
         path: 'content',
         name: 'content',
-        component: () => import('@/views/home/HomeContent.vue'),
+        component: () => import('@/views/MainTabView.vue'),
+        redirect: {
+          name: 'home',
+        },
+        children: [
+          {
+            path: 'home',
+            name: 'home',
+            component: () => import('@/views/home/HomeContentView.vue'),
+          },
+          {
+            path: 'best',
+            name: 'best',
+            component: () => import('@/views/home/BestContentView.vue'),
+          },
+          {
+            path: 'new',
+            name: 'new',
+            component: () => import('@/views/home/NewContentView.vue'),
+          },
+          {
+            path: 'style',
+            name: 'style',
+            component: () => import('@/views/home/StyleContentView.vue'),
+          },
+        ],
       },
       {
         path: 'search',
         name: 'search',
-        component: () => import('@/views/home/SearchView.vue'),
-      },
-      {
-        path: 'best',
-        name: 'best',
-        component: () => import('@/views/home/BestContent.vue'),
-      },
-      {
-        path: 'new',
-        name: 'new',
-        component: () => import('@/views/home/NewContent.vue'),
+        component: () => import('@/views/SearchView.vue'),
       },
       {
         path: 'detail',
         name: 'detail',
-        component: () => import('@/views/home/DetailContent.vue'),
+        component: () => import('@/views/DetailContentView.vue'),
       },
       {
         path: 'payment',

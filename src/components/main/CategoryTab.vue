@@ -3,7 +3,7 @@
     <!--메인 카테고리-->
     <div class="container">
       <router-link
-        to="/content"
+        :to="{ name: 'home' }"
         custom
         v-slot="{ navigate, href, isExactActive }"
       >
@@ -11,17 +11,29 @@
           <a :href="href" @click="navigate">홈</a>
         </li>
       </router-link>
-      <router-link to="/best" custom v-slot="{ navigate, href, isExactActive }">
+      <router-link
+        :to="{ name: 'best' }"
+        custom
+        v-slot="{ navigate, href, isExactActive }"
+      >
         <li :class="isExactActive && 'router-link-active'">
           <a :href="href" @click="navigate">인기</a>
         </li>
       </router-link>
-      <router-link to="/new" custom v-slot="{ navigate, href, isExactActive }">
+      <router-link
+        :to="{ name: 'new' }"
+        custom
+        v-slot="{ navigate, href, isExactActive }"
+      >
         <li :class="isExactActive && 'router-link-active'">
           <a :href="href" @click="navigate">신규</a>
         </li>
       </router-link>
-      <router-link to="/" custom v-slot="{ navigate, href, isExactActive }">
+      <router-link
+        :to="{ name: 'style' }"
+        custom
+        v-slot="{ navigate, href, isExactActive }"
+      >
         <li :class="isExactActive && 'router-link-active'">
           <a :href="href" @click="navigate">스타일</a>
         </li>

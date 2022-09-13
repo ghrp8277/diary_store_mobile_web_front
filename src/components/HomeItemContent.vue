@@ -1,5 +1,5 @@
 <template>
-  <div class="container grid-container">
+  <div class="container">
     <div
       class="emoticon"
       style="position: relative"
@@ -34,7 +34,7 @@ import { defineComponent, ref, computed } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 
 export default defineComponent({
-  name: 'ThumbEmoji',
+  name: 'HomeItemContent',
   setup() {
     const store = useStore();
 

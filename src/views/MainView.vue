@@ -10,15 +10,15 @@
       <button class="leftButton" @click="menuButton">
         <font-awesome-icon icon="fa-bars" style="width: 50%; height: auto" />
       </button>
-      <span class="title" @click="titleButton">{{ msg }}</span>
-      <div>
-        <button class="rightButton" @click="searchButton">
-          <font-awesome-icon
-            icon="fa-magnifying-glass"
-            style="width: 50%; height: auto"
-          />
-        </button>
-      </div>
+      <router-link :to="{ name: 'home' }" class="title" tag="span">
+        {{ msg }}
+      </router-link>
+      <router-link :to="{ name: 'search' }" class="rightButton" tag="button">
+        <font-awesome-icon
+          icon="fa-magnifying-glass"
+          style="width: 50%; height: auto"
+        />
+      </router-link>
     </div>
 
     <router-view class="main-view" :class="{ 'toggle-show': isShow }" />
@@ -26,12 +26,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from '@vue/composition-api';
-import router from '@/router';
+import { defineComponent, ref } from '@vue/composition-api';
 import SlideMenu from '@/components/main/SlideMenu.vue';
 
 export default defineComponent({
-  name: 'HomeView',
+  name: 'MainView',
   components: { SlideMenu },
   setup() {
     const isShow = ref(false);
@@ -40,23 +39,11 @@ export default defineComponent({
     const menuButton = () => {
       isShow.value = !isShow.value;
     };
-    // 타이틀 클릭 함수
-    const titleButton = () => {
-      router.push({ path: 'content' });
-    };
-    // 검색버튼 클릭 함수
-    const searchButton = () => {
-      router.push({ path: 'search' });
-    };
 
     return {
-      // toggle
       isShow,
-      // etc
       msg,
       menuButton,
-      titleButton,
-      searchButton,
     };
   },
 });
