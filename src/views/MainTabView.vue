@@ -9,8 +9,6 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 import CategoryTab from '@/components/main/CategoryTab.vue';
-// import HomeCategory from '@/components/main/HomeCategory.vue';
-// import HomeCommonContent from '@/components/main/HomeCommonContent.vue';
 
 export default defineComponent({
   name: 'MainTabView',

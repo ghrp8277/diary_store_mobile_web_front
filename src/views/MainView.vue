@@ -7,18 +7,22 @@
     <!--menu bar-->
     <div class="menubar-container">
       <!-- toggle button -->
-      <button class="leftButton" @click="menuButton">
-        <font-awesome-icon icon="fa-bars" style="width: 50%; height: auto" />
-      </button>
+      <div>
+        <button class="leftButton" @click="menuButton">
+          <font-awesome-icon icon="fa-bars" style="width: 50%; height: auto" />
+        </button>
+      </div>
       <router-link :to="{ name: 'home' }" class="title" tag="span">
         {{ msg }}
       </router-link>
-      <router-link :to="{ name: 'search' }" class="rightButton" tag="button">
-        <font-awesome-icon
-          icon="fa-magnifying-glass"
-          style="width: 50%; height: auto"
-        />
-      </router-link>
+      <div style="float: right">
+        <router-link :to="{ name: 'search' }" class="rightButton" tag="button">
+          <font-awesome-icon
+            icon="fa-magnifying-glass"
+            style="width: 50%; height: auto"
+          />
+        </router-link>
+      </div>
     </div>
 
     <router-view class="main-view" :class="{ 'toggle-show': isShow }" />

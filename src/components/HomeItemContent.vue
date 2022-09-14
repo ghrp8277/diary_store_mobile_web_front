@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container grid-container">
     <div
       class="emoticon"
       style="position: relative"
