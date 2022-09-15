@@ -7,15 +7,14 @@
     <div class="menu">
       <li>홈</li>
       <li><router-link to="/payment">구매내역</router-link></li>
-      <li>즐겨찾기</li>
+      <li><router-link to="/favorite">즐겨찾기</router-link></li>
       <li>고객센터</li>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from '@vue/composition-api';
-import router from '@/router';
+import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'slideMenu',

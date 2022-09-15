@@ -36,7 +36,7 @@ export function setInterceptors(instance: AxiosInstance) {
       }
       endLoading();
       return Promise.reject(error);
-    },
+    }
   );
 
   instance.interceptors.response.use(
@@ -62,7 +62,7 @@ export function setInterceptors(instance: AxiosInstance) {
       }
       endLoading();
       return Promise.reject({ error });
-    },
+    }
   );
 
   return instance;

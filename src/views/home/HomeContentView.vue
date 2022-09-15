@@ -19,7 +19,7 @@ export default defineComponent({
     const store = useStore();
 
     onMounted(async () => {
-      await store.FETCH_PRODUCTS_INFO('test');
+      await store.FETCH_PRODUCTS_INFO();
     });
 
     return {};

@@ -55,6 +55,11 @@ const routes: Array<RouteConfig> = [
         name: 'payment',
         component: () => import('@/components/myPage/PaymentHistory.vue'),
       },
+      {
+        path: 'favorite',
+        name: 'favorite',
+        component: () => import('@/views/myPage/FavoriteView.vue'),
+      },
     ],
   },
 ];

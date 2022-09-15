@@ -17,8 +17,10 @@ const getters = {
   },
   emoticons: (state: State) => {
     const arr = [] as {
+      id: number;
       product_name: string;
       image_file: string;
+      is_like: boolean;
     }[];
 
     const products = state.products;
@@ -31,7 +33,13 @@ const getters = {
 
       const image_files = emoji_confirm.imageFiles;
 
+      const is_like = product.is_like;
+
+      const id = product.id;
+
       const obj = {
+        id,
+        is_like,
         product_name,
         image_file: image_files[0].image_url,
       };

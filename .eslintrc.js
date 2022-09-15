@@ -22,7 +22,7 @@ module.exports = {
         tabWidth: 2,
         semi: true,
         singleQuote: true,
-        trailingComma: 'all',
+        trailingComma: 'es5',
         useTabs: false,
         printWidth: 80,
       },

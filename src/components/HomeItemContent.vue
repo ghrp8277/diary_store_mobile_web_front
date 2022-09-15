@@ -6,17 +6,11 @@
       v-for="(emoticon, index) in emoticons"
       :key="index"
     >
-      <button class="heart" @click="likeEmoji">
+      <button class="heart" @click="likeEmoji($event, emoticon)">
         <font-awesome-icon
+          class="heart-icon"
+          :class="{ 'is-click': emoticon.is_like }"
           icon="fa-heart"
-          style="
-            width: 17px;
-            height: 17px;
-            position: absolute;
-            top: 7px;
-            left: 185px;
-            color: #dc143c;
-          "
         />
       </button>
       <div class="emojiThumb" @click="emojiDetailPage">
@@ -32,22 +26,36 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'HomeItemContent',
   setup() {
     const store = useStore();
 
+    const { emoticons } = storeToRefs(store);
+
+    async function likeEmoji(
+      e: Event,
+      emoticon: {
+        id: number;
+        product_name: string;
+        image_file: string;
+        is_like: boolean;
+      }
+    ) {
+      const id = emoticon.id;
+      const is_like = !emoticon.is_like;
+
+      await store.FETCH_PRODUCT_BY_IS_INFO('test', id, is_like);
+    }
+
     return {
-      emoticons: computed(() => {
-        return store.emoticons;
-      }),
+      emoticons: computed(() => emoticons.value),
+      likeEmoji,
     };
   },
   methods: {
-    likeEmoji() {
-      console.log('버튼 클릭됨');
-    },
     emojiDetailPage() {
       console.log('썸네일쓰 클릭');
     },
@@ -121,7 +129,28 @@ export default defineComponent({
   width: 30px;
   border: 0px;
   background: #f5f5f5;
+
+  cursor: pointer;
+
+  transition: all 0.3s;
 }
+
+.heart:hover {
+  opacity: 0.6;
+}
+
+.heart-icon {
+  color: #777;
+  font-size: 17px;
+  position: absolute;
+  top: 7px;
+  left: 185px;
+}
+
+.is-click {
+  color: #dc143c;
+}
+
 .emocitonImage {
   width: 100%;
   height: 150px;
