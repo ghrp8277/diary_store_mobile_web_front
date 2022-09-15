@@ -2,7 +2,7 @@
   <div class="home">
     <!--slide menu-->
     <Transition name="slide-fade">
-      <SlideMenu v-if="isShow" />
+      <SlideMenu v-if="isShow" :isShow="isShow" @onShowClose="onShowClose" />
     </Transition>
     <!--menu bar-->
     <div class="menubar-container">
@@ -12,8 +12,13 @@
           <font-awesome-icon icon="fa-bars" style="width: 50%; height: auto" />
         </button>
       </div>
-      <router-link :to="{ name: 'home' }" class="title" tag="span">
-        {{ msg }}
+      <router-link
+        :to="{ name: 'home' }"
+        class="title"
+        tag="span"
+        @click="menuButton"
+      >
+        <span>이모티콘 스토어</span>
       </router-link>
       <div style="float: right">
         <router-link :to="{ name: 'search' }" class="rightButton" tag="button">
@@ -38,16 +43,20 @@ export default defineComponent({
   components: { SlideMenu },
   setup() {
     const isShow = ref(false);
-    const msg = ref('이모티콘 스토어');
+
     // 메뉴버튼 클릭 함수
     const menuButton = () => {
       isShow.value = !isShow.value;
     };
 
+    function onShowClose(is: boolean) {
+      isShow.value = is;
+    }
+
     return {
       isShow,
-      msg,
       menuButton,
+      onShowClose,
     };
   },
 });
@@ -88,7 +97,7 @@ button {
   margin: 0 auto;
 }
 
-// transitions
+/* transitions */
 .slide-fade {
   transition: all 1s;
 }

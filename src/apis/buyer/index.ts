@@ -26,3 +26,9 @@ export async function fetchFavoritesInfo(username: string) {
 
   return data;
 }
+
+export async function fetchCategories() {
+  const { data } = await instance.get(`buyer/products/category`);
+
+  return data;
+}

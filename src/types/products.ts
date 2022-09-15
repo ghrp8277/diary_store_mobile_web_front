@@ -1,11 +1,3 @@
-interface EmojiInfo {
-  product_name: string;
-  author_name: string;
-  category: string;
-  tag: string;
-  comment: string;
-}
-
 import { EmojiConfirm } from './emojiConfirm';
 
 export interface Product {

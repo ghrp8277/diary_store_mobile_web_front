@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { state } from './state';
 import { getters } from './getters';
 import {
+  fetchCategories,
   fetchFavoritesInfo,
   fetchProductByIsLike,
   fetchProductsInfo,
@@ -28,6 +29,11 @@ export const useStore = defineStore('buyer', {
       const data = await fetchFavoritesInfo(username);
 
       this.favorites = data;
+    },
+    async FETCH_CATEGORY_INFO() {
+      const data = await fetchCategories();
+
+      this.categories = data;
     },
   },
   getters,
