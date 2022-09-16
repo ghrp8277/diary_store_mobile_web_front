@@ -23,7 +23,7 @@ export default defineComponent({
     }
 
     onMounted(async () => {
-      await store.FETCH_PRODUCTS_INFO();
+      await store.FETCH_PRODUCTS_INFO('test');
     });
 
     return { onCategory, category };

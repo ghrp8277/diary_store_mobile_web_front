@@ -11,8 +11,8 @@ import {
 export const useStore = defineStore('buyer', {
   state: () => state,
   actions: {
-    async FETCH_PRODUCTS_INFO() {
-      const data = await fetchProductsInfo();
+    async FETCH_PRODUCTS_INFO(username: string) {
+      const data = await fetchProductsInfo(username);
 
       this.products = data;
     },
