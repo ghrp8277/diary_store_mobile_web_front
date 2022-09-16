@@ -7,6 +7,7 @@ const getters = {
       product_name: string;
       image_file: string;
       is_like: boolean;
+      category: string;
     }[];
 
     const products = state.products;
@@ -23,11 +24,14 @@ const getters = {
 
       const id = product.id;
 
+      const category = emoji_info.category;
+
       const obj = {
         id,
         is_like,
         product_name,
         image_file: image_files[0].image_url,
+        category,
       };
 
       arr.push(obj);

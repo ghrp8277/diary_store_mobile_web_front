@@ -24,16 +24,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from '@vue/composition-api';
+import { defineComponent, ref, computed, toRefs } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'HomeItemContent',
-  setup() {
+  props: {
+    category: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
     const store = useStore();
 
     const { emoticons } = storeToRefs(store);
+    const { category } = toRefs(props);
 
     async function likeEmoji(
       e: Event,
@@ -42,6 +49,7 @@ export default defineComponent({
         product_name: string;
         image_file: string;
         is_like: boolean;
+        category: string;
       }
     ) {
       const id = emoticon.id;
@@ -51,7 +59,12 @@ export default defineComponent({
     }
 
     return {
-      emoticons: computed(() => emoticons.value),
+      emoticons: computed(() => {
+        if (category.value.length < 1) return emoticons.value;
+        return emoticons.value.filter(
+          (emoticon) => emoticon.category == category.value
+        );
+      }),
       likeEmoji,
     };
   },

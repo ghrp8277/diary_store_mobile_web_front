@@ -2,27 +2,43 @@
   <div>
     <!--2차 카테고리-->
     <div class="emoticon-category">
-      <button v-for="(category, index) in categories" :key="index">
-        {{ category }}
+      <button @click="onClick('')">전체</button>
+      <button
+        v-for="(item, index) in categories"
+        :key="index"
+        @click="onClick(item.category)"
+      >
+        {{ item.cnv_category }}
       </button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, computed } from '@vue/composition-api';
+import {
+  defineComponent,
+  onMounted,
+  computed,
+  toRefs,
+} from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 
 export default defineComponent({
   name: 'HomeCategory',
-  setup() {
+  emits: ['onCategory'],
+  setup(props, { emit }) {
     const store = useStore();
+
+    function onClick(category: string) {
+      emit('onCategory', category);
+    }
 
     onMounted(async () => {
       await store.FETCH_CATEGORY_INFO();
     });
 
     return {
+      onClick,
       categories: computed(() => {
         const categories = store.categories;
         const arr = [];
@@ -44,7 +60,10 @@ export default defineComponent({
               break;
           }
 
-          arr.push(cnv_category);
+          arr.push({
+            category,
+            cnv_category,
+          });
         }
 
         return arr;
