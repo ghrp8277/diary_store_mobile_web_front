@@ -1,25 +1,73 @@
 <template>
-  <div class="container">
-    <div class="user-info">
-      <img id="user-img" src="@/assets/logo.png" alt="" />
-      <div id="user-name">유저이름</div>
+  <transition class="overlay">
+    <div class="container">
+      <div class="user-info">
+        <img id="user-img" src="@/assets/logo.png" alt="" />
+        <div id="user-name">유저이름</div>
+      </div>
+      <div class="menu">
+        <li v-for="(link, index) in link_list" :key="index" @click="link.click">
+          <router-link :to="link.to">{{ link.name }}</router-link>
+        </li>
+      </div>
     </div>
-    <div class="menu">
-      <li>홈</li>
-      <li><router-link to="/payment">구매내역</router-link></li>
-      <li><router-link to="/favorite">즐겨찾기</router-link></li>
-      <li>고객센터</li>
-    </div>
-  </div>
+  </transition>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, toRefs } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'slideMenu',
-  setup() {
-    return {};
+  props: {
+    isShow: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  emits: ['onShowClose'],
+  setup(props, { emit }) {
+    const { isShow } = toRefs(props);
+
+    const onShowClose = () => {
+      isShow.value = false;
+
+      emit('onShowClose', isShow.value);
+    };
+
+    const link_list = [
+      {
+        name: '홈',
+        to: '/content',
+        click: (e: Event) => {
+          onShowClose();
+        },
+      },
+      {
+        name: '구매내역',
+        to: '/payment',
+        click: (e: Event) => {
+          onShowClose();
+        },
+      },
+      {
+        name: '즐겨찾기',
+        to: '/favorite',
+        click: (e: Event) => {
+          onShowClose();
+        },
+      },
+      {
+        name: '고객센터',
+        to: '/content',
+        click: (e: Event) => {
+          onShowClose();
+        },
+      },
+    ];
+    return {
+      link_list,
+    };
   },
 });
 </script>
@@ -73,5 +121,17 @@ li:hover {
 a {
   text-decoration: none;
   color: black;
+}
+
+.overlay {
+  &-enter-active,
+  &-leave-active {
+    transition: all 0.3s ease-out;
+  }
+
+  &-enter,
+  &-leave-to {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 }
 </style>
