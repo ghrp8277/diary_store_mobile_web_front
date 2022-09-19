@@ -1,15 +1,10 @@
 <template>
-  <router-link
-    tag="div"
+  <div
     class="emoticon"
     ref="target"
     :style="{
       transform: cardTransform,
       transition: 'transform 0.25s ease-out',
-    }"
-    :to="{
-      name: 'detail',
-      params: { id: emoticon.id },
     }"
   >
     <span class="heart" @click="likeEmoji">
@@ -29,13 +24,24 @@
           enter-active-class="animated slide-in-active"
           leave-active-class="animated slide-out-active"
         >
-          <div v-for="(image, index) in emoticon.image_files" :key="index">
+          <router-link
+            class="image-box"
+            tag="div"
+            v-for="(image, index) in emoticon.image_files"
+            :key="index"
+            :to="{
+              name: 'detail',
+              params: { id: emoticon.id },
+            }"
+          >
             <img
               v-if="index == active - 1"
               class="emociton-image"
               :src="image.image_url"
             />
-          </div>
+
+            <span>자세히 보기</span>
+          </router-link>
         </transition-group>
 
         <span class="prev" @click="move(-1)">L</span>
@@ -52,7 +58,7 @@
       </div>
       <div class="emoticon-title">{{ emoticon.product_name }}</div>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script lang="ts">
@@ -138,6 +144,12 @@ export default defineComponent({
       active.value = newActive || newIndex;
     }
 
+    onMounted(() => {
+      setInterval(() => {
+        move(1);
+      }, 10000);
+    });
+
     return {
       likeEmoji,
       cardTransform,
@@ -164,8 +176,6 @@ export default defineComponent({
   margin: 20px;
   position: relative;
 
-  cursor: pointer;
-
   box-shadow: 0 4px 14px 0 rgb(0 0 0 / 12%);
 
   box-sizing: border-box;
@@ -173,6 +183,39 @@ export default defineComponent({
 
 .emoticon:hover {
   box-shadow: 0 8px 20px 0 rgb(0 0 0 / 12%);
+
+  .prev,
+  .next {
+    visibility: visible;
+  }
+}
+
+.image-box {
+  cursor: pointer;
+
+  width: 100%;
+
+  span {
+    display: none;
+  }
+}
+
+.image-box:hover {
+  opacity: 0.8;
+
+  span {
+    display: inline-block;
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 100px;
+
+    color: #221e21;
+  }
 }
 
 .heart {
@@ -206,6 +249,7 @@ export default defineComponent({
   width: 100%;
   height: 130px;
 }
+
 .emoticon-title {
   width: 170px;
   margin: auto;
@@ -282,6 +326,8 @@ export default defineComponent({
   transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   line-height: 18px;
+
+  visibility: hidden;
 
   &:hover {
     background: #221e21;
