@@ -1,26 +1,27 @@
 <template>
   <div class="container">
     <div class="list grid-container">
-      <div
-        class="list-item"
-        v-for="(emoticon, index) in emoticons"
-        :key="index"
-      >
+      <div class="list-item" v-for="(emoticon, index) in ranks" :key="index">
         <!--순위-->
-        <div class="rankNumber">{{ index + 1 }}</div>
+        <div class="rank-number" :class="{ 'best-rank': index + 1 <= 3 }">
+          {{ index + 1 }}
+        </div>
         <!--썸네일-->
         <div class="thumbnail">
           <!--테두리-->
           <div class="img-container">
             <!--이모티콘 썸네일-->
-            <img :src="emoticon.image_file" alt="" />
+            <img :src="emoticon.title_image" />
           </div>
         </div>
-        <div class="emoticonInfo">
+        <div class="emoticon-info">
           <!--이모티콘 정보-->
           <div class="text-box">
-            <div class="emojiTitle">{{ emoticon.product_name }}</div>
-            <div class="author">{{ emoticon.author }}</div>
+            <div class="emoji-title">{{ emoticon.product_name }}</div>
+            <div class="author">
+              <span>{{ emoticon.author_name }}</span>
+              <span v-if="emoticon.isNewCreated" class="new-icon">N</span>
+            </div>
           </div>
         </div>
       </div>
@@ -38,14 +39,14 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const { emoticons } = storeToRefs(store);
+    const { emoticon_ranks } = storeToRefs(store);
 
     onMounted(async () => {
       await store.FETCH_PRODUCT_BY_RANK();
     });
 
     return {
-      emoticons,
+      ranks: emoticon_ranks,
     };
   },
 });
@@ -57,25 +58,44 @@ export default defineComponent({
   text-align: left;
   margin-top: 20px;
 }
+
 .list-item {
   width: 300px;
   height: 100px;
   margin: 10px 0px;
   display: flex;
   padding-left: 40px;
+
+  cursor: pointer;
+
+  position: relative;
 }
-.title {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 20px 0;
+
+.list-item::after {
+  content: '';
+  width: 90%;
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  border-bottom: 1px solid #d3d3d3;
 }
+
 .rankNumber,
-.emojiTitle {
+.emoji-title {
   font-size: 17px;
   font-weight: bold;
   color: black;
 }
-.rankNumber {
+
+.best-rank {
+  color: red;
+
+  font-weight: bold;
+
+  font-size: larger;
+}
+
+.rank-number {
   width: 70px;
   text-align: center;
   line-height: 100px;
@@ -114,7 +134,6 @@ export default defineComponent({
 .img-container {
   width: 90px;
   height: 90px;
-  background: #f5f5f5;
   text-align: center;
   line-height: 85px;
   margin: auto;
@@ -127,13 +146,32 @@ img {
 }
 
 /* 이모티콘 정보 */
-.emoticonInfo {
+.emoticon-info {
   display: flex;
   align-items: center;
 }
 
 .text-box {
   margin: 20px;
+
+  .new-icon {
+    border-radius: 50%;
+
+    background-color: red;
+
+    width: 15px;
+    height: 15px;
+
+    color: #fff;
+
+    font-size: 10px;
+
+    margin: 0 5px;
+
+    display: inline-block;
+
+    text-align: center;
+  }
 }
 
 .text-box > div {

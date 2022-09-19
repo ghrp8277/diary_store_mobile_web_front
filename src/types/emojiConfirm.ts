@@ -13,7 +13,7 @@ export interface ImageFile {
 
 export interface EmojiConfirm {
   id: number;
-  created_at: Date;
+  createdAt: Date;
   is_confirm: Confirm;
   emojiInfo: EmojiInfo;
   imageFiles: ImageFile[];

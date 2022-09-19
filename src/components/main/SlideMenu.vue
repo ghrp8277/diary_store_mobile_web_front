@@ -2,8 +2,8 @@
   <transition class="overlay">
     <div class="container">
       <div class="user-info">
-        <img id="user-img" src="@/assets/logo.png" alt="" />
-        <div id="user-name">유저이름</div>
+        <img class="user-img" src="@/assets/logo.png" alt="" />
+        <div class="user-name">유저이름</div>
       </div>
       <div class="menu">
         <li v-for="(link, index) in link_list" :key="index" @click="link.click">
@@ -94,8 +94,8 @@ export default defineComponent({
   align-items: center;
 }
 
-#user-name,
-#user-img {
+.user-name,
+.user-img {
   width: 200px;
   margin: 5px auto;
   font-weight: bold;

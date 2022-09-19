@@ -22,10 +22,7 @@
       </router-link>
       <div style="float: right">
         <router-link :to="{ name: 'search' }" class="rightButton" tag="button">
-          <font-awesome-icon
-            icon="fa-magnifying-glass"
-            style="width: 50%; height: auto"
-          />
+          <font-awesome-icon class="icon" icon="fa-magnifying-glass" />
         </router-link>
       </div>
     </div>
@@ -93,8 +90,13 @@ button {
 }
 
 .main-view {
-  max-width: 1000px;
+  // max-width: 1000px;
   margin: 0 auto;
+}
+
+.icon {
+  width: 50%;
+  height: auto;
 }
 
 /* transitions */

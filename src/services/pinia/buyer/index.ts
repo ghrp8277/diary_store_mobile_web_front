@@ -39,7 +39,7 @@ export const useStore = defineStore('buyer', {
     async FETCH_PRODUCT_BY_RANK() {
       const data = await fetchProductRank();
 
-      this.products = data;
+      this.ranks = data;
     },
   },
   getters,
