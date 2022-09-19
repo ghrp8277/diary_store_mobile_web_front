@@ -32,3 +32,9 @@ export async function fetchCategories() {
 
   return data;
 }
+
+export async function fetchProductRank() {
+  const { data } = await instance.get(`buyer/products/rank`);
+
+  return data;
+}

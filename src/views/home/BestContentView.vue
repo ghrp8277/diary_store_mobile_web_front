@@ -1,41 +1,26 @@
 <template>
   <div class="container">
     <div class="list grid-container">
-      <div class="list-item">
+      <div
+        class="list-item"
+        v-for="(emoticon, index) in emoticons"
+        :key="index"
+      >
         <!--순위-->
-        <div class="rankNumber">1</div>
+        <div class="rankNumber">{{ index + 1 }}</div>
         <!--썸네일-->
         <div class="thumbnail">
           <!--테두리-->
           <div class="img-container">
             <!--이모티콘 썸네일-->
-            <img src="@/assets/logo.png" alt="" />
+            <img :src="emoticon.image_file" alt="" />
           </div>
         </div>
         <div class="emoticonInfo">
           <!--이모티콘 정보-->
           <div class="text-box">
-            <div class="emojiTitle">호에에에엥</div>
-            <div class="author">뽀에엥</div>
-          </div>
-        </div>
-      </div>
-      <div class="list-item">
-        <!--순위-->
-        <div class="rankNumber">1</div>
-        <!--썸네일-->
-        <div class="thumbnail">
-          <!--테두리-->
-          <div class="img-container">
-            <!--이모티콘 썸네일-->
-            <img src="@/assets/logo.png" alt="" />
-          </div>
-        </div>
-        <div class="emoticonInfo">
-          <!--이모티콘 정보-->
-          <div class="text-box">
-            <div class="emojiTitle">이모티콘 제목</div>
-            <div class="author">으아아</div>
+            <div class="emojiTitle">{{ emoticon.product_name }}</div>
+            <div class="author">{{ emoticon.author }}</div>
           </div>
         </div>
       </div>
@@ -44,10 +29,25 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { defineComponent, onMounted, toRefs } from '@vue/composition-api';
+import { useStore } from '@/services/pinia/buyer';
+import { storeToRefs } from 'pinia';
 
-export default Vue.extend({
+export default defineComponent({
   components: {},
+  setup() {
+    const store = useStore();
+
+    const { emoticons } = storeToRefs(store);
+
+    onMounted(async () => {
+      await store.FETCH_PRODUCT_BY_RANK();
+    });
+
+    return {
+      emoticons,
+    };
+  },
 });
 </script>
 

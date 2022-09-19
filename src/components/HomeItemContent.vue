@@ -13,12 +13,19 @@
           icon="fa-heart"
         />
       </button>
-      <div class="emojiThumb" @click="emojiDetailPage">
-        <div class="img-container">
-          <img class="emocitonImage" :src="emoticon.image_file" />
+      <router-link
+        :to="{
+          name: 'detail',
+          params: { id: emoticon.id },
+        }"
+      >
+        <div class="emojiThumb" @click="emojiDetailPage(emoticon.id)">
+          <div class="img-container">
+            <img class="emocitonImage" :src="emoticon.image_file" />
+          </div>
+          <div class="emoticonTitle">{{ emoticon.product_name }}</div>
         </div>
-        <div class="emoticonTitle">{{ emoticon.product_name }}</div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -27,6 +34,7 @@
 import { defineComponent, ref, computed, toRefs } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 import { storeToRefs } from 'pinia';
+import router from '@/router';
 
 export default defineComponent({
   name: 'HomeItemContent',
@@ -42,6 +50,7 @@ export default defineComponent({
     const { emoticons } = storeToRefs(store);
     const { category } = toRefs(props);
 
+    // 즐겨찾기
     async function likeEmoji(
       e: Event,
       emoticon: {
@@ -58,6 +67,14 @@ export default defineComponent({
       await store.FETCH_PRODUCT_BY_IS_INFO('test', id, is_like);
     }
 
+    // 디테일 페이지 이동
+    function emojiDetailPage(id: number) {
+      router.push({
+        name: 'detail',
+        params: { id: String(id) },
+      });
+    }
+
     return {
       emoticons: computed(() => {
         if (category.value.length < 1) return emoticons.value;
@@ -66,29 +83,9 @@ export default defineComponent({
         );
       }),
       likeEmoji,
+      emojiDetailPage,
     };
   },
-  methods: {
-    emojiDetailPage() {
-      console.log('썸네일쓰 클릭');
-    },
-  },
-  // data: function () {
-  //   return {
-  //     emojiList: [] as Emoji[],
-  //     count: 0 as number,
-  //   };
-  // },
-  // // 부모 자식간의 데이터 이동 구현
-  // mounted() {
-  //   const store = useStore();
-
-  //   for (let i = 0; i < 30; i++) {
-  //     const emoji = new Emoji('logo.png', `${i}_emoji`, 'test');
-
-  //     this.emojiList.push(emoji);
-  //   }
-  // },
 });
 </script>
 
@@ -174,5 +171,6 @@ export default defineComponent({
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  padding: 2px 0 0 0;
 }
 </style>

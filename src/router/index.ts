@@ -8,10 +8,10 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'main',
     component: () => import('@/views/MainView.vue'),
-    redirect: 'content',
+    redirect: 'store',
     children: [
       {
-        path: 'content',
+        path: 'store',
         name: 'content',
         component: () => import('@/views/MainTabView.vue'),
         redirect: {
@@ -38,17 +38,18 @@ const routes: Array<RouteConfig> = [
             name: 'style',
             component: () => import('@/views/home/StyleContentView.vue'),
           },
+          {
+            path: ':id',
+            name: 'detail',
+            component: () => import('@/views/home/DetailContentView.vue'),
+            props: true,
+          },
         ],
       },
       {
         path: 'search',
         name: 'search',
         component: () => import('@/views/SearchView.vue'),
-      },
-      {
-        path: 'detail',
-        name: 'detail',
-        component: () => import('@/views/DetailContentView.vue'),
       },
       {
         path: 'payment',

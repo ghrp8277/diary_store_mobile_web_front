@@ -6,6 +6,7 @@ import {
   fetchFavoritesInfo,
   fetchProductByIsLike,
   fetchProductsInfo,
+  fetchProductRank,
 } from '@/apis/buyer';
 
 export const useStore = defineStore('buyer', {
@@ -34,6 +35,11 @@ export const useStore = defineStore('buyer', {
       const data = await fetchCategories();
 
       this.categories = data;
+    },
+    async FETCH_PRODUCT_BY_RANK() {
+      const data = await fetchProductRank();
+
+      this.products = data;
     },
   },
   getters,
