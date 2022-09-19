@@ -1,6 +1,6 @@
 <template>
   <router-link
-  tag="div"
+    tag="div"
     class="emoticon"
     ref="target"
     :style="{
@@ -8,9 +8,9 @@
       transition: 'transform 0.25s ease-out',
     }"
     :to="{
-          name: 'detail',
-          params: { id: emoticon.id },
-        }"
+      name: 'detail',
+      params: { id: emoticon.id },
+    }"
   >
     <span class="heart" @click="likeEmoji">
       <font-awesome-icon
