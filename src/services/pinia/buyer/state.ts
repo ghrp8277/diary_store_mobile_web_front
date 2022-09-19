@@ -1,5 +1,5 @@
 import { Category } from '@/types/category';
-import { Product } from '@/types/products';
+import { Product } from '@/types/product';
 
 const state = {
   products: [] as Product[],

@@ -12,6 +12,7 @@ const getters = {
       is_like: boolean;
       category: string;
       author: string;
+      price: number;
     }[];
 
     const products = state.products;
@@ -34,6 +35,10 @@ const getters = {
 
       const title_image = image_files[0].image_url;
 
+      const price = product.price;
+
+      const discount = product.discount;
+
       const obj = {
         id,
         is_like,
@@ -42,6 +47,8 @@ const getters = {
         title_image,
         category,
         author,
+        price,
+        discount,
       };
 
       arr.push(obj);

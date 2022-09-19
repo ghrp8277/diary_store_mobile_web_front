@@ -1,5 +1,5 @@
 import { instance } from '@/apis';
-import { Product } from '@/types/products';
+import { Product } from '@/types/product';
 
 export async function fetchProductsInfo(username: string): Promise<Product[]> {
   const { data } = await instance.buyer.get(`${username}/products`);
