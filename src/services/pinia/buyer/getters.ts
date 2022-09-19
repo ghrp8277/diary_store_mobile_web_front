@@ -1,11 +1,12 @@
 import { State } from './state';
+import { ImageFile } from '@/types/emojiConfirm';
 
 const getters = {
   emoticons: (state: State) => {
     const arr = [] as {
       id: number;
       product_name: string;
-      image_file: string;
+      image_files: ImageFile[];
       is_like: boolean;
       category: string;
       author: string;
@@ -33,7 +34,7 @@ const getters = {
         id,
         is_like,
         product_name,
-        image_file: image_files[0].image_url,
+        image_files,
         category,
         author,
       };

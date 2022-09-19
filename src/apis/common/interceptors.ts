@@ -3,18 +3,22 @@ import {
   AxiosResponse,
   AxiosInstance,
   AxiosError,
+  AxiosRequestHeaders,
 } from 'axios';
 import { useMainStore } from '@/services/pinia/main';
+import { storeToRefs } from 'pinia';
 
-const store = useMainStore();
 const DEBUG = process.env.NODE_ENV === 'development';
 
+const store = useMainStore();
+const { token, isLoading } = storeToRefs(store);
+
 const startLoading = () => {
-  store.isLoading = true;
+  isLoading.value = true;
 };
 
 const endLoading = () => {
-  store.isLoading = false;
+  isLoading.value = false;
 };
 
 export function setInterceptors(instance: AxiosInstance) {
@@ -27,6 +31,11 @@ export function setInterceptors(instance: AxiosInstance) {
                       [headers] [${JSON.stringify(config.headers)}]
                   `);
       }
+
+      const headers = config.headers as AxiosRequestHeaders;
+
+      headers.Authorization = `Bearer ${token.value}`;
+
       startLoading();
       return config;
     },

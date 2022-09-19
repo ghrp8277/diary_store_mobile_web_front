@@ -1,43 +1,30 @@
 <template>
-  <div class="container grid-container">
+  <transition-group
+    class="container grid-container"
+    name="list-complete"
+    tag="div"
+  >
     <div
-      class="emoticon"
-      style="position: relative"
+      class="list-complete-item"
       v-for="(emoticon, index) in emoticons"
       :key="index"
     >
-      <button class="heart" @click="likeEmoji($event, emoticon)">
-        <font-awesome-icon
-          class="heart-icon"
-          :class="{ 'is-click': emoticon.is_like }"
-          icon="fa-heart"
-        />
-      </button>
-      <router-link
-        :to="{
-          name: 'detail',
-          params: { id: emoticon.id },
-        }"
-      >
-        <div class="emojiThumb" @click="emojiDetailPage(emoticon.id)">
-          <div class="img-container">
-            <img class="emocitonImage" :src="emoticon.image_file" />
-          </div>
-          <div class="emoticonTitle">{{ emoticon.product_name }}</div>
-        </div>
-      </router-link>
+      <home-content-item :emoticon="emoticon" />
     </div>
-  </div>
+  </transition-group>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, toRefs } from '@vue/composition-api';
+import { defineComponent, computed, toRefs } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 import { storeToRefs } from 'pinia';
-import router from '@/router';
+import HomeContentItem from '@/components/homeContent/Item.vue';
 
 export default defineComponent({
   name: 'HomeItemContent',
+  components: {
+    HomeContentItem,
+  },
   props: {
     category: {
       type: String,
@@ -50,40 +37,15 @@ export default defineComponent({
     const { emoticons } = storeToRefs(store);
     const { category } = toRefs(props);
 
-    // 즐겨찾기
-    async function likeEmoji(
-      e: Event,
-      emoticon: {
-        id: number;
-        product_name: string;
-        image_file: string;
-        is_like: boolean;
-        category: string;
-      }
-    ) {
-      const id = emoticon.id;
-      const is_like = !emoticon.is_like;
-
-      await store.FETCH_PRODUCT_BY_IS_INFO('test', id, is_like);
-    }
-
-    // 디테일 페이지 이동
-    function emojiDetailPage(id: number) {
-      router.push({
-        name: 'detail',
-        params: { id: String(id) },
-      });
-    }
+    const emoticonsInfo = computed(() => {
+      if (category.value.length < 1) return emoticons.value;
+      return emoticons.value.filter(
+        (emoticon) => emoticon.category == category.value
+      );
+    });
 
     return {
-      emoticons: computed(() => {
-        if (category.value.length < 1) return emoticons.value;
-        return emoticons.value.filter(
-          (emoticon) => emoticon.category == category.value
-        );
-      }),
-      likeEmoji,
-      emojiDetailPage,
+      emoticons: emoticonsInfo,
     };
   },
 });
@@ -122,55 +84,18 @@ export default defineComponent({
   grid-gap: var(--grid-layout-gap);
 }
 
-.img-container {
-  width: 150px;
-  margin: 0 auto;
-}
-.emoticon {
-  width: 210px;
-  height: 210px;
-  background: #f5f5f5;
-  text-align: center;
+// list tranlations
+.list-complete-item {
+  transition: all 1s;
   display: inline-block;
-  border-radius: 10px;
-  margin: 20px;
+  margin-right: 10px;
 }
-.heart {
-  width: 30px;
-  border: 0px;
-  background: #f5f5f5;
-
-  cursor: pointer;
-
-  transition: all 0.3s;
+.list-complete-enter, .list-complete-leave-to
+/* .list-complete-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
 }
-
-.heart:hover {
-  opacity: 0.6;
-}
-
-.heart-icon {
-  color: #777;
-  font-size: 17px;
+.list-complete-leave-active {
   position: absolute;
-  top: 7px;
-  left: 185px;
-}
-
-.is-click {
-  color: #dc143c;
-}
-
-.emocitonImage {
-  width: 100%;
-  height: 150px;
-}
-.emoticonTitle {
-  width: 170px;
-  margin: auto;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  padding: 2px 0 0 0;
 }
 </style>
