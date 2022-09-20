@@ -2,16 +2,14 @@
   <div class="home">
     <!--slide menu-->
     <Transition name="slide-fade">
-      <SlideMenu v-if="isShow" :isShow="isShow" @onShowClose="onShowClose" />
+      <SlideMenu v-if="isShow" @onShowClose="onShowClose" />
     </Transition>
     <!--menu bar-->
-    <div class="menubar-container">
+    <div class="menubar-container" :class="{ 'menubar-slider-active': isShow }">
       <!-- toggle button -->
-      <div>
-        <button class="leftButton" @click="menuButton">
-          <font-awesome-icon icon="fa-bars" style="width: 50%; height: auto" />
-        </button>
-      </div>
+      <button class="leftButton" @click="menuButton">
+        <font-awesome-icon icon="fa-bars" style="width: 50%; height: auto" />
+      </button>
       <router-link
         :to="{ name: 'home' }"
         class="title"
@@ -20,7 +18,7 @@
       >
         <span>이모티콘 스토어</span>
       </router-link>
-      <div style="float: right">
+      <div>
         <router-link :to="{ name: 'search' }" class="rightButton" tag="button">
           <font-awesome-icon class="icon" icon="fa-magnifying-glass" />
         </router-link>
@@ -28,6 +26,8 @@
     </div>
 
     <router-view class="main-view" :class="{ 'toggle-show': isShow }" />
+
+    <div :class="{ 'layer-dimmed': isShow }"></div>
   </div>
 </template>
 
@@ -61,11 +61,26 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .menubar-container {
-  height: 35px;
-  margin: 15px 10px;
+  height: 60px;
   display: grid;
   grid-template-columns: 0.5fr 2fr 0.5fr;
+
+  z-index: 1100;
+
+  position: fixed;
+
+  background: #fff;
+
+  text-align: center;
+
+  align-content: center;
+  width: 100%;
 }
+
+.menubar-slider-active {
+  border-bottom: 1px solid rgba($color: gray, $alpha: 0.2);
+}
+
 button {
   width: 40px;
   height: 100%;
@@ -90,13 +105,25 @@ button {
 }
 
 .main-view {
-  // max-width: 1000px;
-  margin: 0 auto;
+  padding-top: 60px;
 }
 
 .icon {
   width: 50%;
   height: auto;
+}
+
+.layer-dimmed {
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.33);
+  z-index: 100;
+
+  transition: all 1s;
 }
 
 /* transitions */

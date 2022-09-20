@@ -47,7 +47,7 @@
         <span class="prev" @click="move(-1)">L</span>
         <span class="next" @click="move(1)">R</span>
 
-        <ul class="dots">
+        <ul class="dots" start="7">
           <li
             v-for="(dot, index) in slides"
             :key="index"
@@ -127,7 +127,12 @@ export default defineComponent({
     }
 
     const active = ref(1);
-    const slides = ref(emoticon.value.image_files.length);
+    const slides = computed(() => {
+      const length = emoticon.value.image_files.length;
+      if (length > 5) return 5;
+
+      return length;
+    });
 
     function jump(index: number) {
       active.value = index;
@@ -294,23 +299,56 @@ export default defineComponent({
   padding-inline-start: 0;
   text-align: center;
 
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+
+  margin-top: 5px;
+
+  width: 100%;
+  height: 15px;
+
+  overflow-y: hidden;
+  overflow-x: scroll;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
   li {
-    width: 6px;
+    min-width: 6px;
     height: 6px;
     border-radius: 3px;
     background: #221e21;
     opacity: 0.2;
-    display: inline-block;
+    display: inline;
     margin: 0 3px;
     cursor: pointer;
     transition: opacity 0.4s ease-in-out,
       width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     &.active {
-      width: 22px;
+      min-width: 22px;
       opacity: 1;
     }
   }
+}
+
+.dots::-webkit-scrollbar {
+  display: none;
+
+  scrollbar-width: none;
+}
+
+.dots::-webkit-scrollbar-thumb {
+  display: none;
+
+  scrollbar-width: none;
+}
+
+.dots::-webkit-scrollbar-track {
+  display: none;
+
+  scrollbar-width: none;
 }
 
 // next

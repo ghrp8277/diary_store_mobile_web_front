@@ -10,6 +10,12 @@
           <router-link :to="link.to">{{ link.name }}</router-link>
         </li>
       </div>
+
+      <div class="footer">
+        <router-link to="/store" @click="onShowClose" tag="div">
+          <strong>DiaryStudio<em>Emoticon</em> Shop</strong>
+        </router-link>
+      </div>
     </div>
   </transition>
 </template>
@@ -19,21 +25,11 @@ import { defineComponent, toRefs } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'slideMenu',
-  props: {
-    isShow: {
-      type: Boolean,
-      required: true,
-    },
-  },
   emits: ['onShowClose'],
   setup(props, { emit }) {
-    const { isShow } = toRefs(props);
-
-    const onShowClose = () => {
-      isShow.value = false;
-
-      emit('onShowClose', isShow.value);
-    };
+    function onShowClose() {
+      emit('onShowClose', false);
+    }
 
     const link_list = [
       {
@@ -67,6 +63,7 @@ export default defineComponent({
     ];
     return {
       link_list,
+      onShowClose,
     };
   },
 });
@@ -76,12 +73,12 @@ export default defineComponent({
 .container {
   background-color: white;
   position: fixed;
-  top: 70px;
+  top: 60px;
 
   width: 300px;
-  height: 100%;
+  height: calc(100% - 60px);
 
-  z-index: 100;
+  z-index: 1000;
 }
 
 .user-info {
@@ -132,6 +129,34 @@ a {
   &-enter,
   &-leave-to {
     background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+
+  font-size: small;
+
+  padding: 10px 20px;
+
+  border-top: 1px solid #5f5f5f;
+
+  width: 260px;
+  height: 30px;
+
+  text-align: left;
+  line-height: 30px;
+
+  font-size: 12px;
+
+  .router-link-active {
+    cursor: pointer;
+  }
+
+  em {
+    font-style: normal;
+    color: #000;
   }
 }
 </style>
