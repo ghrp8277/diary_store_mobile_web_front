@@ -68,6 +68,7 @@ export default defineComponent({
   z-index: 1100;
 
   position: fixed;
+  top: 0;
 
   background: #fff;
 

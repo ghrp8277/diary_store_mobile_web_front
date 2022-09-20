@@ -159,4 +159,8 @@ a {
     color: #000;
   }
 }
+
+// /* 미디어 쿼리 */
+// @media all and (max-width: 760px) {
+// }
 </style>
