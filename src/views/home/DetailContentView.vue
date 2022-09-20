@@ -77,8 +77,6 @@ export default defineComponent({
           };
     });
 
-    console.log(emoticon.value.price);
-
     return {
       emoticon,
     };

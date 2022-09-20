@@ -1,30 +1,36 @@
 <template>
   <div class="container">
     <div class="list grid-container">
-      <div class="list-item" v-for="(emoticon, index) in ranks" :key="index">
-        <!--순위-->
-        <div class="rank-number" :class="{ 'best-rank': index + 1 <= 3 }">
-          {{ index + 1 }}
-        </div>
-        <!--썸네일-->
-        <div class="thumbnail">
-          <!--테두리-->
-          <div class="img-container">
-            <!--이모티콘 썸네일-->
-            <img :src="emoticon.title_image" />
+      <router-link
+        v-for="(emoticon, index) in ranks"
+        :key="index"
+        :to="{ name: 'detail', params: { id: emoticon.id } }"
+      >
+        <div class="list-item">
+          <!--순위-->
+          <div class="rank-number" :class="{ 'best-rank': index + 1 <= 3 }">
+            {{ index + 1 }}
           </div>
-        </div>
-        <div class="emoticon-info">
-          <!--이모티콘 정보-->
-          <div class="text-box">
-            <div class="emoji-title">{{ emoticon.product_name }}</div>
-            <div class="author">
-              <span>{{ emoticon.author_name }}</span>
-              <span v-if="emoticon.isNewCreated" class="new-icon">N</span>
+          <!--썸네일-->
+          <div class="thumbnail">
+            <!--테두리-->
+            <div class="img-container">
+              <!--이모티콘 썸네일-->
+              <img :src="emoticon.title_image" />
+            </div>
+          </div>
+          <div class="emoticon-info">
+            <!--이모티콘 정보-->
+            <div class="text-box">
+              <div class="emoji-title">{{ emoticon.product_name }}</div>
+              <div class="author">
+                <span>{{ emoticon.author_name }}</span>
+                <span v-if="emoticon.isNewCreated" class="new-icon">N</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -69,6 +75,9 @@ export default defineComponent({
   cursor: pointer;
 
   position: relative;
+}
+a {
+  text-decoration: none;
 }
 
 .list-item::after {
