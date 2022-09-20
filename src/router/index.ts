@@ -42,7 +42,17 @@ const routes: Array<RouteConfig> = [
             path: ':id',
             name: 'detail',
             component: () => import('@/views/home/DetailContentView.vue'),
-            props: true,
+            props(route) {
+              const id = Number.parseInt(route.params.id);
+
+              if (Number.isNaN(id)) {
+                return 0;
+              }
+
+              return {
+                id,
+              };
+            },
           },
         ],
       },
