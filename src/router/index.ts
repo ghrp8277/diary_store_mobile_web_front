@@ -59,7 +59,7 @@ const routes: Array<RouteConfig> = [
       {
         path: 'search',
         name: 'search',
-        component: () => import('@/views/SearchView.vue'),
+        component: () => import('@/views/home/SearchView.vue'),
       },
       {
         path: 'payment',
