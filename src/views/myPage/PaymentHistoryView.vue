@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <div class="container-payment">
     <h2 class="title">구매내역</h2>
     <!--리스트-->
-    <div class="grid-container">
+    <div class="list-payment grid-container">
       <div class="payment-content">
         <p>2022.08.01</p>
         <!--이모지 정보-->
@@ -16,7 +16,7 @@
             <p class="price">2000마넌</p>
           </div>
         </div>
-        <button class="detail-btn" @click="openModal">호에엥??</button>
+        <button class="detail-btn" @click="openModal">상세보기</button>
       </div>
     </div>
 
@@ -26,23 +26,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { defineComponent, ref, computed } from '@vue/composition-api';
-import ModalPayDetail from './ModalPayDetail.vue';
-import { faL } from '@fortawesome/free-solid-svg-icons';
+import { computed, defineComponent, onMounted } from '@vue/composition-api';
+import ModalPayDetail from '@/components/myPage/ModalPayDetail.vue';
 
-export default Vue.extend({
-  name: 'PaymentHistory',
+export default defineComponent({
   components: { ModalPayDetail },
-  // setup() {
-  //   const isShow = ref(false);
-  //   const isModalViewed = () => {
-  //     isShow.value = !isShow.value;
-  //   };
-  //   return {
-  //     isShow,
-  //     isModalViewed,
-  //   };
   data() {
     return {
       modal: false,
@@ -59,8 +47,8 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
-.container {
+<style scoped lang="scss">
+.container-payment {
   background: white;
   margin: 10px 20px;
 }
@@ -69,17 +57,22 @@ export default Vue.extend({
   line-height: 80px;
   text-align: left;
 }
+.list-payment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .grid-container {
   /**
-   * User input values.
-   */
-  --grid-layout-gap: 10px;
-  --grid-column-count: 4;
+     * User input values.
+     */
+  --grid-layout-gap: 30px;
+  --grid-column-count: 2;
   --grid-item--min-width: 450px;
 
   /**
-   * Calculated values.
-   */
+     * Calculated values.
+     */
   --gap-count: calc(var(--grid-column-count) - 1);
   --total-gap-width: calc(var(--gap-count) * var(--grid-layout-gap));
   --grid-item--max-width: calc(
@@ -102,8 +95,8 @@ export default Vue.extend({
 }
 
 /*
-  emoji info
-*/
+    emoji info
+  */
 .emoji {
   display: flex;
   margin: 5px 20px;
