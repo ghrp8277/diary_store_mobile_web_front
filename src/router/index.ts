@@ -64,12 +64,22 @@ const routes: Array<RouteConfig> = [
       {
         path: 'payment',
         name: 'payment',
-        component: () => import('@/components/myPage/PaymentHistory.vue'),
+        component: () => import('@/views/myPage/PaymentHistoryView.vue'),
       },
       {
         path: 'favorite',
         name: 'favorite',
         component: () => import('@/views/myPage/FavoriteView.vue'),
+      },
+      {
+        path: 'service',
+        name: 'service',
+        component: () => import('@/views/myPage/ServiceCenterView.vue'),
+      },
+      {
+        path: 'notice',
+        name: 'notice',
+        component: () => import('@/components/myPage/NoticeDetail.vue'),
       },
     ],
   },
