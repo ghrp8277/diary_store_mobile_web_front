@@ -14,7 +14,7 @@
         icon="fa-heart"
       />
     </span>
-    <div class="emojiThumb" @click="emojiDetailPage">
+    <div class="emojiThumb">
       <div class="img-slides">
         <transition-group
           name="slide"
