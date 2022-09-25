@@ -39,7 +39,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs } from '@vue/composition-api';
+import {
+  computed,
+  defineComponent,
+  toRefs,
+  onMounted,
+} from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 import { storeToRefs } from 'pinia';
 
@@ -55,6 +60,10 @@ export default defineComponent({
     const store = useStore();
     const { emoticons } = storeToRefs(store);
     const { id } = toRefs(props);
+
+    onMounted(async () => {
+      await store.FETCH_PRODUCTS_INFO('test');
+    });
 
     const emoticon = computed(() => {
       let emoticon = emoticons.value.find((emoticon) => {

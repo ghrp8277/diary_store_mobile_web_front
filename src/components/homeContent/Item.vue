@@ -14,7 +14,7 @@
         icon="fa-heart"
       />
     </span>
-    <div class="emojiThumb" @click="emojiDetailPage">
+    <div class="emojiThumb">
       <div class="img-slides">
         <transition-group
           name="slide"
@@ -115,10 +115,6 @@ export default defineComponent({
         : `perspective(${elementWidth.value}px) rotateX(${rX}deg) rotateY(${rY}deg)`;
     });
 
-    function emojiDetailPage() {
-      console.log('썸네일쓰 클릭');
-    }
-
     async function likeEmoji(e: Event) {
       const id = emoticon.value.id;
       const is_like = !emoticon.value.is_like;
@@ -158,7 +154,6 @@ export default defineComponent({
     return {
       likeEmoji,
       cardTransform,
-      emojiDetailPage,
       target,
       // slider
       active,

@@ -59,17 +59,27 @@ const routes: Array<RouteConfig> = [
       {
         path: 'search',
         name: 'search',
-        component: () => import('@/views/SearchView.vue'),
+        component: () => import('@/views/home/SearchView.vue'),
       },
       {
         path: 'payment',
         name: 'payment',
-        component: () => import('@/components/myPage/PaymentHistory.vue'),
+        component: () => import('@/views/myPage/PaymentHistoryView.vue'),
       },
       {
         path: 'favorite',
         name: 'favorite',
         component: () => import('@/views/myPage/FavoriteView.vue'),
+      },
+      {
+        path: 'service',
+        name: 'service',
+        component: () => import('@/views/myPage/ServiceCenterView.vue'),
+      },
+      {
+        path: 'notice',
+        name: 'notice',
+        component: () => import('@/components/myPage/NoticeDetail.vue'),
       },
     ],
   },
