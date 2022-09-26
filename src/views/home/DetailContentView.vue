@@ -35,14 +35,6 @@
         </div>
       </div>
     </div>
-
-    <div class="pay-btn-container">
-      <button class="pay-btn">구매하기</button>
-
-      <button class="share-btn-bottom">
-        <font-awesome-icon class="heart-icon" icon="fa-heart" />
-      </button>
-    </div>
   </div>
 </template>
 
