@@ -104,6 +104,46 @@ const getters = {
 
     return arr;
   },
+  favorites: (state: State) => {
+    const arr = [] as {
+      id: number;
+      product_name: string;
+      image_files: ImageFile[];
+      title_image: string;
+      author_name: string;
+      is_like: boolean;
+    }[];
+
+    const favorites = state.products;
+
+    for (const favorite of favorites) {
+      const emoji_info = favorite.emojiConfirm.emojiInfo;
+      const emoji_confirm = favorite.emojiConfirm;
+
+      const product_name = emoji_info.product_name;
+
+      const image_files = emoji_confirm.imageFiles;
+
+      const id = favorite.id;
+
+      const author_name = emoji_info.author_name;
+
+      const title_image = image_files[0].image_url;
+
+      const is_like = favorite.is_like;
+
+      arr.push({
+        id,
+        product_name,
+        image_files,
+        title_image,
+        author_name,
+        is_like,
+      });
+    }
+
+    return arr;
+  },
 };
 
 type Getters = typeof getters;

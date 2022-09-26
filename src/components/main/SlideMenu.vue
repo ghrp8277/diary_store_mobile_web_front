@@ -55,7 +55,7 @@ export default defineComponent({
       },
       {
         name: '고객센터',
-        to: '/content',
+        to: '/service',
         click: (e: Event) => {
           onShowClose();
         },

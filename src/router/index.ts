@@ -76,11 +76,6 @@ const routes: Array<RouteConfig> = [
         name: 'service',
         component: () => import('@/views/myPage/ServiceCenterView.vue'),
       },
-      {
-        path: 'notice',
-        name: 'notice',
-        component: () => import('@/components/myPage/NoticeDetail.vue'),
-      },
     ],
   },
 ];
