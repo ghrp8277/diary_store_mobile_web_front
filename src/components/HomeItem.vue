@@ -1,6 +1,5 @@
-@@ -1,102 +1,164 @@
 <template>
-  <div class="container">
+  <div class="container-home">
     <h2 class="tag"># 강아지 이모티콘</h2>
     <div class="emoji">
       <div class="img-list">
@@ -42,7 +41,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.container {
+.container-home {
   background: white;
   font-size: 15px;
   font-weight: bold;
@@ -83,7 +82,7 @@ export default defineComponent({
   flex-grow: 0.5;
   text-align: left;
   margin: 0;
-  padding-left: 15px;
+  padding: 0 0 10px 15px;
 
   min-width: 150px;
 }
