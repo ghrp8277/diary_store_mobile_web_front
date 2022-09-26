@@ -99,9 +99,11 @@ export default defineComponent({
 .emoji-wrap {
   width: 100%;
   height: 200px;
+
   padding: 30px 0 20px 0;
   text-align: center;
 }
+
 .buyer-box,
 .thumbnail {
   display: inline-block;
@@ -138,8 +140,7 @@ export default defineComponent({
 
   display: flex;
 }
-.payment-btn,
-.share-btn {
+.payment-btn {
   height: 40px;
   font-size: 14px;
   margin: 0 5px;
@@ -150,33 +151,6 @@ export default defineComponent({
 .payment-btn {
   width: 100%;
 }
-.share-btn {
-  width: 50px;
-}
-
-.pay-btn-container {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
-  display: none;
-}
-.pay-btn {
-  width: 100%;
-  height: 100%;
-  border: 0;
-
-  background: black;
-  color: white;
-  font-weight: bold;
-  font-size: 15px;
-}
-.share-btn-bottom {
-  width: 10%;
-  height: 100%;
-  border: 0;
-}
-
 // 좋아요 버튼
 .btn-liked {
   position: relative;
@@ -292,36 +266,97 @@ export default defineComponent({
 /** 기본 끝*/
 
 /* 미디어 쿼리 */
-@media all and (max-width: 1030px) {
-}
-@media all and (max-width: 745px) {
+@media all and (max-width: 753px) {
   .emoji-btn-container {
-    display: none;
-  }
-  .pay-btn-container {
-    display: block;
-  }
-  .emoji-container {
-    height: 270px;
-  }
-  .thumbnail {
-    width: 130px;
-    height: 130px;
-  }
-  .thumbnail img {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-wrap: nowrap;
+
     width: 100%;
-    height: 100%;
+
+    .payment-btn {
+      flex: 1;
+
+      margin: 0;
+      border-radius: 0;
+
+      background: black;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+      border: none;
+
+      cursor: pointer;
+    }
+
+    .lb-liked {
+      border: none;
+      border-radius: 0;
+
+      background: #999;
+      height: 42px;
+    }
   }
-  .title {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  .author {
-    font-size: 15px;
-  }
-  .price {
-    font-size: 18px;
-    color: red;
+
+  .emoji-wrap {
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+
+    .thumbnail {
+      width: 112px;
+      height: 112px;
+    }
+
+    .buyer-box {
+      text-align: center;
+      font-size: 18px;
+      line-height: 22px;
+      width: 100%;
+
+      .price {
+        // float: left;
+
+        // padding-left: 30px;
+
+        font-weight: bold;
+
+        font-size: 16px;
+      }
+    }
   }
 }
+// @media all and (max-width: 745px) {
+//   .emoji-btn-container {
+//     display: none;
+//   }
+//   .pay-btn-container {
+//     display: block;
+//   }
+//   .emoji-container {
+//     height: 270px;
+//   }
+//   .thumbnail {
+//     width: 130px;
+//     height: 130px;
+//   }
+//   .thumbnail img {
+//     width: 100%;
+//     height: 100%;
+//   }
+//   .title {
+//     font-size: 20px;
+//     font-weight: bold;
+//   }
+//   .author {
+//     font-size: 15px;
+//   }
+//   .price {
+//     font-size: 18px;
+//     color: red;
+//   }
+// }
 </style>
