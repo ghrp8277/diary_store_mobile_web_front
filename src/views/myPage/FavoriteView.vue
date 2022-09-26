@@ -2,23 +2,20 @@
   <div class="container-fav">
     <h3 class="txt-tit">즐겨찾기</h3>
     <ul class="product-list">
-      {{
-        favorites
-      }}
-
       <router-link
         v-for="(favorite, index) in favorites"
         :key="index"
         :to="{ name: 'detail', params: { id: favorite.id } }"
       >
-        <li class="product">
+        <!-- {{ favorite.product.emojiConfirm.emojiInfo.product_name } -->
+        <li class="product" v-if="favorite.is_like == true">
           <div class="unit-emot">
-            <img src="@/assets/logo.png" alt="" />
+            <img :src="favorite.image_files[0].image_url" alt="" />
           </div>
           <div class="area-info">
             <div class="area-tit">
-              <span class="txt-title">{{}}</span>
-              <span class="txt-author">작가명</span>
+              <span class="txt-title">{{ favorite.product_name }}</span>
+              <span class="txt-author">{{ favorite.author_name }}</span>
             </div>
             <button class="btn-like">
               <font-awesome-icon class="heart-icon" icon="fa-heart" />
@@ -67,7 +64,7 @@ li {
 .txt-tit {
   text-align: left;
   padding: 0 50px;
-  margin: 20px 0;
+  margin: 20px 0 40px 0;
 }
 .product {
   width: 150px;
@@ -79,7 +76,7 @@ li {
 .unit-emot {
   width: 130px;
   height: 130px;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 .unit-emot img {
   width: 100%;
