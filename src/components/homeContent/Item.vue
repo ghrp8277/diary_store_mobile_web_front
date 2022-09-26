@@ -10,7 +10,7 @@
     <span class="heart" @click="likeEmoji">
       <font-awesome-icon
         class="heart-icon"
-        :class="{ 'is-click': emoticon.is_like }"
+        :class="{ 'is-click': is_like }"
         icon="fa-heart"
       />
     </span>
@@ -27,11 +27,13 @@
           <router-link
             class="image-box"
             tag="div"
-            v-for="(image, index) in emoticon.image_files"
+            v-for="(image, index) in image_files"
             :key="index"
             :to="{
               name: 'detail',
-              params: { id: emoticon.id },
+              params: {
+                id: product_id,
+              },
             }"
           >
             <img
@@ -56,7 +58,7 @@
           />
         </ul>
       </div>
-      <div class="emoticon-title">{{ emoticon.product_name }}</div>
+      <div class="emoticon-title">{{ product_name }}</div>
     </div>
   </div>
 </template>
@@ -71,19 +73,13 @@ import {
 } from '@vue/composition-api';
 import { useMouseInElement } from '@vueuse/core';
 import { useStore } from '@/services/pinia/buyer';
-import { ImageFile } from '@/types/emojiConfirm';
+import emoticon from '@/composables/emoticon';
 
 export default defineComponent({
   name: 'HomeItemContent',
   props: {
-    emoticon: {
-      type: Object as () => {
-        id: number;
-        product_name: string;
-        image_files: ImageFile[];
-        is_like: boolean;
-        category: string;
-      },
+    id: {
+      type: Number,
       required: true,
     },
   },
@@ -92,7 +88,7 @@ export default defineComponent({
 
     const target = ref(null);
 
-    const { emoticon } = toRefs(props);
+    const { id, is_like, image_files, product_name } = emoticon(props.id);
 
     const { elementX, elementY, isOutside, elementHeight, elementWidth } =
       useMouseInElement(target);
@@ -116,15 +112,12 @@ export default defineComponent({
     });
 
     async function likeEmoji(e: Event) {
-      const id = emoticon.value.id;
-      const is_like = !emoticon.value.is_like;
-
-      await store.FETCH_PRODUCT_BY_IS_INFO('test', id, is_like);
+      await store.FETCH_PRODUCT_BY_IS_INFO('test', id.value, !is_like.value);
     }
 
     const active = ref(1);
     const slides = computed(() => {
-      const length = emoticon.value.image_files.length;
+      const length = image_files.value.length;
       if (length > 5) return 5;
 
       return length;
@@ -160,6 +153,11 @@ export default defineComponent({
       slides,
       jump,
       move,
+
+      product_name,
+      product_id: id,
+      image_files,
+      is_like,
     };
   },
 });

@@ -11,6 +11,7 @@ import {
   faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
 Vue.config.productionTip = false;
 Vue.prototype.$Event = new Vue();
@@ -20,6 +21,7 @@ Vue.use(VueCompositionAPI);
 Vue.use(PiniaVuePlugin);
 
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
 // awesome Icon
 library.add(faBars, faMagnifyingGlass, faHeart);

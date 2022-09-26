@@ -13,6 +13,7 @@ const getters = {
       category: string;
       author: string;
       price: number;
+      count: number;
     }[];
 
     const products = state.products;
@@ -39,6 +40,8 @@ const getters = {
 
       const discount = product.discount;
 
+      const count = product.count;
+
       const obj = {
         id,
         is_like,
@@ -49,6 +52,7 @@ const getters = {
         author,
         price,
         discount,
+        count,
       };
 
       arr.push(obj);

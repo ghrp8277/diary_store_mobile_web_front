@@ -1,12 +1,13 @@
 <template>
   <div class="container">
-    <div class="list grid-container">
+    <ul class="rank-items grid-container">
       <router-link
         v-for="(emoticon, index) in ranks"
         :key="index"
+        tag="li"
         :to="{ name: 'detail', params: { id: emoticon.id } }"
       >
-        <div class="list-item">
+        <div class="rank-item">
           <!--순위-->
           <div class="rank-number" :class="{ 'best-rank': index + 1 <= 3 }">
             {{ index + 1 }}
@@ -31,7 +32,7 @@
           </div>
         </div>
       </router-link>
-    </div>
+    </ul>
   </div>
 </template>
 
@@ -62,37 +63,51 @@ export default defineComponent({
 .container {
   background: white;
   text-align: left;
-  margin-top: 20px;
 }
 
-.list-item {
-  width: 300px;
+.rank-items {
+  list-style: none;
+
+  padding-inline-start: 0;
+}
+
+.rank-item {
+  width: 100%;
   height: 100px;
   margin: 10px 0px;
   display: flex;
-  padding-left: 40px;
 
   cursor: pointer;
 
   position: relative;
-}
-a {
-  text-decoration: none;
+
+  &:hover {
+    .emoji-title {
+      text-decoration: underline;
+
+      font-weight: bold;
+    }
+
+    img {
+      width: 75px;
+      height: 75px;
+    }
+  }
 }
 
-.list-item::after {
+.rank-item::after {
   content: '';
-  width: 90%;
+  width: calc(100% - 58px);
   position: absolute;
   bottom: 0;
-  left: 30%;
+  left: 58px;
   border-bottom: 1px solid #d3d3d3;
 }
 
 .rankNumber,
 .emoji-title {
   font-size: 17px;
-  font-weight: bold;
+  font-weight: 400;
   color: black;
 }
 
@@ -140,6 +155,7 @@ a {
 .thumbnail {
   margin: 5px 0px 0px 0px;
 }
+
 .img-container {
   width: 90px;
   height: 90px;
@@ -148,16 +164,21 @@ a {
   margin: auto;
   border-radius: 10px;
 }
+
 img {
   width: 70px;
   height: 70px;
   vertical-align: middle;
+
+  transition: all 0.3s;
 }
 
 /* 이모티콘 정보 */
 .emoticon-info {
   display: flex;
   align-items: center;
+
+  width: 100%;
 }
 
 .text-box {

@@ -9,7 +9,7 @@
       v-for="(emoticon, index) in emoticons"
       :key="index"
     >
-      <home-content-item :emoticon="emoticon" />
+      <home-content-item :id="emoticon.id" />
     </div>
   </transition-group>
 </template>
@@ -39,6 +39,7 @@ export default defineComponent({
 
     const emoticonsInfo = computed(() => {
       if (category.value.length < 1) return emoticons.value;
+
       return emoticons.value.filter(
         (emoticon) => emoticon.category == category.value
       );

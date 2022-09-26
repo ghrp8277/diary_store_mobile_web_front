@@ -43,4 +43,9 @@ export const useStore = defineStore('buyer', {
     },
   },
   getters,
+  persist: {
+    storage: sessionStorage,
+    key: 'products',
+    paths: ['products'],
+  },
 });

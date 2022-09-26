@@ -6,4 +6,5 @@ export interface Product {
   emojiConfirm: EmojiConfirm;
   price: number;
   discount: number;
+  count: number;
 }

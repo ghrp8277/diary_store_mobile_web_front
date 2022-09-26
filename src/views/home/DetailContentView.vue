@@ -2,28 +2,35 @@
   <div class="container">
     <div class="emoji-wrap">
       <section class="thumbnail">
-        <img :src="emoticon.image_files[0].image_url" alt="" />
+        <img :src="title_image" alt="" />
       </section>
 
       <section class="buyer-box">
         <div class="emoji-info">
-          <strong class="title">{{ emoticon.product_name }}</strong>
-          <div class="author">{{ emoticon.author }}</div>
-          <div class="price">{{ emoticon.price }}원</div>
+          <strong class="title">{{ product_name }}</strong>
+          <div class="author">{{ author }}</div>
+          <div class="price">{{ price }}원</div>
         </div>
 
         <div class="emoji-btn-container">
           <button class="payment-btn">구매하기</button>
-          <button class="share-btn">
-            <font-awesome-icon class="heart-icon" icon="fa-heart" />
-          </button>
+
+          <div class="btn-liked" @click="onClickLiked">
+            <input type="checkbox" id="liked" />
+            <label for="liked" class="lb-liked">
+              <font-awesome-icon
+                :class="{ 'is-like': is_like }"
+                class="heart-icon"
+                icon="fa-heart"
+            /></label>
+          </div>
         </div>
       </section>
     </div>
 
     <div class="wrap-box">
       <div class="img-list grid-container">
-        <div v-for="(image, index) in emoticon.image_files" :key="index">
+        <div v-for="(image, index) in image_files" :key="index">
           <img :src="image.image_url" alt="" />
         </div>
       </div>
@@ -31,6 +38,7 @@
 
     <div class="pay-btn-container">
       <button class="pay-btn">구매하기</button>
+
       <button class="share-btn-bottom">
         <font-awesome-icon class="heart-icon" icon="fa-heart" />
       </button>
@@ -39,14 +47,9 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  toRefs,
-  onMounted,
-} from '@vue/composition-api';
+import { defineComponent, ref } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
-import { storeToRefs } from 'pinia';
+import emoticon from '@/composables/emoticon';
 
 export default defineComponent({
   components: {},
@@ -58,36 +61,39 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore();
-    const { emoticons } = storeToRefs(store);
-    const { id } = toRefs(props);
 
-    onMounted(async () => {
-      await store.FETCH_PRODUCTS_INFO('test');
-    });
+    const {
+      id,
+      is_like,
+      count,
+      title_image,
+      product_name,
+      author,
+      price,
+      image_files,
+    } = emoticon(props.id);
 
-    const emoticon = computed(() => {
-      let emoticon = emoticons.value.find((emoticon) => {
-        const equl_id = id.value;
-        const emoticon_id = emoticon.id;
+    async function likeEmoji() {
+      await store.FETCH_PRODUCT_BY_IS_INFO('test', id.value, !is_like.value);
+    }
 
-        if (equl_id == emoticon_id) return emoticon;
-      });
+    async function onClickLiked(e: InputEvent) {
+      const target = e.target as HTMLElement;
 
-      return emoticon
-        ? emoticon
-        : {
-            id: 0,
-            product_name: '',
-            image_files: [],
-            is_like: false,
-            category: '',
-            author: '',
-            price: 0,
-          };
-    });
+      if (target.nodeName == 'INPUT') {
+        await likeEmoji();
+      }
+    }
 
     return {
-      emoticon,
+      onClickLiked,
+      is_like,
+      title_image,
+      product_name,
+      author,
+      price,
+      image_files,
+      count,
     };
   },
 });
@@ -137,6 +143,8 @@ export default defineComponent({
 }
 .emoji-btn-container {
   padding-top: 20px;
+
+  display: flex;
 }
 .payment-btn,
 .share-btn {
@@ -148,7 +156,7 @@ export default defineComponent({
   border-radius: 10px;
 }
 .payment-btn {
-  width: 350px;
+  width: 100%;
 }
 .share-btn {
   width: 50px;
@@ -162,9 +170,10 @@ export default defineComponent({
   display: none;
 }
 .pay-btn {
-  width: 90%;
+  width: 100%;
   height: 100%;
   border: 0;
+
   background: black;
   color: white;
   font-weight: bold;
@@ -176,12 +185,61 @@ export default defineComponent({
   border: 0;
 }
 
+// 좋아요 버튼
+.btn-liked {
+  position: relative;
+  width: 40px;
+  height: 38px;
+  // height: calc(0.4vmin * 10);
+
+  .heart-icon {
+    color: #777;
+    font-size: 20px;
+
+    transition: all 0.4s;
+
+    &:hover {
+      font-size: 25px;
+
+      animation: bounce 1s ease-in-out 0s;
+    }
+
+    &:active {
+      font-size: 10px;
+    }
+
+    @keyframes bounce {
+      70% {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .is-like {
+    color: #dc143c;
+  }
+
+  input {
+    display: none;
+  }
+
+  label {
+    background: transparent;
+    border: 1px solid lightgray;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff;
+  }
+}
+
 .wrap-box {
-  position: absolute;
-
-  bottom: 0;
-  left: 0;
-
   width: 100%;
 
   background: #fafafa;
