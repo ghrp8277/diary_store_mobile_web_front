@@ -34,7 +34,7 @@ export default defineComponent({
     const link_list = [
       {
         name: '홈',
-        to: '/content',
+        to: '/store',
         click: (e: Event) => {
           onShowClose();
         },

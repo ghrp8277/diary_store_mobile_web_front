@@ -1,6 +1,6 @@
 <template>
   <div class="container-notice">
-    <table class="table-notice">
+    <!-- <table class="table-notice">
       <colgroup>
         <col width="10%" />
         <col width="70%" />
@@ -13,17 +13,28 @@
         <td scope="col" class="txt-tit">dsfasd</td>
         <td scope="col" class="txt-date">2021.09.02</td>
       </tr>
-    </table>
+    </table> -->
+    <!-- {{ notices }} -->
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, onMounted } from '@vue/composition-api';
+import { useStore } from '@/services/pinia/buyer';
+import { storeToRefs } from 'pinia';
+
 export default defineComponent({
-  name: 'NoticeDetail',
-  data() {
+  name: 'NoticeView',
+  setup() {
+    const store = useStore();
+    const { notices } = storeToRefs(store);
+
+    onMounted(async () => {
+      // await store.FETCH_NOTICES(1);
+    });
+
     return {
-      show: true,
+      notices,
     };
   },
 });

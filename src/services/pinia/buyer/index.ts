@@ -7,6 +7,7 @@ import {
   fetchProductByIsLike,
   fetchProductsInfo,
   fetchProductRank,
+  fetchNotices,
 } from '@/apis/buyer';
 
 export const useStore = defineStore('buyer', {
@@ -40,6 +41,11 @@ export const useStore = defineStore('buyer', {
       const data = await fetchProductRank();
 
       this.ranks = data;
+    },
+    async FETCH_NOTICES(page: number) {
+      const data = await fetchNotices(page);
+
+      // this.notices = data;
     },
   },
   getters,

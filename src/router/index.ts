@@ -75,6 +75,18 @@ const routes: Array<RouteConfig> = [
         path: 'service',
         name: 'service',
         component: () => import('@/views/myPage/ServiceCenterView.vue'),
+        redirect: { name: 'notice' },
+        children: [
+          {
+            path: 'notice',
+            name: 'notice',
+            component: () => import('@/components/myPage/NoticeView.vue'),
+          },
+          {
+            path: 'faq',
+            component: () => import('@/components/myPage/FaqView.vue'),
+          },
+        ],
       },
     ],
   },

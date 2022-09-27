@@ -1,4 +1,5 @@
 import { instance } from '@/apis';
+import { Notice } from '@/types/notice';
 import { Product } from '@/types/product';
 
 export async function fetchProductsInfo(username: string): Promise<Product[]> {
@@ -37,4 +38,11 @@ export async function fetchProductRank() {
   const { data } = await instance.buyer.get(`products/rank`);
 
   return data;
+}
+
+export async function fetchNotices(page: number) {
+  console.log(page, instance.buyer);
+  // const { data } = await instance.buyer.get(`${page}/notices`);
+  // console.log(data);
+  // return data;
 }
