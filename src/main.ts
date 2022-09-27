@@ -4,14 +4,9 @@ import router from './router';
 import store from './store';
 import VueCompositionAPI from '@vue/composition-api';
 import { createPinia, PiniaVuePlugin } from 'pinia';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-  faBars,
-  faMagnifyingGlass,
-  faHeart,
-} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
+import './services/fontAwesome';
 
 Vue.config.productionTip = false;
 Vue.prototype.$Event = new Vue();
@@ -23,8 +18,6 @@ Vue.use(PiniaVuePlugin);
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 
-// awesome Icon
-library.add(faBars, faMagnifyingGlass, faHeart);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 new Vue({

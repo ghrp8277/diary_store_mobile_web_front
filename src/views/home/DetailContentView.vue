@@ -29,11 +29,11 @@
     </div>
 
     <div class="wrap-box">
-      <div class="img-list grid-container">
-        <div v-for="(image, index) in image_files" :key="index">
+      <ul class="img-list grid-container">
+        <li v-for="(image, index) in image_files" :key="index">
           <img :src="image.image_url" alt="" />
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -95,6 +95,8 @@ export default defineComponent({
 /** 기본 */
 .container {
   margin: auto;
+
+  height: 100%;
 }
 .emoji-wrap {
   width: 100%;
@@ -148,9 +150,11 @@ export default defineComponent({
   border: 1px solid lightgray;
   border-radius: 10px;
 }
+
 .payment-btn {
   width: 100%;
 }
+
 // 좋아요 버튼
 .btn-liked {
   position: relative;
@@ -207,18 +211,25 @@ export default defineComponent({
 
 .wrap-box {
   width: 100%;
-
+  height: 100%;
+  position: absolute;
+  left: 0;
+  // overflow: hidden;
   background: #fafafa;
 }
+
 .img-list {
   text-align: center;
 
   padding: 40px;
 
-  width: 950px;
-  height: 450px;
+  max-width: 900px;
 
   margin: auto;
+
+  list-style: none;
+
+  background: inherit;
 
   div {
     width: 120px;
@@ -234,6 +245,11 @@ export default defineComponent({
   img {
     width: 100%;
     height: 100%;
+
+    left: 50%;
+    top: 50%;
+    position: relative;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -242,7 +258,7 @@ export default defineComponent({
   /**
    * User input values.
    */
-  --grid-layout-gap: 20px;
+  --grid-layout-gap: 10px;
   --grid-column-count: 6;
   --grid-item--min-width: 120px;
 
@@ -273,8 +289,13 @@ export default defineComponent({
     left: 0;
     display: flex;
     flex-wrap: nowrap;
+    z-index: 1;
+
+    padding: 0;
 
     width: 100%;
+
+    min-width: 320px;
 
     .payment-btn {
       flex: 1;
@@ -328,35 +349,10 @@ export default defineComponent({
       }
     }
   }
+
+  .wrap-box {
+    // padding-top: 12px;
+    // height: calc(100% - 60px);
+  }
 }
-// @media all and (max-width: 745px) {
-//   .emoji-btn-container {
-//     display: none;
-//   }
-//   .pay-btn-container {
-//     display: block;
-//   }
-//   .emoji-container {
-//     height: 270px;
-//   }
-//   .thumbnail {
-//     width: 130px;
-//     height: 130px;
-//   }
-//   .thumbnail img {
-//     width: 100%;
-//     height: 100%;
-//   }
-//   .title {
-//     font-size: 20px;
-//     font-weight: bold;
-//   }
-//   .author {
-//     font-size: 15px;
-//   }
-//   .price {
-//     font-size: 18px;
-//     color: red;
-//   }
-// }
 </style>

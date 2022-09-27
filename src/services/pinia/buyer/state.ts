@@ -1,11 +1,14 @@
 import { Category } from '@/types/category';
 import { Product } from '@/types/product';
+import { Notice } from '@/types/notice';
+import { Favorite } from '@/types/favorite';
 
 const state = {
   products: [] as Product[],
-  favorites: [] as any[],
+  favorites: [] as Favorite[],
   categories: [] as Category[],
   ranks: [] as Product[],
+  notices: [] as Notice[],
 };
 
 type State = typeof state;

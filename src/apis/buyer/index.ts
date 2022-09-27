@@ -38,3 +38,9 @@ export async function fetchProductRank() {
 
   return data;
 }
+
+export async function fetchNotices(page: number) {
+  const { data } = await instance.buyer.get(`${page}/notices`);
+
+  return data;
+}

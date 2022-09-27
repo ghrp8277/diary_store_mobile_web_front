@@ -12,7 +12,7 @@ const routes: Array<RouteConfig> = [
     children: [
       {
         path: 'store',
-        name: 'content',
+        name: 'store',
         component: () => import('@/views/MainTabView.vue'),
         redirect: {
           name: 'home',
@@ -75,6 +75,19 @@ const routes: Array<RouteConfig> = [
         path: 'service',
         name: 'service',
         component: () => import('@/views/myPage/ServiceCenterView.vue'),
+        redirect: { name: 'notice' },
+        children: [
+          {
+            path: 'notice',
+            name: 'notice',
+            component: () => import('@/views/myPage/NoticeView.vue'),
+          },
+          {
+            path: 'faq',
+            name: 'faq',
+            component: () => import('@/views/myPage/FaqView.vue'),
+          },
+        ],
       },
     ],
   },

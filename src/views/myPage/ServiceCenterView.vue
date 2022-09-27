@@ -3,46 +3,27 @@
     <div class="area-menu">
       <h2 class="title">고객센터</h2>
       <ul>
-        <li>공지사항</li>
-        <li>자주 묻는 질문</li>
+        <router-link to="/service/notice">
+          <li>공지사항</li>
+        </router-link>
+        <router-link to="/service/faq">
+          <li>자주 묻는 질문</li>
+        </router-link>
       </ul>
     </div>
-    <div class="container-notice">
-      <table class="table-notice">
-        <colgroup>
-          <col width="10%" />
-          <col width="70%" />
-          <col width="20%" />
-        </colgroup>
-        <tr>
-          <td scope="col" class="txt-title">
-            <span class="txt-tag">중요</span>
-          </td>
-          <td scope="col" class="txt-tit">dsfasd</td>
-          <td scope="col" class="txt-date">2021.09.02</td>
-        </tr>
-      </table>
-    </div>
-    <keep-alive>
-      <component v-bind:is="comp"></component>
-    </keep-alive>
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import FaqView from '@/components/myPage/FaqView.vue';
 
 export default defineComponent({
-  components: { FaqView },
+  components: {},
   data() {
     return {
-      comp: 'FAQDetail',
+      comp: 'FaqView',
     };
-  },
-  setup() {
-    // changeComponent: function(componentName){
-    //   this.comp = componentName
   },
 });
 </script>
@@ -86,7 +67,7 @@ export default defineComponent({
   padding: 30px 100px;
 }
 .table-notice {
-  border: 1px solid lightgray;
+  border-top: 1px solid lightgray;
   border-collapse: collapse;
   text-align: left;
 

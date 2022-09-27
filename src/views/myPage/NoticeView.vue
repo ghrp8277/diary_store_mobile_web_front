@@ -14,16 +14,27 @@
         <td scope="col" class="txt-date">2021.09.02</td>
       </tr>
     </table>
+    {{ notices }}
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, onMounted } from '@vue/composition-api';
+import { useStore } from '@/services/pinia/buyer';
+import { storeToRefs } from 'pinia';
+
 export default defineComponent({
-  name: 'NoticeDetail',
-  data() {
+  name: 'NoticeView',
+  setup() {
+    const store = useStore();
+    const { service_notices } = storeToRefs(store);
+
+    onMounted(async () => {
+      await store.FETCH_NOTICES(1);
+    });
+
     return {
-      show: true,
+      notices: service_notices,
     };
   },
 });

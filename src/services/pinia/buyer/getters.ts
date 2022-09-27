@@ -70,17 +70,17 @@ const getters = {
       isNewCreated: boolean;
     }[];
 
-    const products = state.ranks;
+    const ranks = state.ranks;
 
-    for (const product of products) {
-      const emoji_info = product.emojiConfirm.emojiInfo;
-      const emoji_confirm = product.emojiConfirm;
+    for (const rank of ranks) {
+      const emoji_info = rank.emojiConfirm.emojiInfo;
+      const emoji_confirm = rank.emojiConfirm;
 
       const product_name = emoji_info.product_name;
 
       const image_files = emoji_confirm.imageFiles;
 
-      const id = product.id;
+      const id = rank.id;
 
       const author_name = emoji_info.author_name;
 
@@ -104,21 +104,21 @@ const getters = {
 
     return arr;
   },
-  favorites: (state: State) => {
+  emoticon_favorites: (state: State) => {
     const arr = [] as {
       id: number;
       product_name: string;
       image_files: ImageFile[];
       title_image: string;
       author_name: string;
-      is_like: boolean;
     }[];
 
-    const favorites = state.products;
+    const favorites = state.favorites;
 
     for (const favorite of favorites) {
-      const emoji_info = favorite.emojiConfirm.emojiInfo;
-      const emoji_confirm = favorite.emojiConfirm;
+      const product = favorite.product;
+      const emoji_confirm = product.emojiConfirm;
+      const emoji_info = emoji_confirm.emojiInfo;
 
       const product_name = emoji_info.product_name;
 
@@ -130,15 +130,47 @@ const getters = {
 
       const title_image = image_files[0].image_url;
 
-      const is_like = favorite.is_like;
-
       arr.push({
         id,
         product_name,
         image_files,
         title_image,
         author_name,
-        is_like,
+      });
+    }
+
+    return arr;
+  },
+  service_notices: (state: State) => {
+    const arr = [] as {
+      id: number;
+      is_important: number;
+      title: string;
+      file_name: string;
+      username: string;
+      is_visible: boolean;
+      createAt: Date;
+    }[];
+
+    const notices = state.notices;
+
+    for (const notice of notices) {
+      const id = notice.id;
+      const is_important = notice.is_important;
+      const title = notice.title;
+      const file_name = notice.file_name;
+      const username = notice.username;
+      const is_visible = notice.is_visible;
+      const createAt = notice.createAt;
+
+      arr.push({
+        id,
+        is_important,
+        title,
+        file_name,
+        username,
+        is_visible,
+        createAt,
       });
     }
 

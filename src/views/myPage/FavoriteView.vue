@@ -7,8 +7,7 @@
         :key="index"
         :to="{ name: 'detail', params: { id: favorite.id } }"
       >
-        <!-- {{ favorite.product.emojiConfirm.emojiInfo.product_name } -->
-        <li class="product" v-if="favorite.is_like == true">
+        <li class="product">
           <div class="unit-emot">
             <img :src="favorite.image_files[0].image_url" alt="" />
           </div>
@@ -38,13 +37,14 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const { favorites } = storeToRefs(store);
+    const { emoticon_favorites } = storeToRefs(store);
 
     onMounted(async () => {
       await store.FETCH_FAVORITES_INFO('test');
     });
+
     return {
-      favorites: computed(() => favorites.value),
+      favorites: computed(() => emoticon_favorites.value),
     };
   },
 });
