@@ -211,10 +211,10 @@ export default defineComponent({
 
 .wrap-box {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 350px);
   position: absolute;
   left: 0;
-  // overflow: hidden;
+
   background: #fafafa;
 }
 
@@ -230,6 +230,8 @@ export default defineComponent({
   list-style: none;
 
   background: inherit;
+
+  padding-bottom: 60px;
 
   div {
     width: 120px;
