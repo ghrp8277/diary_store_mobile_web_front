@@ -153,4 +153,17 @@ button {
   -ms-user-select: none;
   user-select: none;
 }
+
+/* 미디어 쿼리 */
+@media all and (max-width: 760px) {
+  .slide-fade-enter,
+  .slide-fade-leave-to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  .slide-fade {
+    transition: all 0.5s;
+  }
+}
 </style>

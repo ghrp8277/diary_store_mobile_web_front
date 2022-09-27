@@ -5,11 +5,13 @@
         <img class="user-img" src="@/assets/logo.png" alt="" />
         <div class="user-name">유저이름</div>
       </div>
-      <div class="menu">
+      <ul class="menu">
         <li v-for="(link, index) in link_list" :key="index" @click="link.click">
-          <router-link :to="link.to">{{ link.name }}</router-link>
+          <router-link :to="link.to"
+            ><span>{{ link.name }}</span></router-link
+          >
         </li>
-      </div>
+      </ul>
 
       <div class="footer">
         <router-link to="/store" @click="onShowClose" tag="div">
@@ -28,6 +30,7 @@ export default defineComponent({
   emits: ['onShowClose'],
   setup(props, { emit }) {
     function onShowClose() {
+      console.log('???');
       emit('onShowClose', false);
     }
 
@@ -102,17 +105,34 @@ img {
   border-radius: 100px;
 }
 
-li {
+ul {
   list-style: none;
-  width: 200px;
-  height: 50px;
-  margin: auto;
-  text-align: left;
-  line-height: 50px;
-}
+  padding-inline-start: 0;
 
-li:hover {
-  cursor: pointer;
+  text-align: center;
+  margin: 0;
+
+  li {
+    list-style: none;
+    height: 50px;
+
+    line-height: 50px;
+    font-weight: 300;
+
+    a > span {
+      display: inline-block;
+      width: 200px;
+      text-align: left;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      background: rgba(#f5f5f5, 0.6);
+
+      font-weight: bold;
+    }
+  }
 }
 
 a {
@@ -160,7 +180,46 @@ a {
   }
 }
 
-// /* 미디어 쿼리 */
-// @media all and (max-width: 760px) {
-// }
+/* 미디어 쿼리 */
+@media all and (max-height: 582px) {
+  .footer {
+    display: none;
+  }
+}
+
+/* 미디어 쿼리 */
+@media all and (max-width: 760px) {
+  .container {
+    width: 100%;
+
+    height: auto;
+  }
+
+  .user-info {
+    display: none;
+  }
+
+  .menu {
+    li {
+      width: 100%;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+
+      span {
+        width: 100%;
+
+        text-align: center;
+      }
+    }
+  }
+
+  .footer {
+    display: none;
+
+    width: 100%;
+
+    text-align: center;
+
+    padding: 10px 0;
+  }
+}
 </style>
