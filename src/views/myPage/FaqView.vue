@@ -6,7 +6,9 @@
           >다이어리 이모티콘 샵에서 구입한 상품은 어디에서 이용할 수
           있나요?</span
         >
-        <span><font-awesome-icon icon="fa-regular fa-chevron-down" /></span>
+        <span
+          ><font-awesome-icon icon="fa-chevron-down" class="icon-down"
+        /></span>
         <div class="content-faq"><span>호에엥</span></div>
       </li>
     </ul>
@@ -24,15 +26,23 @@ export default defineComponent({
 <style scoped lang="scss">
 .container-faq {
   background: white;
-  padding: 30px 0;
+  padding: 30px 50px;
 }
+
 ul {
   list-style: none;
 
   li {
     width: 100%;
     height: 70px;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+
+    border: 1px solid #f5f5f5;
+    // box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+
+    text-align: left;
+  }
+  .icon-down {
+    text-align: right;
   }
 }
 </style>
