@@ -124,7 +124,7 @@ const getters = {
 
       const image_files = emoji_confirm.imageFiles;
 
-      const id = favorite.id;
+      const id = product.id;
 
       const author_name = emoji_info.author_name;
 
@@ -136,41 +136,6 @@ const getters = {
         image_files,
         title_image,
         author_name,
-      });
-    }
-
-    return arr;
-  },
-  service_notices: (state: State) => {
-    const arr = [] as {
-      id: number;
-      is_important: number;
-      title: string;
-      file_name: string;
-      username: string;
-      is_visible: boolean;
-      createAt: Date;
-    }[];
-
-    const notices = state.notices;
-
-    for (const notice of notices) {
-      const id = notice.id;
-      const is_important = notice.is_important;
-      const title = notice.title;
-      const file_name = notice.file_name;
-      const username = notice.username;
-      const is_visible = notice.is_visible;
-      const createAt = notice.createAt;
-
-      arr.push({
-        id,
-        is_important,
-        title,
-        file_name,
-        username,
-        is_visible,
-        createAt,
       });
     }
 

@@ -8,6 +8,7 @@ import {
   fetchProductsInfo,
   fetchProductRank,
   fetchNotices,
+  fetchStoreNoticeInfo,
 } from '@/apis/buyer';
 
 export const useStore = defineStore('buyer', {
@@ -46,6 +47,12 @@ export const useStore = defineStore('buyer', {
       const data = await fetchNotices(page);
 
       this.notices = data.notices;
+      this.totalPage = data.totalPage;
+    },
+    async FETCH_NOTICE_INFO(id: number) {
+      const data = await fetchStoreNoticeInfo(id);
+
+      return data;
     },
   },
   getters,

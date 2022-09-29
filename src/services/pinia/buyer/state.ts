@@ -9,6 +9,7 @@ const state = {
   categories: [] as Category[],
   ranks: [] as Product[],
   notices: [] as Notice[],
+  totalPage: 0,
 };
 
 type State = typeof state;

@@ -75,17 +75,33 @@ const routes: Array<RouteConfig> = [
         path: 'service',
         name: 'service',
         component: () => import('@/views/myPage/ServiceCenterView.vue'),
-        redirect: { name: 'notice' },
+        redirect: { name: 'notices' },
         children: [
           {
-            path: 'notice',
-            name: 'notice',
-            component: () => import('@/views/myPage/NoticeView.vue'),
+            path: 'list',
+            name: 'notices',
+            component: () => import('@/views/myPage/cs/NoticeView.vue'),
           },
           {
             path: 'faq',
             name: 'faq',
-            component: () => import('@/views/myPage/FaqView.vue'),
+            component: () => import('@/views/myPage/cs/FaqView.vue'),
+          },
+          {
+            path: ':id',
+            name: 'notice',
+            component: () => import('@/views/myPage/cs/NoticeDetailView.vue'),
+            props: (route) => {
+              const id = Number.parseInt(route.params.id);
+
+              if (Number.isNaN(id)) {
+                return 0;
+              }
+
+              return {
+                id,
+              };
+            },
           },
         ],
       },

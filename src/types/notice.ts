@@ -5,5 +5,5 @@ export interface Notice {
   file_name: string;
   username: string;
   is_visible: boolean;
-  createAt: Date;
+  createdAt: Date;
 }

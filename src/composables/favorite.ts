@@ -7,16 +7,20 @@ class Favorite {
   public product_name: string;
   public image_files: ImageFile[];
   public title_image: string;
-  public author_name: string;
+  public author: string;
   public is_like: boolean;
+  public count: number;
+  public price: number;
 
   constructor() {
     this.id = 0;
     this.is_like = false;
     this.title_image = '';
     this.product_name = '';
-    this.author_name = '';
+    this.author = '';
     this.image_files = [];
+    this.count = 0;
+    this.price = 0;
   }
 }
 
@@ -28,24 +32,24 @@ export default (id: number) => {
     return favorite ? favorite : new Favorite();
   });
 
-  //   const product_id = computed(() => emoticon.value.id);
-  //   const is_like = computed(() => emoticon.value.is_like);
-  //   const count = computed(() => emoticon.value.count);
-  //   const title_image = computed(() => emoticon.value.title_image);
+  const product_id = computed(() => favorite.value.id);
+  const is_like = computed(() => favorite.value.is_like);
+  const count = computed(() => favorite.value.count);
+  const title_image = computed(() => favorite.value.title_image);
 
-  //   const product_name = computed(() => emoticon.value.product_name);
-  //   const author = computed(() => emoticon.value.author);
-  //   const price = computed(() => emoticon.value.price);
-  //   const image_files = computed(() => emoticon.value.image_files);
+  const product_name = computed(() => favorite.value.product_name);
+  const author = computed(() => favorite.value.author);
+  const price = computed(() => favorite.value.price);
+  const image_files = computed(() => favorite.value.image_files);
 
   return {
-    // id: product_id,
-    // is_like,
-    // count,
-    // title_image,
-    // product_name,
-    // author,
-    // price,
-    // image_files,
+    id: product_id,
+    is_like,
+    count,
+    title_image,
+    product_name,
+    author,
+    price,
+    image_files,
   };
 };

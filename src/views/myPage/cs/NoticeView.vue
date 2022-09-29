@@ -8,14 +8,14 @@
       <tr
         v-for="(notice, index) in notices"
         :key="index"
-        @click="onClick($event, notice.id)"
+        @click="onClick(notice.id)"
       >
         <td scope="col" :class="{ 'txt-title': notice.is_important }">
           <span v-if="notice.is_important" class="txt-tag">중요</span>
           {{ notice.title }}
         </td>
         <td scope="col" class="txt-date">
-          {{ moment(notice.createAt).format('YYYY-MM-DD') }}
+          {{ moment(notice.createdAt).format('YYYY-MM-DD') }}
         </td>
       </tr>
     </table>
@@ -33,9 +33,9 @@ export default defineComponent({
   name: 'NoticeView',
   setup() {
     const store = useStore();
-    const { service_notices } = storeToRefs(store);
+    const { notices } = storeToRefs(store);
 
-    function onClick(e: Event, id: number) {
+    function onClick(id: number) {
       router.push({
         name: 'notice',
         params: {
@@ -49,7 +49,7 @@ export default defineComponent({
     });
 
     return {
-      notices: service_notices,
+      notices,
       moment,
       onClick,
     };
@@ -61,14 +61,18 @@ export default defineComponent({
 .container-notice {
   background: white;
   padding: 30px 100px;
+
+  max-width: 700px;
+
+  margin: 0 auto;
 }
+
 .table-notice {
   width: 100%;
   border-top: 1px solid lightgray;
   border-collapse: collapse;
   text-align: left;
 
-  th,
   td {
     border-bottom: 1px solid lightgray;
     padding: 10px;
@@ -96,6 +100,14 @@ export default defineComponent({
     width: 20%;
     text-align: right;
     padding: 0 20px 0 0;
+  }
+}
+
+tr {
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(gray, 0.1);
   }
 }
 </style>
