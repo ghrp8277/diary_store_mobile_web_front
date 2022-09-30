@@ -57,3 +57,10 @@ export async function fetchStoreNoticeInfo(id: number) {
 
   return data;
 }
+
+// FAQ 정보를 가져온다.
+export async function fecthStoreFAQ() {
+  const { data } = await instance.buyer.get(`faq`);
+
+  return data;
+}
