@@ -63,6 +63,7 @@ export default defineComponent({
 .container {
   background: white;
   text-align: left;
+  max-width: 900px;
 }
 
 .rank-items {

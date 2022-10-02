@@ -16,7 +16,10 @@
               <span class="txt-title">{{ favorite.product_name }}</span>
               <span class="txt-author">{{ favorite.author_name }}</span>
             </div>
-            <button class="btn-like">
+            <button
+              class="btn-like"
+              @click.stop.prevent="likeEmoji(favorite.id)"
+            >
               <font-awesome-icon class="heart-icon" icon="fa-heart" />
             </button>
           </div>
@@ -30,6 +33,8 @@
 import { computed, defineComponent, onMounted } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 import { storeToRefs } from 'pinia';
+import emoticon from '@/composables/emoticon';
+import favorite from '@/composables/favorite';
 
 export default defineComponent({
   name: 'FavoriteView',
@@ -43,8 +48,14 @@ export default defineComponent({
       await store.FETCH_FAVORITES_INFO('test');
     });
 
+    async function likeEmoji(id: number) {
+      await store.FETCH_PRODUCT_BY_IS_INFO('test', id, false);
+      await store.FETCH_FAVORITES_INFO('test');
+    }
+
     return {
       favorites: computed(() => emoticon_favorites.value),
+      likeEmoji,
     };
   },
 });
@@ -52,8 +63,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .container-fav {
-  margin: auto;
+  margin: 0 auto;
   background: white;
+  max-width: 900px;
 }
 ul {
   list-style: none;
@@ -63,7 +75,7 @@ li {
 }
 .txt-tit {
   text-align: left;
-  padding: 0 50px;
+  padding: 0 70px;
   margin: 20px 0 40px 0;
 }
 .product {
@@ -114,6 +126,8 @@ li {
   border: 1px solid lightgray;
   border-radius: 50px;
   float: right;
+
+  cursor: pointer;
 }
 .heart-icon {
   color: #fa4637;

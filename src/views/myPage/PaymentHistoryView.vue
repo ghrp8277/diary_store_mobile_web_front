@@ -50,11 +50,12 @@ export default defineComponent({
 <style scoped lang="scss">
 .container-payment {
   background: white;
-  margin: 10px 20px;
+  margin: 10px auto;
+  max-width: 900px;
 }
 .title {
-  height: 80px;
-  line-height: 80px;
+  // height: 80px;
+  // line-height: 80px;
   text-align: left;
 }
 .list-payment {
@@ -68,7 +69,7 @@ export default defineComponent({
      */
   --grid-layout-gap: 30px;
   --grid-column-count: 2;
-  --grid-item--min-width: 450px;
+  --grid-item--min-width: 430px;
 
   /**
      * Calculated values.
@@ -87,7 +88,7 @@ export default defineComponent({
   grid-gap: var(--grid-layout-gap);
 }
 .payment-content {
-  width: 450px;
+  width: 420px;
   height: 220px;
   border: 0px solid lightgray;
   border-radius: 10px;

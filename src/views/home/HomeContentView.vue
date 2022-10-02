@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-hometab">
     <home-item />
   </div>
 </template>
@@ -17,4 +17,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.container-hometab {
+  max-width: 900px;
+}
+</style>

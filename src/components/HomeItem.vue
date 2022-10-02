@@ -1,32 +1,129 @@
 <template>
   <div class="container-home">
-    <h2 class="tag"># 강아지 이모티콘</h2>
-    <div class="emoji">
-      <div class="img-list">
-        <img src="@/assets/logo.png" alt="" />
-        <img src="@/assets/logo.png" alt="" />
-        <img src="@/assets/logo.png" alt="" />
-        <img src="@/assets/logo.png" alt="" />
-        <img src="@/assets/logo.png" alt="" />
-        <img src="@/assets/logo.png" alt="" />
+    <div class="wrap-tag">
+      <div class="emoji">
+        <h2 class="tag"># 강아지 이모티콘</h2>
+        <div class="img-list">
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+        </div>
+      </div>
+      <div class="emoji">
+        <h2 class="tag"># 강아지 이모티콘</h2>
+        <div class="img-list">
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+        </div>
+      </div>
+      <div class="emoji">
+        <h2 class="tag"># 강아지 이모티콘</h2>
+        <div class="img-list">
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+          <img src="@/assets/logo.png" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 인기 -->
+    <div class="wrap-best">
+      <h3>인기 이모티콘 ></h3>
+      <div class="items">
+        <ul class="rank-items grid-container">
+          <router-link
+            v-for="(emoticon, index) in ranks"
+            :key="index"
+            tag="li"
+            :to="{ name: 'detail', params: { id: emoticon.id } }"
+          >
+            <div class="rank-item" v-if="index < 6">
+              <div class="rank-number" :class="{ 'best-rank': index + 1 <= 3 }">
+                {{ index + 1 }}
+              </div>
+              <div class="emoticon-info">
+                <div class="text-box">
+                  <div class="emoji-title">{{ emoticon.product_name }}</div>
+                  <div class="author">
+                    <span>{{ emoticon.author_name }}</span>
+                    <span v-if="emoticon.isNewCreated" class="new-icon">N</span>
+                  </div>
+                </div>
+              </div>
+              <div class="thumbnail">
+                <div class="img-container">
+                  <img :src="emoticon.title_image" />
+                </div>
+              </div>
+            </div>
+          </router-link>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 신규 -->
+    <div class="wrap-new">
+      <h3>신규 이모티콘 ></h3>
+      <div>
+        <div
+          class="emojiThumb"
+          v-for="(emoticon, index) in emoticons"
+          :key="index"
+        >
+          <router-link
+            class="image-box"
+            tag="div"
+            :to="{
+              name: 'detail',
+              params: {
+                id: emoticon.id,
+              },
+            }"
+          >
+            <img
+              class="emociton-image"
+              :src="emoticon.image_files[0].image_url"
+            />
+          </router-link>
+          <div class="emoticon-title">{{ emoticon.product_name }}</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from '@vue/composition-api';
+import { defineComponent, computed, onMounted } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'HomeItem',
   setup() {
     const store = useStore();
 
+    const { emoticon_ranks } = storeToRefs(store);
+
+    onMounted(async () => {
+      await store.FETCH_PRODUCT_BY_RANK();
+      await store.FETCH_PRODUCTS_INFO('test');
+    });
+
     return {
       emoticons: computed(() => {
         return store.emoticons;
       }),
+      ranks: emoticon_ranks,
     };
   },
   methods: {
@@ -43,139 +140,233 @@ export default defineComponent({
 <style lang="scss" scoped>
 .container-home {
   background: white;
+
+  h3 {
+    text-align: left;
+    margin-bottom: 5px;
+  }
+}
+
+/** 태그 css */
+.wrap-tag {
   font-size: 15px;
   font-weight: bold;
-  margin: 20px 10px;
+  margin: 30px 0;
+
+  .tag {
+    font-size: 17px;
+    text-align: center;
+    color: white;
+    background: #008080;
+    border-radius: 20px;
+
+    margin: 0;
+    padding: 5px 0;
+
+    max-width: 200px;
+  }
+  .img-list {
+    flex-basis: 0;
+    display: flex;
+
+    justify-content: space-around;
+  }
+  .emoji {
+    overflow-x: auto;
+    scroll-snap-type: none;
+    margin: 0 0 25px 0;
+  }
+  img {
+    width: 130px;
+    height: 130px;
+  }
 }
 
-.list {
-  border: 1px solid #777;
+/** 신규 css */
+.emojiThumb {
+  width: 180px;
+  height: 190px;
+  background: #fff;
+  text-align: center;
+  display: inline-block;
+  border-radius: 10px;
+  margin: 20px;
+  position: relative;
 
+  box-shadow: 0 4px 14px 0 rgb(0 0 0 / 12%);
+
+  box-sizing: border-box;
+}
+.image-box {
+  cursor: pointer;
+  width: 90%;
+  margin: 10px auto;
+}
+.emociton-image {
   width: 100%;
-  height: 200px;
-  border: 1px solid lightgray;
-  border-radius: 20px;
+  height: 130px;
 }
-.list-item {
-  height: 100%;
 
+.emoticon-title {
+  width: 170px;
+  font-size: 14px;
+  margin: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/** 인기 css */
+.wrap-best {
+  margin-bottom: 30px;
+}
+.rank-items {
+  list-style: none;
+  padding-inline-start: 0;
+  margin-top: 0;
+}
+.rank-item {
+  width: 100%;
+  height: 100px;
+  margin: 10px 0px;
   display: flex;
 
-  flex-direction: row;
+  cursor: pointer;
 
-  flex-wrap: nowrap;
+  position: relative;
 
-  justify-content: center;
+  &:hover {
+    .emoji-title {
+      text-decoration: underline;
 
+      font-weight: bold;
+    }
+
+    img {
+      width: 75px;
+      height: 75px;
+    }
+  }
+}
+.rank-item::after {
+  content: '';
+  width: calc(100% - 58px);
+  position: absolute;
+  bottom: 0;
+  left: 58px;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.rankNumber,
+.emoji-title {
+  font-size: 15px;
+  font-weight: 400;
+  color: black;
+}
+
+.best-rank {
+  color: red;
+  font-weight: bold;
+  font-size: larger;
+}
+
+.rank-number {
+  width: 70px;
+  text-align: center;
+  line-height: 100px;
+}
+
+/* 그리드 */
+.grid-container {
+  /**
+   * User input values.
+   */
+  --grid-layout-gap: 10px;
+  --grid-column-count: 2;
+  --grid-item--min-width: 400px;
+
+  /**
+   * Calculated values.
+   */
+  --gap-count: calc(var(--grid-column-count) - 1);
+  --total-gap-width: calc(var(--gap-count) * var(--grid-layout-gap));
+  --grid-item--max-width: calc(
+    (100% - var(--total-gap-width)) / var(--grid-column-count)
+  );
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr)
+  );
+  grid-gap: var(--grid-layout-gap);
+}
+
+/* 이모티콘 썸네일 */
+.thumbnail {
+  margin: 5px 0px 0px 0px;
+
+  img {
+    width: 80px;
+    height: 80px;
+    vertical-align: middle;
+
+    transition: all 0.3s;
+  }
+}
+.img-container {
+  width: 90px;
+  height: 90px;
+  line-height: 85px;
+  margin: 0 auto;
+}
+
+/* 이모티콘 정보 */
+.emoticon-info {
+  display: flex;
   align-items: center;
 
-  border-radius: 5px;
+  width: 100%;
 }
-.list-tag {
-  line-height: inherit;
-}
-.tag {
-  font-size: 18px;
-  text-align: center;
-  text-indent: 15px;
 
-  flex-grow: 0.5;
+.text-box {
+  margin: 20px;
+
+  .new-icon {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+
+    background-color: red;
+    color: #fff;
+    font-size: 8px;
+
+    text-align: center;
+  }
+}
+.text-box > div {
+  padding: 3px 0;
+}
+.author {
+  font-size: 12px;
+  color: gray;
   text-align: left;
-  margin: 0;
-  padding: 0 0 10px 15px;
-
-  min-width: 150px;
-}
-.emoji-img {
-  height: 200px;
-}
-.emoji {
-  overflow-x: auto;
-  scroll-snap-type: none;
-}
-.img-list {
-  flex-basis: 0;
-  display: flex;
-
-  justify-content: space-around;
-}
-
-img {
-  width: 150px;
-  height: 150px;
-  width: 130px;
-  height: 130px;
 }
 
 /* 미디어 쿼리 */
 @media all and (max-width: 1030px) {
-  .container {
-    //   flex-direction: column;
-
+  .container-home {
     margin: 0 10px;
-
     width: calc(100% - 20px);
-
-    //   background-color: #777;
   }
   .emoji {
     width: 100%;
   }
-  .img-list {
-    // overflow-x: scroll;
-    // justify-content: flex-start;
-  }
-
   img {
     width: 100px;
     height: 100px;
   }
-
-  // img:nth-child(n + 5) {
-  //   display: block;
-  // }
-
-  .tag {
-    // flex: 1;
-
-    // width: 100%;
-
-    // text-align: left;
-
-    // font-size: 14px;
-
-    // font-weight: bold;
-
-    // color: #000;
-
-    margin: 0 10px;
-    flex-grow: 2;
-  }
 }
-
-// /* 미디어 쿼리 */
-// @media all and (max-width: 915px) {
-//   .container {
-//     overflow-x: scroll;
-//     overflow-y: hidden;
-
-//     height: 192px;
-//   }
-
-//   .tag {
-//     position: fixed;
-
-//     top: 120px;
-
-//     left: 10px;
-//   }
-// }
-
-// /* 미디어 쿼리 */
-// @media all and (max-width: 500px) {
-//   img {
-//     width: 50px;
-//     height: 50px;
-//   }
-// }
 </style>
