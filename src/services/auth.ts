@@ -1,4 +1,4 @@
-import { deleteCookie, saveAccessTokenToCookie } from './cookies';
+import { deleteCookie } from './cookies';
 import { useMainStore } from '@/services/pinia/main';
 import { storeToRefs } from 'pinia';
 import axios, { AxiosError, AxiosRequestHeaders } from 'axios';

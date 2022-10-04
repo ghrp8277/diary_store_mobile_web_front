@@ -1,24 +1,43 @@
 <template>
   <div class="searchHome">
-    <SearchBar />
-    <ListEmoticon />
+    <SearchBar @search="search" />
+    <ProductsList :isSearch="isSearch" />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import SearchBar from '@/components/search/searchBar.vue';
-import ListEmoticon from '@/components/search/ListEmoji.vue';
+import { defineComponent, onUnmounted, ref } from '@vue/composition-api';
+import SearchBar from '@/components/search/SearchBar.vue';
+import ProductsList from '@/components/search/ProductsList.vue';
 
-export default Vue.extend({
-  components: { SearchBar, ListEmoticon },
+export default defineComponent({
+  name: 'SearchView',
+  components: { SearchBar, ProductsList },
+  setup() {
+    const isSearch = ref(false);
+
+    function search(is: boolean) {
+      isSearch.value = is;
+    }
+
+    onUnmounted(() => {
+      console.log('???');
+    });
+
+    return {
+      search,
+      isSearch,
+    };
+  },
 });
 </script>
 
 <style scoped lang="scss">
 .searchHome {
+  width: 100%;
+  height: 100%;
   max-width: 900px;
-  margin: 0 auto;
-  padding: 0 20px;
+
+  margin: auto;
 }
 </style>

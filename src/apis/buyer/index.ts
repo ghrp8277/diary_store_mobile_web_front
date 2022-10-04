@@ -64,3 +64,10 @@ export async function fecthStoreFAQ() {
 
   return data;
 }
+
+// 검색창 검색 시 정보를 가져온다.
+export async function fetchProductsSearch(query: string) {
+  const { data } = await instance.buyer.get(`products/search/${query}`);
+
+  return data;
+}

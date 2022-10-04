@@ -7,7 +7,7 @@
     <!--menu bar-->
     <div class="menubar-container" :class="{ 'menubar-slider-active': isShow }">
       <!-- toggle button -->
-      <button class="leftButton" @click="menuButton">
+      <button @click="menuButton">
         <font-awesome-icon icon="fa-bars" style="width: 50%; height: auto" />
       </button>
       <router-link
@@ -18,11 +18,9 @@
       >
         <span>이모티콘 스토어</span>
       </router-link>
-      <div>
-        <router-link :to="{ name: 'search' }" class="rightButton" tag="button">
-          <font-awesome-icon class="icon" icon="fa-magnifying-glass" />
-        </router-link>
-      </div>
+      <router-link :to="{ name: 'search' }" class="btn-search" tag="button">
+        <font-awesome-icon class="icon" icon="fa-magnifying-glass" />
+      </router-link>
     </div>
 
     <router-view class="main-view" :class="{ 'toggle-show': isShow }" />
@@ -91,11 +89,11 @@ button {
 
   cursor: pointer;
 }
-.leftButton {
-  float: left;
-}
-.rightButton {
-  float: right;
+.btn-search {
+  position: absolute;
+  right: 0;
+
+  transition: all 0.3s;
 }
 .title {
   font-size: 18px;

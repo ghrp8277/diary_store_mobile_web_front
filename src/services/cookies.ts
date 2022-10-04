@@ -1,5 +1,5 @@
-export function saveAccessTokenToCookie(token: string) {
-  document.cookie = `til_access=${token}`;
+export function saveSearchKeywordToCookie(keyword: string) {
+  document.cookie = `searchKeyword=${keyword}; path=/;`;
 }
 
 export function saveRefreshTokenToCookie(token: string) {
@@ -10,9 +10,9 @@ export function saveUserToCookie(username: string) {
   document.cookie = `til_user=${username}`;
 }
 
-export function getAccessFromCookie() {
+export function getSearchKeywordFromCookie() {
   return document.cookie.replace(
-    /(?:(?:^|.*;\s*)til_access\s*=([^;]*).*$)|^.*$/,
+    /(?:(?:^|.*;\s*)searchKeyword\s*=([^;]*).*$)|^.*$/,
     '$1'
   );
 }
