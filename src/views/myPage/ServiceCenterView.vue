@@ -42,9 +42,14 @@ export default defineComponent({
 
   .inner-wrap {
     margin: 0 auto;
+    padding: 0 100px;
     width: 700px;
 
     text-align: left;
+
+    .title {
+      margin-top: 10px;
+    }
 
     ul {
       padding: 0;
@@ -67,13 +72,6 @@ export default defineComponent({
       cursor: pointer;
       text-decoration: none;
     }
-  }
-}
-
-/** 미디어 쿼리 */
-@media all and (max-width: 900px) {
-  .inner-wrap {
-    width: 500px;
   }
 }
 </style>

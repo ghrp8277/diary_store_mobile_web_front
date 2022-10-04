@@ -1,14 +1,13 @@
 <template>
   <div class="container-faq">
     <ul class="list-faq">
-      <li>
-        <div
-          class="question-faq"
-          v-for="(item, index) in FAQ"
-          :key="index"
-          @click="toggleShow"
-          :class="{ 'toggle-show': isShow }"
-        >
+      <li
+        v-for="(item, index) in FAQ"
+        :key="index"
+        @click="toggleShow"
+        :class="{ 'toggle-show': isShow }"
+      >
+        <div class="question-faq">
           <span class="txt-tit">
             {{ item.title }}
           </span>
@@ -70,8 +69,8 @@ ul {
 
   li {
     width: 100%;
+    margin-bottom: 25px;
 
-    // border: 1px solid lightgray;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 
     text-align: left;

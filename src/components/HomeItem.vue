@@ -12,33 +12,16 @@
           <img src="@/assets/logo.png" alt="" />
         </div>
       </div>
-      <div class="emoji">
-        <h2 class="tag"># 강아지 이모티콘</h2>
-        <div class="img-list">
-          <img src="@/assets/logo.png" alt="" />
-          <img src="@/assets/logo.png" alt="" />
-          <img src="@/assets/logo.png" alt="" />
-          <img src="@/assets/logo.png" alt="" />
-          <img src="@/assets/logo.png" alt="" />
-          <img src="@/assets/logo.png" alt="" />
-        </div>
-      </div>
-      <div class="emoji">
-        <h2 class="tag"># 강아지 이모티콘</h2>
-        <div class="img-list">
-          <img src="@/assets/logo.png" alt="" />
-          <img src="@/assets/logo.png" alt="" />
-          <img src="@/assets/logo.png" alt="" />
-          <img src="@/assets/logo.png" alt="" />
-          <img src="@/assets/logo.png" alt="" />
-          <img src="@/assets/logo.png" alt="" />
-        </div>
-      </div>
     </div>
 
     <!-- 인기 -->
     <div class="wrap-best">
-      <h3>인기 이모티콘 ></h3>
+      <div class="category-name">
+        <router-link :to="{ name: 'best' }">
+          <h3>인기 이모티콘 ></h3>
+        </router-link>
+      </div>
+
       <div class="items">
         <ul class="rank-items grid-container">
           <router-link
@@ -73,30 +56,33 @@
 
     <!-- 신규 -->
     <div class="wrap-new">
-      <h3>신규 이모티콘 ></h3>
-      <div>
-        <div
-          class="emojiThumb"
-          v-for="(emoticon, index) in emoticons"
-          :key="index"
+      <div class="category-name">
+        <router-link :to="{ name: 'new' }">
+          <h3>신규 이모티콘 ></h3>
+        </router-link>
+      </div>
+
+      <div
+        class="emojiThumb"
+        v-for="(emoticon, index) in emoticons.slice(0, 8)"
+        :key="index"
+      >
+        <router-link
+          class="image-box"
+          tag="div"
+          :to="{
+            name: 'detail',
+            params: {
+              id: emoticon.id,
+            },
+          }"
         >
-          <router-link
-            class="image-box"
-            tag="div"
-            :to="{
-              name: 'detail',
-              params: {
-                id: emoticon.id,
-              },
-            }"
-          >
-            <img
-              class="emociton-image"
-              :src="emoticon.image_files[0].image_url"
-            />
-          </router-link>
-          <div class="emoticon-title">{{ emoticon.product_name }}</div>
-        </div>
+          <img
+            class="emociton-image"
+            :src="emoticon.image_files[0].image_url"
+          />
+        </router-link>
+        <div class="emoticon-title">{{ emoticon.product_name }}</div>
       </div>
     </div>
   </div>
@@ -141,9 +127,22 @@ export default defineComponent({
 .container-home {
   background: white;
 
-  h3 {
+  .category-name {
+    width: 100%;
     text-align: left;
     margin-bottom: 5px;
+  }
+  h3 {
+    display: block;
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  a:hover {
+    cursor: pointer;
   }
 }
 
@@ -166,6 +165,7 @@ export default defineComponent({
     max-width: 200px;
   }
   .img-list {
+    float: left;
     flex-basis: 0;
     display: flex;
 
@@ -190,11 +190,10 @@ export default defineComponent({
   text-align: center;
   display: inline-block;
   border-radius: 10px;
-  margin: 20px;
+  margin: 20px 10px;
   position: relative;
 
-  box-shadow: 0 4px 14px 0 rgb(0 0 0 / 12%);
-
+  box-shadow: 0 4px 14px 0 rgb(0 0 0 / 7%);
   box-sizing: border-box;
 }
 .image-box {

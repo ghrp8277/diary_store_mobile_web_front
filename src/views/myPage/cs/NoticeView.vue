@@ -10,7 +10,11 @@
         :key="index"
         @click="onClick(notice.id)"
       >
-        <td scope="col" :class="{ 'txt-title': notice.is_important }">
+        <td
+          class="txt-info"
+          scope="col"
+          :class="{ 'txt-title': notice.is_important }"
+        >
           <span v-if="notice.is_important" class="txt-tag">중요</span>
           {{ notice.title }}
         </td>
@@ -99,7 +103,7 @@ export default defineComponent({
   .txt-date {
     width: 20%;
     text-align: right;
-    padding: 0 20px 0 0;
+    padding: 0 15px 0 0;
   }
 }
 
@@ -108,6 +112,21 @@ tr {
 
   &:hover {
     background: rgba(gray, 0.1);
+  }
+}
+
+/** 미디어 쿼리 */
+@media all and (max-width: 600px) {
+  .container-notice {
+    padding: 0;
+  }
+
+  .txt-date {
+    display: none;
+  }
+
+  .txt-info {
+    width: 100%;
   }
 }
 </style>

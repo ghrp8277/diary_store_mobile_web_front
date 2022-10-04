@@ -1,6 +1,6 @@
 <template>
   <div class="container-fav">
-    <h3 class="txt-tit">즐겨찾기</h3>
+    <h2 class="txt-tit">즐겨찾기</h2>
     <ul class="product-list">
       <router-link
         v-for="(favorite, index) in favorites"
@@ -88,7 +88,7 @@ li {
 .unit-emot {
   width: 130px;
   height: 130px;
-  margin: 10px auto;
+  margin: 15px auto;
 }
 .unit-emot img {
   width: 100%;
