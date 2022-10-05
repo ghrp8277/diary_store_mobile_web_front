@@ -70,17 +70,19 @@ const routes: Array<RouteConfig> = [
           {
             path: 'list',
             name: 'notices',
-            component: () => import('@/views/myPage/cs/NoticeView.vue'),
+            component: () =>
+              import('@/views/myPage/serviceCenter/NoticeView.vue'),
           },
           {
             path: 'faq',
             name: 'faq',
-            component: () => import('@/views/myPage/cs/FaqView.vue'),
+            component: () => import('@/views/myPage/serviceCenter/FaqView.vue'),
           },
           {
             path: ':id',
             name: 'notice',
-            component: () => import('@/views/myPage/cs/NoticeDetailView.vue'),
+            component: () =>
+              import('@/views/myPage/serviceCenter/NoticeDetailView.vue'),
             props: (route) => {
               const id = Number.parseInt(route.params.id);
 

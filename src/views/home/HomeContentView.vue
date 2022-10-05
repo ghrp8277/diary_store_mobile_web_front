@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import HomeItem from '@/components/HomeItem.vue';
+import HomeItem from '@/components/tabs/home/HomeItem.vue';
 
 export default defineComponent({
   name: 'MainTabView',

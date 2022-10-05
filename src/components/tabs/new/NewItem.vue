@@ -75,7 +75,7 @@ import { useStore } from '@/services/pinia/buyer';
 import emoticon from '@/composables/emoticon';
 
 export default defineComponent({
-  name: 'HomeItemContent',
+  name: 'NewItem',
   props: {
     id: {
       type: Number,
