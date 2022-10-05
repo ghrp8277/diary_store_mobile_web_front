@@ -1,22 +1,71 @@
 <template>
   <div class="container-payment">
-    <h2 class="title">구매내역</h2>
-    <!--리스트-->
-    <div class="list-payment grid-container">
-      <div class="payment-content">
-        <p>2022.08.01</p>
-        <!--이모지 정보-->
-        <div class="emoji">
-          <div class="img-container">
-            <img src="@/assets/logo.png" alt="" />
+    <div class="wrap">
+      <h2 class="title">구매내역</h2>
+      <!--리스트-->
+      <div class="list-payment grid-container">
+        <div class="payment-content">
+          <p>2022.08.01</p>
+          <!--이모지 정보-->
+          <div class="emoji">
+            <div class="img-container">
+              <img src="@/assets/logo.png" alt="" />
+            </div>
+            <div class="emoji-info">
+              <p class="emoji-title">바람의 나라 바람의 나라~</p>
+              <p class="author">작가명명명</p>
+              <p class="price">2000마넌</p>
+            </div>
           </div>
-          <div class="emoji-info">
-            <p class="emoji-title">바람의 나라 바람의 나라~</p>
-            <p class="author">작가명명명</p>
-            <p class="price">2000마넌</p>
-          </div>
+          <button class="detail-btn" @click="openModal">상세보기</button>
         </div>
-        <button class="detail-btn" @click="openModal">상세보기</button>
+        <div class="payment-content">
+          <p>2022.08.01</p>
+          <!--이모지 정보-->
+          <div class="emoji">
+            <div class="img-container">
+              <img src="@/assets/logo.png" alt="" />
+            </div>
+            <div class="emoji-info">
+              <p class="emoji-title">바람의 나라 바람의 나라~</p>
+              <p class="author">작가명명명</p>
+              <p class="price">2000마넌</p>
+            </div>
+          </div>
+          <button class="detail-btn" @click="openModal">상세보기</button>
+        </div>
+        <div class="payment-content">
+          <p>2022.08.01</p>
+          <!--이모지 정보-->
+          <div class="emoji">
+            <div class="img-container">
+              <img src="@/assets/logo.png" alt="" />
+            </div>
+            <div class="emoji-info">
+              <p class="emoji-title">
+                바람의 나라 바람의 나라~ㅇㅇㄹㄴㅇㄹㄴㅇㄹㅇㄴㅇ ㅇㄴㄹㅇ
+              </p>
+              <p class="author">작가명명명</p>
+              <p class="price">2000마넌</p>
+            </div>
+          </div>
+          <button class="detail-btn" @click="openModal">상세보기</button>
+        </div>
+        <div class="payment-content">
+          <p>2022.08.01</p>
+          <!--이모지 정보-->
+          <div class="emoji">
+            <div class="img-container">
+              <img src="@/assets/logo.png" alt="" />
+            </div>
+            <div class="emoji-info">
+              <p class="emoji-title">바람의 나라 바람의 나라~</p>
+              <p class="author">작가명명명</p>
+              <p class="price">2000마넌</p>
+            </div>
+          </div>
+          <button class="detail-btn" @click="openModal">상세보기</button>
+        </div>
       </div>
     </div>
 
@@ -50,18 +99,20 @@ export default defineComponent({
 <style scoped lang="scss">
 .container-payment {
   background: white;
-  margin: 10px auto;
-  max-width: 900px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.wrap {
+  padding: 0 100px;
 }
 .title {
   // height: 80px;
   // line-height: 80px;
   text-align: left;
+  padding-bottom: 20px;
 }
 .list-payment {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  place-items: center;
 }
 .grid-container {
   /**
@@ -69,7 +120,7 @@ export default defineComponent({
      */
   --grid-layout-gap: 30px;
   --grid-column-count: 2;
-  --grid-item--min-width: 430px;
+  --grid-item--min-width: 390px;
 
   /**
      * Calculated values.
@@ -88,7 +139,7 @@ export default defineComponent({
   grid-gap: var(--grid-layout-gap);
 }
 .payment-content {
-  width: 420px;
+  width: 390px;
   height: 220px;
   border: 0px solid lightgray;
   border-radius: 10px;
@@ -113,10 +164,14 @@ export default defineComponent({
   text-align: left;
 }
 .emoji-title {
-  width: 100%;
+  width: 90%;
   font-size: 16px;
   font-weight: bold;
   margin: 0;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .author {
   font-size: 12px;
@@ -129,7 +184,7 @@ export default defineComponent({
   margin: 10px 0;
 }
 .detail-btn {
-  width: 400px;
+  width: 340px;
   height: 35px;
   background: white;
   border: 1px solid gray;

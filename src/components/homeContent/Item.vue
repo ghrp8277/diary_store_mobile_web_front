@@ -68,7 +68,6 @@ import {
   defineComponent,
   ref,
   computed,
-  toRefs,
   onMounted,
 } from '@vue/composition-api';
 import { useMouseInElement } from '@vueuse/core';
