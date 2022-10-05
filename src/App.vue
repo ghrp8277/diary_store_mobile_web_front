@@ -22,6 +22,8 @@ body {
   margin: 0;
   // 가로 스크롤 없앤다
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 #app {

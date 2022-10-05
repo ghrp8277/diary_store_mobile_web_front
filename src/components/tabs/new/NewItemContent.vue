@@ -9,7 +9,7 @@
       v-for="(emoticon, index) in emoticons"
       :key="index"
     >
-      <home-content-item :id="emoticon.id" />
+      <new-item :id="emoticon.id" />
     </div>
   </transition-group>
 </template>
@@ -18,12 +18,12 @@
 import { defineComponent, computed, toRefs } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 import { storeToRefs } from 'pinia';
-import HomeContentItem from '@/components/homeContent/Item.vue';
+import NewItem from '@/components/tabs/new/NewItem.vue';
 
 export default defineComponent({
   name: 'HomeItemContent',
   components: {
-    HomeContentItem,
+    NewItem,
   },
   props: {
     category: {

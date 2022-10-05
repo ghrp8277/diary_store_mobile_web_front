@@ -1,39 +1,37 @@
 <template>
-  <div class="container">
-    <ul class="rank-items grid-container">
-      <router-link
-        v-for="(emoticon, index) in ranks"
-        :key="index"
-        tag="li"
-        :to="{ name: 'detail', params: { id: emoticon.id } }"
-      >
-        <div class="rank-item">
-          <!--순위-->
-          <div class="rank-number" :class="{ 'best-rank': index + 1 <= 3 }">
-            {{ index + 1 }}
+  <ul class="rank-items grid-container">
+    <router-link
+      v-for="(emoticon, index) in ranks"
+      :key="index"
+      tag="li"
+      :to="{ name: 'detail', params: { id: emoticon.id } }"
+    >
+      <div class="rank-item">
+        <!--순위-->
+        <div class="rank-number" :class="{ 'best-rank': index + 1 <= 3 }">
+          {{ index + 1 }}
+        </div>
+        <!--썸네일-->
+        <div class="thumbnail">
+          <!--테두리-->
+          <div class="img-container">
+            <!--이모티콘 썸네일-->
+            <img :src="emoticon.title_image" />
           </div>
-          <!--썸네일-->
-          <div class="thumbnail">
-            <!--테두리-->
-            <div class="img-container">
-              <!--이모티콘 썸네일-->
-              <img :src="emoticon.title_image" />
-            </div>
-          </div>
-          <div class="emoticon-info">
-            <!--이모티콘 정보-->
-            <div class="text-box">
-              <div class="emoji-title">{{ emoticon.product_name }}</div>
-              <div class="author">
-                <span>{{ emoticon.author_name }}</span>
-                <span v-if="emoticon.isNewCreated" class="new-icon">N</span>
-              </div>
+        </div>
+        <div class="emoticon-info">
+          <!--이모티콘 정보-->
+          <div class="text-box">
+            <div class="emoji-title">{{ emoticon.product_name }}</div>
+            <div class="author">
+              <span>{{ emoticon.author_name }}</span>
+              <span v-if="emoticon.isNewCreated" class="new-icon">N</span>
             </div>
           </div>
         </div>
-      </router-link>
-    </ul>
-  </div>
+      </div>
+    </router-link>
+  </ul>
 </template>
 
 <script lang="ts">
@@ -60,16 +58,12 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.container {
-  background: white;
-  text-align: left;
-  max-width: 900px;
-}
-
 .rank-items {
+  width: 100%;
+  max-width: 900px;
   list-style: none;
-
   padding-inline-start: 0;
+  margin: 0 auto;
 }
 
 .rank-item {
@@ -184,6 +178,7 @@ img {
 
 .text-box {
   margin: 20px;
+  text-align: left;
 
   .new-icon {
     border-radius: 50%;

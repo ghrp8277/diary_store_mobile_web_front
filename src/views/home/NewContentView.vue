@@ -1,19 +1,19 @@
 <template>
   <div>
-    <home-category @onCategory="onCategory" />
-    <home-item-content :category="category" />
+    <new-category @onCategory="onCategory" />
+    <new-item-content :category="category" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
-import HomeItemContent from '@/components/HomeItemContent.vue';
-import HomeCategory from '@/components/HomeCategory.vue';
+import NewItemContent from '@/components/tabs/new/NewItemContent.vue';
+import NewCategory from '@/components/tabs/new/NewCategory.vue';
 
 export default defineComponent({
   name: 'NewContentView',
-  components: { HomeItemContent, HomeCategory },
+  components: { NewItemContent, NewCategory },
   setup() {
     const store = useStore();
     const category = ref('');

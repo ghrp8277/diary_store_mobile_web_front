@@ -1,7 +1,7 @@
 <template>
   <div class="container-payment">
-    <div class="wrap">
-      <h2 class="title">구매내역</h2>
+    <div class="payment-wrap__info">
+      <h2 class="payment-title">구매내역</h2>
       <!--리스트-->
       <div class="list-payment grid-container">
         <div class="payment-content">
@@ -102,10 +102,10 @@ export default defineComponent({
   max-width: 1100px;
   margin: 0 auto;
 }
-.wrap {
-  padding: 0 100px;
+.payment-wrap__info {
+  // padding: 0 100px;
 }
-.title {
+.payment-title {
   // height: 80px;
   // line-height: 80px;
   text-align: left;

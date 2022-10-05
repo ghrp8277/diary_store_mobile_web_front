@@ -66,6 +66,10 @@ export default defineComponent({
   height: 60px;
 
   width: 100%;
+
+  background: white;
+
+  z-index: 1;
 }
 
 .link-nav {
@@ -112,20 +116,5 @@ li {
 
 .router-link-active > a {
   color: #3b3b3b;
-}
-
-.slide-fade-enter {
-  transform: translateX(10px);
-  opacity: 0;
-}
-
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: all 0.2s ease;
-}
-
-.slide-fade-leave-to {
-  transform: translateX(-10px);
-  opacity: 0;
 }
 </style>

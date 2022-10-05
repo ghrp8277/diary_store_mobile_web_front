@@ -3,43 +3,39 @@
     <button id="buyButton" @click="onBuyClicked">Checkout</button>
   </div>
 </template>
-\
+
 <script lang="ts">
 import { defineComponent, ref, onMounted } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'MainView',
   setup() {
-    function onGooglePayLoaded() {
-      const googlePayClient = new google.payments.api.PaymentsClient({
-        environment: 'TEST',
-      });
-    }
-
-    const clientConfiguration = {
-      apiVersion: 2,
-      apiVersionMinor: 0,
-      allowedPaymentMethods: [cardPaymentMethod],
-    };
-
-    googlePayClient
-      .isReadyToPay(clientConfiguration)
-      .then(function (response: any) {
-        if (response.result) {
-          console.log(response.result);
-        }
-      })
-      .catch(function (err: string) {
-        console.log(err);
-      });
-
-    googlePayClicent.createButton({
-      buttonColor: 'default',
-      bottonType: 'long',
-      onclick: onGOoglePaymentsButtonClicked,
-    });
-
-    return { onGooglePayLoaded };
+    // function onGooglePayLoaded() {
+    //   const googlePayClient = new google.payments.api.PaymentsClient({
+    //     environment: 'TEST',
+    //   });
+    // }
+    // const clientConfiguration = {
+    //   apiVersion: 2,
+    //   apiVersionMinor: 0,
+    //   allowedPaymentMethods: [cardPaymentMethod],
+    // };
+    // googlePayClient
+    //   .isReadyToPay(clientConfiguration)
+    //   .then(function (response: any) {
+    //     if (response.result) {
+    //       console.log(response.result);
+    //     }
+    //   })
+    //   .catch(function (err: string) {
+    //     console.log(err);
+    //   });
+    // googlePayClicent.createButton({
+    //   buttonColor: 'default',
+    //   bottonType: 'long',
+    //   onclick: onGOoglePaymentsButtonClicked,
+    // });
+    // return { onGooglePayLoaded };
     // const allowedCardNetworks = new Array<google.payments.api.CardNetwork>(
     //   'AMEX',
     //   'DISCOVER',
@@ -48,7 +44,6 @@ export default defineComponent({
     //   'VISA',
     //   'INTERAC'
     // );
-
     // const allowedPaymentMethods =
     //   new Array<google.payments.api.PaymentMethodSpecification>({
     //     type: 'CARD',
@@ -68,13 +63,11 @@ export default defineComponent({
     //       },
     //     },
     //   });
-
     // // @ts-expect-error
     // allowedPaymentMethods[0].tokenizationSpecification = {
     //   type: 'DIRECT',
     //   parameters: {},
     // };
-
     // allowedPaymentMethods[0].tokenizationSpecification = {
     //   type: 'DIRECT',
     //   parameters: {
@@ -82,7 +75,6 @@ export default defineComponent({
     //     publicKey: 'BOdoXP1aiNp.....kh3JUhiSZKHYF2Y=',
     //   },
     // };
-
     // const getGooglePaymentsClient = (env?: google.payments.api.Environment) => {
     //   return new google.payments.api.PaymentsClient({
     //     environment: env,
@@ -123,10 +115,8 @@ export default defineComponent({
     //     },
     //   });
     // };
-
     // function onGooglePayLoaded() {
     //   const client = getGooglePaymentsClient();
-
     //   client
     //     .isReadyToPay({
     //       apiVersion: 2,
@@ -151,7 +141,6 @@ export default defineComponent({
     //       console.error(err);
     //     });
     // }
-
     // function addGooglePayButton() {
     //   const buttonOptions: google.payments.api.ButtonOptions = {
     //     onClick: onGooglePaymentButtonClick,
@@ -166,7 +155,6 @@ export default defineComponent({
     //       },
     //     ],
     //   };
-
     //   // @ts-expect-error
     //   buttonOptions.buttonType = 'xyz';
     //   buttonOptions.buttonType = 'book';
@@ -179,22 +167,17 @@ export default defineComponent({
     //   buttonOptions.buttonType = 'subscribe';
     //   buttonOptions.buttonType = 'long';
     //   buttonOptions.buttonType = 'short';
-
     //   buttonOptions.buttonSizeMode = undefined;
     //   buttonOptions.buttonSizeMode = 'fill';
     //   buttonOptions.buttonSizeMode = 'static';
     //   // @ts-expect-error
     //   buttonOptions.buttonSizeMode = 'unknown';
-
     //   buttonOptions.buttonRootNode = undefined;
     //   buttonOptions.buttonRootNode = document;
-
     //   const node = document.createElement('div').getRootNode() as ShadowRoot;
     //   buttonOptions.buttonRootNode = node;
-
     //   // @ts-expect-error
     //   buttonOptions.buttonRootNode = document.createElement('div');
-
     //   buttonOptions.buttonLocale = '';
     //   buttonOptions.buttonLocale = undefined;
     //   // @ts-expect-error
@@ -202,12 +185,10 @@ export default defineComponent({
     //   buttonOptions.buttonLocale = 'en';
     //   buttonOptions.buttonLocale = 'qw';
     //   buttonOptions.buttonLocale = 'zh';
-
     //   const client = getGooglePaymentsClient();
     //   const button = client.createButton(buttonOptions);
     //   document.appendChild(document.createElement('div').appendChild(button));
     // }
-
     // function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataRequest {
     //   return {
     //     apiVersion: 2,
@@ -246,21 +227,17 @@ export default defineComponent({
     //     callbackIntents: ['OFFER', 'PAYMENT_AUTHORIZATION', 'PAYMENT_METHOD'],
     //   };
     // }
-
     // function prefetchGooglePaymentData() {
     //   const client = getGooglePaymentsClient();
     //   client.prefetchPaymentData(getGooglePaymentDataConfiguration());
     // }
-
     // function onGooglePaymentButtonClick() {
     //   const request = getGooglePaymentDataConfiguration();
     //   const client = getGooglePaymentsClient();
-
     //   request.callbackIntents = ['PAYMENT_AUTHORIZATION'];
     //   request.callbackIntents = ['OFFER'];
     //   // @ts-expect-error
     //   request.callbackIntents = ['OFFER_INFO'];
-
     //   client
     //     .loadPaymentData(request)
     //     .then((data) => console.log(data))
