@@ -18,6 +18,8 @@
       />
 
       <!-- 이전 검색 내역 -->
+      <!-- @mouseover="isMouseOver = true"
+        @mouseleave="isMouseOver = false" -->
       <div
         @mouseover="isMouseOver = true"
         @mouseleave="isMouseOver = false"
@@ -64,6 +66,9 @@ export default defineComponent({
   setup(props, { emit }) {
     const store = useStore();
 
+    let size = 20;
+    const page = ref(1);
+
     const isFocus = ref(false);
     const isMouseOver = ref(false);
 
@@ -96,16 +101,16 @@ export default defineComponent({
     watch(keyword, async (newVal) => {
       // 2글자 이상 입력될 경우 검색 데이터를 보여준다.
       if (newVal.trim().length >= 2) {
-        await store.FETCH_PRODUCTS_SEARCH(newVal);
+        await store.FETCH_PRODUCTS_SEARCH(newVal, page.value, size);
 
         // 데이터가 가져와졌을때 검색 키워드에 추가
         const isCheck = store.emoticons.length > 0;
 
         if (isCheck) saveSearchKeyword(newVal);
-
-        emit('search', true);
       } else {
-        emit('search', false);
+        store.searchCount = 0;
+        store.products = [];
+        isFocus.value = false;
       }
     });
 
@@ -160,9 +165,7 @@ export default defineComponent({
   width: 100%;
   padding: 30px;
   box-sizing: border-box;
-
-  position: absolute;
-  left: 0;
+  overflow: hidden;
 
   z-index: 1;
 }
@@ -213,10 +216,14 @@ export default defineComponent({
 }
 
 .keywords-wrap {
-  position: relative;
+  position: fixed;
+
+  width: calc(100% - 60px);
+  max-width: 904px;
 
   background: white;
   box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
+  z-index: 1;
 
   ul {
     margin: 0;

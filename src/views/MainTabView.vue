@@ -42,6 +42,9 @@
       </nav>
     </div>
 
+    <!-- search -->
+    <home-search />
+
     <transition name="slide-fade" mode="out-in">
       <router-view class="container" />
     </transition>
@@ -61,6 +64,8 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .nav-wrap {
+  position: fixed;
+
   border-bottom: 1px solid #d3d3d3;
 
   box-sizing: border-box;

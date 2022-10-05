@@ -8,59 +8,49 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'main',
     component: () => import('@/views/MainView.vue'),
-    redirect: 'store',
+    redirect: 'home',
     children: [
       {
-        path: 'store',
-        name: 'store',
-        component: () => import('@/views/MainTabView.vue'),
-        redirect: {
-          name: 'home',
-        },
-        children: [
-          {
-            path: 'home',
-            name: 'home',
-            component: () => import('@/views/home/HomeContentView.vue'),
-          },
-          {
-            path: 'best',
-            name: 'best',
-            component: () => import('@/views/home/BestContentView.vue'),
-          },
-          {
-            path: 'new',
-            name: 'new',
-            component: () => import('@/views/home/NewContentView.vue'),
-          },
-          {
-            path: 'style',
-            name: 'style',
-            component: () => import('@/views/home/StyleContentView.vue'),
-          },
-          {
-            path: ':id',
-            name: 'detail',
-            component: () => import('@/views/home/DetailContentView.vue'),
-            props(route) {
-              const id = Number.parseInt(route.params.id);
-
-              if (Number.isNaN(id)) {
-                return 0;
-              }
-
-              return {
-                id,
-              };
-            },
-          },
-        ],
+        path: 'home',
+        name: 'home',
+        component: () => import('@/views/home/HomeContentView.vue'),
       },
       {
-        path: 'search',
-        name: 'search',
-        component: () => import('@/views/home/SearchView.vue'),
+        path: 'best',
+        name: 'best',
+        component: () => import('@/views/home/BestContentView.vue'),
       },
+      {
+        path: 'new',
+        name: 'new',
+        component: () => import('@/views/home/NewContentView.vue'),
+      },
+      {
+        path: 'style',
+        name: 'style',
+        component: () => import('@/views/home/StyleContentView.vue'),
+      },
+      {
+        path: 'detail/:id',
+        name: 'detail',
+        component: () => import('@/views/home/DetailContentView.vue'),
+        props(route) {
+          const id = Number.parseInt(route.params.id);
+
+          if (Number.isNaN(id)) {
+            return 0;
+          }
+
+          return {
+            id,
+          };
+        },
+      },
+      // {
+      //   path: 'search',
+      //   name: 'search',
+      //   component: () => import('@/views/home/SearchView.vue'),
+      // },
       {
         path: 'payment',
         name: 'payment',

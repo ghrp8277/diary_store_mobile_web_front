@@ -17,15 +17,16 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
+html,
 body {
   margin: 0;
   // 가로 스크롤 없앤다
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 #app {
-  min-width: 500px;
   width: 100%;
+  height: 100%;
   margin: auto;
   font-family: 'Noto Sans KR', Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

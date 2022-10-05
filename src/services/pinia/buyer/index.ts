@@ -61,10 +61,12 @@ export const useStore = defineStore('buyer', {
 
       this.FAQ = data;
     },
-    async FETCH_PRODUCTS_SEARCH(query: string) {
-      const data = await fetchProductsSearch(query);
+    async FETCH_PRODUCTS_SEARCH(query: string, page: number, size: number) {
+      const data = await fetchProductsSearch(query, page, size);
 
-      this.products = data;
+      this.products = data.product;
+
+      this.searchCount = data.count;
     },
   },
   getters,

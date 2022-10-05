@@ -2,114 +2,70 @@
   <div class="home">
     <!--slide menu-->
     <Transition name="slide-fade">
-      <SlideMenu v-if="isShow" @onShowClose="onShowClose" />
+      <SlideMenu v-if="isSlideShow" @onSlideShow="onSlideShow" />
     </Transition>
-    <!--menu bar-->
-    <div class="menubar-container" :class="{ 'menubar-slider-active': isShow }">
-      <!-- toggle button -->
-      <button @click="menuButton">
-        <font-awesome-icon icon="fa-bars" style="width: 50%; height: auto" />
-      </button>
-      <router-link
-        :to="{ name: 'home' }"
-        class="title"
-        tag="span"
-        @click="menuButton"
-      >
-        <span>이모티콘 스토어</span>
-      </router-link>
-      <router-link :to="{ name: 'search' }" class="btn-search" tag="button">
-        <font-awesome-icon class="icon" icon="fa-magnifying-glass" />
-      </router-link>
-    </div>
 
-    <router-view class="main-view" :class="{ 'toggle-show': isShow }" />
+    <!-- main menu bar -->
+    <main-menu-bar
+      @onSlideShow="onSlideShow"
+      @onSearchShow="onSearchShow"
+      :isSlideShow="isSlideShow"
+      :isSearchShow="isSearchShow"
+    />
 
-    <div :class="{ 'layer-dimmed': isShow }"></div>
+    <!-- main tab -->
+    <main-tab />
+
+    <!-- search -->
+    <Transition name="slide-fade-down">
+      <main-search v-if="isSearchShow" />
+    </Transition>
+
+    <transition name="slide-router-fade" mode="out-in">
+      <router-view class="main-view" :class="{ 'toggle-show': isSlideShow }" />
+    </transition>
+
+    <div :class="{ 'layer-dimmed': isSlideShow }"></div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api';
-import SlideMenu from '@/components/main/SlideMenu.vue';
+import SlideMenu from '@/components/MainSlideMenu.vue';
+import MainTab from '@/components/MainTab.vue';
+import MainSearch from '@/components/MainSearch.vue';
+import MainMenuBar from '@/components/MainMenuBar.vue';
 
 export default defineComponent({
   name: 'MainView',
-  components: { SlideMenu },
+  components: { SlideMenu, MainMenuBar, MainSearch, MainTab },
   setup() {
-    const isShow = ref(false);
+    const isSlideShow = ref(false);
+    const isSearchShow = ref(false);
 
-    // 메뉴버튼 클릭 함수
-    const menuButton = () => {
-      isShow.value = !isShow.value;
-    };
+    function onSlideShow(is: boolean) {
+      isSlideShow.value = is;
+    }
 
-    function onShowClose(is: boolean) {
-      isShow.value = is;
+    function onSearchShow(is: boolean) {
+      isSearchShow.value = is;
     }
 
     return {
-      isShow,
-      menuButton,
-      onShowClose,
+      isSlideShow,
+      onSlideShow,
+      isSearchShow,
+      onSearchShow,
     };
   },
 });
 </script>
 
 <style lang="scss" scoped>
-.menubar-container {
-  height: 60px;
-  display: grid;
-  grid-template-columns: 0.5fr 2fr 0.5fr;
-
-  z-index: 1100;
-
-  position: fixed;
-  top: 0;
-
-  background: #fff;
-
-  text-align: center;
-
-  align-content: center;
-  width: 100%;
-}
-
-.menubar-slider-active {
-  border-bottom: 1px solid rgba($color: gray, $alpha: 0.2);
-}
-
-button {
-  width: 40px;
-  height: 100%;
-  background: white;
-  border: 0px;
-  padding: 0px;
-
-  cursor: pointer;
-}
-.btn-search {
-  position: absolute;
-  right: 0;
-
-  transition: all 0.3s;
-}
-.title {
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 35px;
-
-  cursor: pointer;
-}
-
 .main-view {
-  padding-top: 60px;
-}
+  padding-top: 120px;
 
-.icon {
-  width: 50%;
-  height: auto;
+  margin: auto;
 }
 
 .layer-dimmed {
@@ -123,6 +79,17 @@ button {
   z-index: 100;
 
   transition: all 1s;
+}
+
+.toggle-show {
+  opacity: 0.3;
+  pointer-events: none;
+
+  // 드래그 금지
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* transitions */
@@ -141,17 +108,6 @@ button {
   opacity: 0;
 }
 
-.toggle-show {
-  opacity: 0.3;
-  pointer-events: none;
-
-  // 드래그 금지
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 /* 미디어 쿼리 */
 @media all and (max-width: 760px) {
   .slide-fade-enter,
@@ -163,5 +119,37 @@ button {
   .slide-fade {
     transition: all 0.5s;
   }
+}
+
+/* transitions */
+.slide-fade-down {
+  transition: all 1s;
+}
+
+.slide-fade-down-enter-active,
+.slide-fade-down-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.slide-fade-down-enter,
+.slide-fade-down-leave-to {
+  transform: translateY(-20%);
+  opacity: 0;
+}
+
+/* transitions */
+.slide-router-fade-enter {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.slide-router-fade-enter-active,
+.slide-router-fade-leave-active {
+  transition: all 0.2s ease;
+}
+
+.slide-router-fade-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
 }
 </style>

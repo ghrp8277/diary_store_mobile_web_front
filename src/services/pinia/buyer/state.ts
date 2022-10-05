@@ -12,6 +12,7 @@ const state = {
   notices: [] as Notice[],
   totalPage: 0,
   FAQ: [] as FAQ[],
+  searchCount: 0,
 };
 
 type State = typeof state;

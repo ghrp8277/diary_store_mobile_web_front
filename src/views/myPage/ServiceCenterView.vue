@@ -33,6 +33,8 @@ export default defineComponent({
 <style scoped lang="scss">
 .container-serv {
   width: 100%;
+
+  margin: auto;
 }
 
 .top-wrap {

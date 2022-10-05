@@ -26,18 +26,17 @@
 import { defineComponent, toRefs } from '@vue/composition-api';
 
 export default defineComponent({
-  name: 'slideMenu',
-  emits: ['onShowClose'],
+  name: 'MainSlideMenu',
+  emits: ['onSlideShow'],
   setup(props, { emit }) {
     function onShowClose() {
-      console.log('???');
-      emit('onShowClose', false);
+      emit('onSlideShow', false);
     }
 
     const link_list = [
       {
         name: '홈',
-        to: '/store',
+        to: '/home',
         click: (e: Event) => {
           onShowClose();
         },

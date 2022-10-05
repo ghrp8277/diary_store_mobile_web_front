@@ -3,56 +3,41 @@
     <strong class="title">인기 이모티콘</strong>
 
     <h5 class="search-result__list_leng">
-      검색결과 <em>{{ isSearch ? products.length : 0 }}</em>
+      검색결과 <em>{{ count }}</em>
     </h5>
 
-    <ol v-if="isSearch && isSuccessSearch">
-      <li class="product-info" v-for="product in products" :key="product">
+    <ol>
+      <li class="product-info" v-for="emoticon in emoticons" :key="emoticon">
         <!--테두리-->
         <div class="img-wrap">
           <!--이모티콘 썸네일-->
-          <img :src="product.title_image" alt="" />
+          <img :src="emoticon.title_image" alt="" />
         </div>
         <!--이모티콘 제목-->
         <div class="info-wrap">
-          <h4 class="product-info__name">{{ product.product_name }}</h4>
-          <span class="product-info__author">{{ product.author }}</span>
+          <h4 class="product-info__name">{{ emoticon.product_name }}</h4>
+          <span class="product-info__author">{{ emoticon.author }}</span>
         </div>
       </li>
     </ol>
-    <!-- 검색 결과가 없을때 -->
-    <div
-      v-else-if="isSearch && !isSuccessSearch"
-      class="search-result__not_found"
-    >
-      <strong>검색 결과가 없습니다</strong>
-      <h4>다른 검색어로 다시 시도해주세요.</h4>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, toRefs } from '@vue/composition-api';
+import { computed, defineComponent } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'ListEmoticon',
-  props: {
-    isSearch: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-  },
   setup(props) {
     const store = useStore();
 
-    const { emoticons } = storeToRefs(store);
+    const { emoticons, searchCount } = storeToRefs(store);
 
     return {
-      isSuccessSearch: computed(() => emoticons.value.length > 0),
-      products: computed(() => emoticons.value),
+      emoticons: computed(() => emoticons.value),
+      count: computed(() => searchCount.value),
     };
   },
 });
@@ -88,8 +73,10 @@ export default defineComponent({
   text-align: left;
   width: 100%;
   height: 100%;
+
+  max-width: 900px;
+  margin: auto;
   position: relative;
-  top: 120px;
 
   ol {
     padding-inline-start: 0;
@@ -163,12 +150,5 @@ export default defineComponent({
   font-size: 20px;
   font-weight: bold;
   margin: 20px 0;
-}
-
-.search-result__not_found {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 </style>
