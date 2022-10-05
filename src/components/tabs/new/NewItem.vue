@@ -253,6 +253,7 @@ export default defineComponent({
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  font-weight: normal;
 }
 
 // 이미지 슬라이더

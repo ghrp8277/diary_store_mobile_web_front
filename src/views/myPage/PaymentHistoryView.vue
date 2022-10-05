@@ -76,7 +76,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted } from '@vue/composition-api';
-import ModalPayDetail from '@/components/myPage/ModalPayDetail.vue';
+import ModalPayDetail from '@/components/serviceCenter/ModalPayDetail.vue';
 
 export default defineComponent({
   components: { ModalPayDetail },
@@ -99,20 +99,16 @@ export default defineComponent({
 <style scoped lang="scss">
 .container-payment {
   background: white;
-  max-width: 1100px;
+  max-width: 900px;
   margin: 0 auto;
 }
-.payment-wrap__info {
-  // padding: 0 100px;
-}
 .payment-title {
-  // height: 80px;
-  // line-height: 80px;
   text-align: left;
-  padding-bottom: 20px;
+  padding: 15px 30px;
 }
 .list-payment {
   place-items: center;
+  padding: 0 20px;
 }
 .grid-container {
   /**

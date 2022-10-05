@@ -126,6 +126,7 @@ export default defineComponent({
 }
 .title {
   font-size: 20px;
+  margin-top: 10px;
 }
 .author {
   font-size: 15px;

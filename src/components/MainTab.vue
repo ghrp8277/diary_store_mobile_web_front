@@ -94,7 +94,7 @@ export default defineComponent({
   cursor: pointer;
   text-decoration: none;
   color: #808080;
-  font-weight: bold;
+  // font-weight: bold;
 }
 
 // router link active css

@@ -76,4 +76,12 @@ export default defineComponent({
     }
   }
 }
+/** 미디어 쿼리 */
+@media all and (max-width: 600px) {
+  .top-wrap {
+    .inner-wrap {
+      padding: 0 50px;
+    }
+  }
+}
 </style>

@@ -7,21 +7,23 @@
         :key="index"
         :to="{ name: 'detail', params: { id: favorite.id } }"
       >
-        <li class="product">
-          <div class="unit-emot">
-            <img :src="favorite.image_files[0].image_url" alt="" />
-          </div>
-          <div class="area-info">
-            <div class="area-tit">
-              <span class="txt-title">{{ favorite.product_name }}</span>
-              <span class="txt-author">{{ favorite.author_name }}</span>
+        <li class="outer-wrap product">
+          <div class="inner-wrap">
+            <div class="unit-emot">
+              <img :src="favorite.image_files[0].image_url" alt="" />
             </div>
-            <button
-              class="btn-like"
-              @click.stop.prevent="likeEmoji(favorite.id)"
-            >
-              <font-awesome-icon class="heart-icon" icon="fa-heart" />
-            </button>
+            <div class="area-info">
+              <div class="area-tit">
+                <span class="txt-title">{{ favorite.product_name }}</span>
+                <span class="txt-author">{{ favorite.author_name }}</span>
+              </div>
+              <button
+                class="btn-like"
+                @click.stop.prevent="likeEmoji(favorite.id)"
+              >
+                <font-awesome-icon class="heart-icon" icon="fa-heart" />
+              </button>
+            </div>
           </div>
         </li>
       </router-link>
@@ -33,8 +35,8 @@
 import { computed, defineComponent, onMounted } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 import { storeToRefs } from 'pinia';
-import emoticon from '@/composables/emoticon';
-import favorite from '@/composables/favorite';
+// import emoticon from '@/composables/emoticon';
+// import favorite from '@/composables/favorite';
 
 export default defineComponent({
   name: 'FavoriteView',
@@ -69,21 +71,33 @@ export default defineComponent({
 }
 ul {
   list-style: none;
+
+  padding-inline-start: 0;
+  margin: 0;
 }
 li {
   float: left;
 }
 .txt-tit {
   text-align: left;
-  padding: 0 70px;
-  margin: 20px 0 40px 0;
+  padding: 10px 30px 0 10px;
+  margin: 20px 0px;
+}
+.product-list {
+  margin: 0;
 }
 .product {
   width: 150px;
   height: 200px;
   display: flex;
   flex-direction: column;
-  margin: 0 25px;
+  margin: 0 15px;
+
+  box-sizing: border-box;
+}
+.inner-wrap {
+  width: 100%;
+  height: 100%;
 }
 .unit-emot {
   width: 130px;
@@ -102,7 +116,7 @@ li {
   margin: 0;
 }
 .area-tit {
-  width: 75%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 0 5px 0 0;
@@ -134,18 +148,35 @@ li {
 }
 
 /** 미디어쿼리 */
-@media all and (max-width: 770px) {
+@media all and (max-width: 600px) {
   .btn-like {
     display: none;
   }
+  .txt-tit {
+    margin: 0;
+    padding: 30px 30px 20px 30px;
+  }
+  .product-list {
+    margin: 0 10px;
+    padding: 0;
+  }
   .product {
     width: 100%;
-    height: 80px;
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid #f5f5f5;
-    margin: 10px 0;
+    height: 100px;
+    margin: 0;
+
+    padding: 0 20px 0 15px;
+
+    .inner-wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+
+      border-bottom: 1px solid #f5f5f5;
+    }
   }
+
   .unit-emot {
     width: 70px;
     height: 70px;
@@ -157,9 +188,10 @@ li {
   }
   .area-info {
     width: 80%;
-    height: 100%;
+    height: 70%;
     text-align: left;
-    padding-top: 10px;
+    padding: 10px 0 0 10px;
+    align-items: center;
   }
   .txt-title {
     font-size: 14px;
