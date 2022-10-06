@@ -29,7 +29,7 @@
           <a :href="href" @click="navigate">신규</a>
         </li>
       </router-link>
-      <router-link
+      <!-- <router-link
         :to="{ name: 'style' }"
         custom
         v-slot="{ navigate, href, isExactActive }"
@@ -37,7 +37,7 @@
         <li :class="isExactActive && 'router-link-active'">
           <a :href="href" @click="navigate">스타일</a>
         </li>
-      </router-link>
+      </router-link> -->
     </nav>
   </div>
 </template>
@@ -76,7 +76,7 @@ export default defineComponent({
   height: 100%;
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 
   text-align: center;
 
