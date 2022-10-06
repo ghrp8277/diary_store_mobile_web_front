@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <!--2차 카테고리-->
-    <div class="emoticon-category">
-      <button @click="onClick('')">전체</button>
-      <button
-        v-for="(item, index) in categories"
-        :key="index"
-        @click="onClick(item.category)"
-      >
-        {{ item.cnv_category }}
-      </button>
-    </div>
+  <!--2차 카테고리-->
+  <div class="emoticon-category">
+    <button @click="onItemClick('')">전체</button>
+    <button
+      v-for="(item, index) in categories"
+      :key="index"
+      @click="onItemClick(item.category)"
+    >
+      {{ item.cnv_category }}
+    </button>
   </div>
 </template>
 
@@ -29,7 +27,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const store = useStore();
 
-    function onClick(category: string) {
+    function onItemClick(category: string) {
       emit('onCategory', category);
     }
 
@@ -38,7 +36,7 @@ export default defineComponent({
     });
 
     return {
-      onClick,
+      onItemClick,
       categories: computed(() => {
         const categories = store.categories;
         const arr = [];

@@ -1,5 +1,5 @@
 <template>
-  <div class="container-detail">
+  <div class="detail-container">
     <div class="emoji-wrap">
       <section class="thumbnail">
         <img :src="title_image" alt="" />
@@ -93,10 +93,11 @@ export default defineComponent({
 
 <style scoped lang="scss">
 /** 기본 */
-.container-detail {
-  margin: auto;
+.detail-container {
+  width: 100%;
+  margin: 0 auto;
 
-  height: 100%;
+  padding-top: 120px;
 }
 .emoji-wrap {
   width: 100%;
@@ -126,7 +127,6 @@ export default defineComponent({
 }
 .title {
   font-size: 20px;
-  margin-top: 10px;
 }
 .author {
   font-size: 15px;

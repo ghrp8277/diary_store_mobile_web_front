@@ -1,5 +1,5 @@
 <template>
-  <div class="container-hometab">
+  <div class="home-container">
     <home-item />
   </div>
 </template>
@@ -18,7 +18,13 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.container-hometab {
+.home-container {
+  width: 100%;
+
   max-width: 900px;
+
+  margin: 0 auto;
+
+  padding-top: 120px;
 }
 </style>

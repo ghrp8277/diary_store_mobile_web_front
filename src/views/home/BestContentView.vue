@@ -61,6 +61,9 @@ export default defineComponent({
 .rank-items {
   width: 100%;
   max-width: 900px;
+
+  padding-top: 120px;
+
   list-style: none;
   padding-inline-start: 0;
   margin: 0 auto;

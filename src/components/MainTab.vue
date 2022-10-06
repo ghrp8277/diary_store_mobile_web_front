@@ -29,7 +29,7 @@
           <a :href="href" @click="navigate">신규</a>
         </li>
       </router-link>
-      <!-- <router-link
+      <router-link
         :to="{ name: 'style' }"
         custom
         v-slot="{ navigate, href, isExactActive }"
@@ -37,7 +37,7 @@
         <li :class="isExactActive && 'router-link-active'">
           <a :href="href" @click="navigate">스타일</a>
         </li>
-      </router-link> -->
+      </router-link>
     </nav>
   </div>
 </template>
@@ -65,7 +65,7 @@ export default defineComponent({
 
   height: 60px;
 
-  width: 100%;
+  width: calc(100% - 15px);
 
   background: white;
 
@@ -76,7 +76,7 @@ export default defineComponent({
   height: 100%;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 
   text-align: center;
 
@@ -94,7 +94,7 @@ export default defineComponent({
   cursor: pointer;
   text-decoration: none;
   color: #808080;
-  // font-weight: bold;
+  font-weight: bold;
 }
 
 // router link active css

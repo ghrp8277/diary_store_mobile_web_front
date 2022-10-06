@@ -1,11 +1,7 @@
 <template>
-  <transition-group
-    class="container grid-container"
-    name="list-complete"
-    tag="div"
-  >
+  <transition-group class="grid-container" name="list-complete" tag="div">
     <div
-      class="list-complete-item"
+      class="outer-wrap list-complete-item"
       v-for="(emoticon, index) in emoticons"
       :key="index"
     >
@@ -60,13 +56,20 @@ export default defineComponent({
   margin: 20px 10px;
 }
 
+.outer-wrap {
+  margin: 0;
+  padding-inline-start: 0;
+
+  overflow: hidden;
+}
+
 .grid-container {
   /**
    * User input values.
    */
   --grid-layout-gap: 10px;
   --grid-column-count: 4;
-  --grid-item--min-width: 200px;
+  --grid-item--min-width: 220px;
 
   /**
    * Calculated values.
@@ -89,7 +92,6 @@ export default defineComponent({
 .list-complete-item {
   transition: all 1s;
   display: inline-block;
-  margin-right: 10px;
 }
 .list-complete-enter, .list-complete-leave-to
 /* .list-complete-leave-active below version 2.1.8 */ {

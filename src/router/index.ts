@@ -46,11 +46,12 @@ const routes: Array<RouteConfig> = [
           };
         },
       },
-      // {
-      //   path: 'search',
-      //   name: 'search',
-      //   component: () => import('@/views/home/SearchView.vue'),
-      // },
+      {
+        path: 'search',
+        name: 'search',
+        props: (route) => Object.assign({}, route.query, route.params),
+        component: () => import('@/views/home/SearchView.vue'),
+      },
       {
         path: 'payment',
         name: 'payment',

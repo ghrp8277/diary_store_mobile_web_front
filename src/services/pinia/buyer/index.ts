@@ -64,7 +64,7 @@ export const useStore = defineStore('buyer', {
     async FETCH_PRODUCTS_SEARCH(query: string, page: number, size: number) {
       const data = await fetchProductsSearch(query, page, size);
 
-      this.products = data.product;
+      this.search_products = data.product;
 
       this.searchCount = data.count;
     },
