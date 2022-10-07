@@ -34,17 +34,19 @@
               <div class="rank-number" :class="{ 'best-rank': index + 1 <= 3 }">
                 {{ index + 1 }}
               </div>
-              <div class="emoticon-info">
-                <div class="text-box">
-                  <div class="emoji-title">{{ emoticon.product_name }}</div>
-                  <div class="author">
+              <div class="best-emoticon-info">
+                <div class="best-text-box">
+                  <div class="best-emoji-title">
+                    {{ emoticon.product_name }}
+                  </div>
+                  <div class="best-author">
                     <span>{{ emoticon.author_name }}</span>
                     <span v-if="emoticon.isNewCreated" class="new-icon">N</span>
                   </div>
                 </div>
               </div>
-              <div class="thumbnail">
-                <div class="img-container">
+              <div class="best-thumbnail">
+                <div class="best-img-container">
                   <img :src="emoticon.title_image" />
                 </div>
               </div>
@@ -63,12 +65,12 @@
       </div>
 
       <div
-        class="emoji-thumbnail"
+        class="new-emoji-thumbnail"
         v-for="(emoticon, index) in emoticons.slice(0, 8)"
         :key="index"
       >
         <router-link
-          class="image-box"
+          class="new-image-box"
           tag="div"
           :to="{
             name: 'detail',
@@ -78,11 +80,11 @@
           }"
         >
           <img
-            class="emociton-image"
+            class="new-emociton-image"
             :src="emoticon.image_files[0].image_url"
           />
         </router-link>
-        <div class="emoticon-title">{{ emoticon.product_name }}</div>
+        <div class="new-emoticon-title">{{ emoticon.product_name }}</div>
       </div>
     </div>
   </div>
@@ -146,7 +148,9 @@ export default defineComponent({
   }
 }
 
-/** 태그 css */
+/** 
+    태그 css 
+*/
 .wrap-tag {
   font-size: 15px;
   font-weight: bold;
@@ -185,8 +189,10 @@ export default defineComponent({
   }
 }
 
-/** 신규 css */
-.emoji-thumbnail {
+/** 
+    신규 css 
+*/
+.new-emoji-thumbnail {
   width: 180px;
   height: 190px;
   background: #fff;
@@ -199,17 +205,17 @@ export default defineComponent({
   box-shadow: 0 4px 14px 0 rgb(0 0 0 / 7%);
   box-sizing: border-box;
 }
-.image-box {
+.new-image-box {
   cursor: pointer;
   width: 90%;
   margin: 10px auto;
 }
-.emociton-image {
+.new-emociton-image {
   width: 100%;
   height: 130px;
 }
 
-.emoticon-title {
+.new-emoticon-title {
   width: 170px;
   font-size: 14px;
   margin: auto;
@@ -218,7 +224,9 @@ export default defineComponent({
   overflow: hidden;
 }
 
-/** 인기 css */
+/** 
+    인기 css 
+*/
 .wrap-best {
   margin-bottom: 30px;
 }
@@ -238,7 +246,7 @@ export default defineComponent({
   position: relative;
 
   &:hover {
-    .emoji-title {
+    .best-emoji-title {
       text-decoration: underline;
 
       font-weight: bold;
@@ -257,13 +265,6 @@ export default defineComponent({
   bottom: 0;
   left: 58px;
   border-bottom: 1px solid #d3d3d3;
-}
-
-.rankNumber,
-.emoji-title {
-  font-size: 15px;
-  font-weight: 400;
-  color: black;
 }
 
 .best-rank {
@@ -305,7 +306,7 @@ export default defineComponent({
 }
 
 /* 이모티콘 썸네일 */
-.thumbnail {
+.best-thumbnail {
   margin: 5px 0px 0px 0px;
 
   img {
@@ -316,7 +317,7 @@ export default defineComponent({
     transition: all 0.3s;
   }
 }
-.img-container {
+.best-img-container {
   width: 90px;
   height: 90px;
   line-height: 85px;
@@ -324,15 +325,22 @@ export default defineComponent({
 }
 
 /* 이모티콘 정보 */
-.emoticon-info {
+.best-emoticon-info {
   display: flex;
   align-items: center;
 
   width: 100%;
 }
 
-.text-box {
+.best-text-box {
   margin: 20px;
+
+  .best-emoji-title {
+    font-size: 15px;
+    font-weight: 400;
+    color: black;
+    text-align: left;
+  }
 
   .new-icon {
     width: 15px;
@@ -348,10 +356,10 @@ export default defineComponent({
     text-align: center;
   }
 }
-.text-box > div {
+.best-text-box > div {
   padding: 3px 0;
 }
-.author {
+.best-author {
   font-size: 12px;
   color: gray;
   text-align: left;
