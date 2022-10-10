@@ -13,6 +13,7 @@ const state = {
   totalPage: 0,
   FAQ: [] as FAQ[],
   searchCount: 0,
+  search_products: [] as Product[],
 };
 
 type State = typeof state;

@@ -65,9 +65,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .container-fav {
+  width: 100%;
+
   margin: 0 auto;
   background: white;
   max-width: 900px;
+
+  padding-top: 120px;
 }
 ul {
   list-style: none;
@@ -91,13 +95,9 @@ li {
   height: 200px;
   display: flex;
   flex-direction: column;
-  margin: 0 15px;
+  padding: 0 25px;
 
   box-sizing: border-box;
-}
-.inner-wrap {
-  width: 100%;
-  height: 100%;
 }
 .unit-emot {
   width: 130px;
@@ -162,14 +162,12 @@ li {
   }
   .product {
     width: 100%;
-    height: 100px;
-    margin: 0;
+    height: auto;
 
-    padding: 0 20px 0 15px;
+    padding: 0 20px;
 
     .inner-wrap {
       width: 100%;
-      height: 100%;
       display: flex;
       flex-direction: row;
 
@@ -187,8 +185,8 @@ li {
     }
   }
   .area-info {
-    width: 80%;
-    height: 70%;
+    width: 100%;
+    height: 100%;
     text-align: left;
     padding: 10px 0 0 10px;
     align-items: center;

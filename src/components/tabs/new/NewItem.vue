@@ -1,6 +1,6 @@
 <template>
   <div
-    class="emoticon"
+    class="emoticon-wrap"
     ref="target"
     :style="{
       transform: cardTransform,
@@ -75,7 +75,7 @@ import { useStore } from '@/services/pinia/buyer';
 import emoticon from '@/composables/emoticon';
 
 export default defineComponent({
-  name: 'NewItem',
+  name: 'HomeItemContent',
   props: {
     id: {
       type: Number,
@@ -163,7 +163,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.emoticon {
+.emoticon-wrap {
   width: 210px;
   height: 210px;
   background: #fff;
@@ -178,7 +178,7 @@ export default defineComponent({
   box-sizing: border-box;
 }
 
-.emoticon:hover {
+.emoticon-wrap:hover {
   box-shadow: 0 8px 20px 0 rgb(0 0 0 / 12%);
 
   .prev,
@@ -253,7 +253,6 @@ export default defineComponent({
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  font-weight: normal;
 }
 
 // 이미지 슬라이더
@@ -382,4 +381,13 @@ export default defineComponent({
   left: 30px;
   bottom: 10px;
 }
+
+/* 미디어 쿼리 */
+// @media all and (max-width: 440px) {
+//   .emoticon-wrap {
+//     width: 100%;
+
+//     background: ;
+//   }
+// }
 </style>

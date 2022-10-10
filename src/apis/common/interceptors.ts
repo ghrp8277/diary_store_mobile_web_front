@@ -8,7 +8,8 @@ import {
 import { useMainStore } from '@/services/pinia/main';
 import { storeToRefs } from 'pinia';
 
-const DEBUG = process.env.NODE_ENV === 'development';
+// const DEBUG = process.env.NODE_ENV === 'development';
+const DEBUG = false;
 
 const store = useMainStore();
 // const { token, isLoading } = storeToRefs(store);

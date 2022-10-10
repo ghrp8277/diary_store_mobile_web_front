@@ -1,8 +1,8 @@
 <template>
   <div class="container-home">
     <div class="wrap-tag">
-      <div class="list-emoji">
-        <h2 class="tag-title"># 강아지 이모티콘</h2>
+      <div class="emoji">
+        <h2 class="tag"># 강아지 이모티콘</h2>
         <div class="img-list">
           <img src="@/assets/logo.png" alt="" />
           <img src="@/assets/logo.png" alt="" />
@@ -63,7 +63,7 @@
       </div>
 
       <div
-        class="emoji-thumbnail"
+        class="emojiThumb"
         v-for="(emoticon, index) in emoticons.slice(0, 8)"
         :key="index"
       >
@@ -152,7 +152,7 @@ export default defineComponent({
   font-weight: bold;
   margin: 30px 0;
 
-  .tag-title {
+  .tag {
     font-size: 17px;
     text-align: center;
     color: white;
@@ -163,9 +163,6 @@ export default defineComponent({
     padding: 5px 0;
 
     max-width: 200px;
-
-    position: sticky;
-    left: 10px;
   }
   .img-list {
     float: left;
@@ -174,7 +171,7 @@ export default defineComponent({
 
     justify-content: space-around;
   }
-  .list-emoji {
+  .emoji {
     overflow-x: auto;
     scroll-snap-type: none;
     margin: 0 0 25px 0;
@@ -186,7 +183,7 @@ export default defineComponent({
 }
 
 /** 신규 css */
-.emoji-thumbnail {
+.emojiThumb {
   width: 180px;
   height: 190px;
   background: #fff;
@@ -363,7 +360,7 @@ export default defineComponent({
     margin: 0 10px;
     width: calc(100% - 20px);
   }
-  .list-emoji {
+  .emoji {
     width: 100%;
   }
   img {

@@ -1,42 +1,28 @@
 <template>
-  <div class="searchHome">
-    <SearchBar />
-    <ProductsList v-if="isSearch" />
+  <div class="search-wrap">
+    <search-keyword-bar />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api';
-import SearchBar from '@/components/search/SearchBar.vue';
-import ProductsList from '@/components/search/ProductsList.vue';
-import { useStore } from '@/services/pinia/buyer';
+import { defineComponent } from '@vue/composition-api';
+import SearchKeywordBar from '@/components/search/SearchKeywordBar.vue';
 
 export default defineComponent({
   name: 'SearchView',
-  components: { SearchBar, ProductsList },
+  components: { SearchKeywordBar },
   setup() {
-    const store = useStore();
-
-    const isSearch = computed(() => {
-      const count = store.searchCount;
-
-      return count > 0;
-    });
-
-    return {
-      isSearch,
-    };
+    return {};
   },
 });
 </script>
 
 <style scoped lang="scss">
-.searchHome {
-  width: 100%;
-  height: 100%;
+.search-wrap {
+  width: calc(100% - 15px);
 
   position: fixed;
-  top: 120px;
+  margin-top: 120px;
 
   z-index: 1;
 }

@@ -66,7 +66,6 @@ export default defineComponent({
 
 ul {
   list-style: none;
-  padding: 0 40px;
 
   li {
     width: 100%;
@@ -116,11 +115,9 @@ ul {
   .content-faq {
     font-size: 15px;
   }
-}
-/** 미디어 쿼리 */
-@media all and (max-width: 600px) {
-  ul {
-    padding: 0;
+
+  /** 미디어 쿼리 */
+  @media all and (max-width: 900px) {
   }
 }
 </style>

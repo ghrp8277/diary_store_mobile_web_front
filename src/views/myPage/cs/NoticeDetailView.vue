@@ -1,5 +1,5 @@
 <template>
-  <div class="container-notice-detail">
+  <div class="container-detail">
     <div class="title-head">
       <div class="wrap-content">
         <span v-if="is_important" class="txt-tag">중요</span>
@@ -52,7 +52,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.container-notice-detail {
+.container-detail {
   background: white;
   padding: 30px 100px;
   max-width: 700px;

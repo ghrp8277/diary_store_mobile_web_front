@@ -1,12 +1,12 @@
 <template>
-  <div class="container-hometab">
+  <div class="home-container">
     <home-item />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import HomeItem from '@/components/tabs/home/HomeItem.vue';
+import HomeItem from '@/components/HomeItem.vue';
 
 export default defineComponent({
   name: 'MainTabView',
@@ -18,7 +18,13 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.container-hometab {
+.home-container {
+  width: 100%;
+
   max-width: 900px;
+
+  margin: 0 auto;
+
+  padding-top: 120px;
 }
 </style>

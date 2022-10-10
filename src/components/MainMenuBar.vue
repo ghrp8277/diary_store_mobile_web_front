@@ -1,6 +1,6 @@
 <template>
   <div
-    class="menubar-container"
+    class="menu-bar-container"
     :class="{ 'menubar-slider-active': isSlideShow }"
   >
     <!-- toggle button -->
@@ -55,7 +55,8 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.menubar-container {
+.menu-bar-container {
+  width: calc(100% - 15px);
   height: 60px;
   display: grid;
   grid-template-columns: 0.5fr 2fr 0.5fr;
@@ -63,14 +64,12 @@ export default defineComponent({
   z-index: 1100;
 
   position: fixed;
-  top: 0;
 
   background: #fff;
 
   text-align: center;
 
   align-content: center;
-  width: 100%;
 }
 
 .menubar-slider-active {

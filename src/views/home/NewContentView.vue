@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="new-container">
     <new-category @onCategory="onCategory" />
     <new-item-content :category="category" />
   </div>
@@ -31,4 +31,12 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.new-container {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto;
+  padding-top: 120px;
+}
+</style>

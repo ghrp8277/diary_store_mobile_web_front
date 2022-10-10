@@ -1,6 +1,6 @@
 <template>
-  <div class="search-container">
-    <div class="search-box">
+  <div class="search-inner">
+    <div class="search-input-wrap">
       <font-awesome-icon class="icon" icon="fa-magnifying-glass" />
 
       <input
@@ -18,9 +18,7 @@
       />
 
       <!-- 이전 검색 내역 -->
-      <!-- @mouseover="isMouseOver = true"
-        @mouseleave="isMouseOver = false" -->
-      <div
+      <!-- <div
         @mouseover="isMouseOver = true"
         @mouseleave="isMouseOver = false"
         class="keywords-wrap"
@@ -45,7 +43,7 @@
             >최근 검색어 끄기</span
           >
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -53,22 +51,17 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, watch } from '@vue/composition-api';
 import { useDebouncedRef } from '@/composables/debounced';
-import { useStore } from '@/services/pinia/buyer';
 import {
   saveSearchKeywordToCookie,
   getSearchKeywordFromCookie,
   deleteCookie,
 } from '@/services/cookies';
+import router from '@/router';
 
 export default defineComponent({
-  name: 'SearchBar',
+  name: 'SearchKeywordBar',
   emits: ['search'],
   setup(props, { emit }) {
-    const store = useStore();
-
-    let size = 20;
-    const page = ref(1);
-
     const isFocus = ref(false);
     const isMouseOver = ref(false);
 
@@ -101,15 +94,16 @@ export default defineComponent({
     watch(keyword, async (newVal) => {
       // 2글자 이상 입력될 경우 검색 데이터를 보여준다.
       if (newVal.trim().length >= 2) {
-        await store.FETCH_PRODUCTS_SEARCH(newVal, page.value, size);
+        router.push({
+          name: 'search',
+          query: {
+            q: newVal,
+          },
+        });
 
         // 데이터가 가져와졌을때 검색 키워드에 추가
-        const isCheck = store.emoticons.length > 0;
-
-        if (isCheck) saveSearchKeyword(newVal);
+        saveSearchKeyword(newVal);
       } else {
-        store.searchCount = 0;
-        store.products = [];
         isFocus.value = false;
       }
     });
@@ -159,18 +153,16 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.search-container {
+.search-inner {
   background: #f7f7f7;
 
   width: 100%;
   padding: 30px;
   box-sizing: border-box;
   overflow: hidden;
-
-  z-index: 1;
 }
 
-.search-box {
+.search-input-wrap {
   width: 100%;
   height: 100%;
   max-width: 900px;

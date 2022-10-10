@@ -32,9 +32,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .container-serv {
-  width: 100%;
-
-  margin: auto;
+  padding-top: 120px;
 }
 
 .top-wrap {
@@ -73,14 +71,6 @@ export default defineComponent({
       line-height: 29px;
       cursor: pointer;
       text-decoration: none;
-    }
-  }
-}
-/** 미디어 쿼리 */
-@media all and (max-width: 600px) {
-  .top-wrap {
-    .inner-wrap {
-      padding: 0 50px;
     }
   }
 }

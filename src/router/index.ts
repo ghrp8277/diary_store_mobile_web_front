@@ -46,11 +46,12 @@ const routes: Array<RouteConfig> = [
           };
         },
       },
-      // {
-      //   path: 'search',
-      //   name: 'search',
-      //   component: () => import('@/views/home/SearchView.vue'),
-      // },
+      {
+        path: 'search',
+        name: 'search',
+        props: (route) => Object.assign({}, route.query, route.params),
+        component: () => import('@/views/home/SearchView.vue'),
+      },
       {
         path: 'payment',
         name: 'payment',
@@ -70,19 +71,17 @@ const routes: Array<RouteConfig> = [
           {
             path: 'list',
             name: 'notices',
-            component: () =>
-              import('@/views/myPage/serviceCenter/NoticeView.vue'),
+            component: () => import('@/views/myPage/cs/NoticeView.vue'),
           },
           {
             path: 'faq',
             name: 'faq',
-            component: () => import('@/views/myPage/serviceCenter/FaqView.vue'),
+            component: () => import('@/views/myPage/cs/FaqView.vue'),
           },
           {
             path: ':id',
             name: 'notice',
-            component: () =>
-              import('@/views/myPage/serviceCenter/NoticeDetailView.vue'),
+            component: () => import('@/views/myPage/cs/NoticeDetailView.vue'),
             props: (route) => {
               const id = Number.parseInt(route.params.id);
 

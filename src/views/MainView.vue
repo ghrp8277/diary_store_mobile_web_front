@@ -22,7 +22,7 @@
     </Transition>
 
     <transition name="slide-router-fade" mode="out-in">
-      <router-view class="main-view" :class="{ 'toggle-show': isSlideShow }" />
+      <router-view :class="{ 'toggle-show': isSlideShow }" />
     </transition>
 
     <div :class="{ 'layer-dimmed': isSlideShow }"></div>
@@ -66,13 +66,28 @@ export default defineComponent({
   width: 100%;
   height: 100%;
 
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.main-view {
-  padding-top: 120px;
+/* width */
+.home::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
 
-  margin: auto;
+/* Track */
+.home::-webkit-scrollbar-track {
+  background: #f1f1f1;
+
+  width: 15px;
+}
+
+/* Handle */
+.home::-webkit-scrollbar-thumb {
+  background-color: rgba(50, 50, 50, 0.5);
+  border: 3px solid transparent;
+  border-radius: 9px;
+  background-clip: content-box;
 }
 
 .layer-dimmed {
