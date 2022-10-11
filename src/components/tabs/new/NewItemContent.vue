@@ -67,7 +67,7 @@ export default defineComponent({
   /**
    * User input values.
    */
-  --grid-layout-gap: 10px;
+  --grid-layout-gap: 15px;
   --grid-column-count: 4;
   --grid-item--min-width: 220px;
 

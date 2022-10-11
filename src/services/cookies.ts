@@ -2,8 +2,8 @@ export function saveSearchKeywordToCookie(keyword: string) {
   document.cookie = `searchKeyword=${keyword}; path=/;`;
 }
 
-export function saveRefreshTokenToCookie(token: string) {
-  document.cookie = `til_refresh=${token}`;
+export function saveIsSaveKeywordToCookie(isSaveKeyword: boolean) {
+  document.cookie = `isSaveKeyword=${isSaveKeyword}; path=/;`;
 }
 
 export function saveUserToCookie(username: string) {
@@ -17,9 +17,9 @@ export function getSearchKeywordFromCookie() {
   );
 }
 
-export function getRefreshFromCookie() {
+export function getIsSaveKeywordFromCookie() {
   return document.cookie.replace(
-    /(?:(?:^|.*;\s*)til_refresh\s*=([^;]*).*$)|^.*$/,
+    /(?:(?:^|.*;\s*)isSaveKeyword\s*=([^;]*).*$)|^.*$/,
     '$1'
   );
 }

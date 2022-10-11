@@ -6,12 +6,7 @@
     </Transition>
 
     <!-- main menu bar -->
-    <main-menu-bar
-      @onSlideShow="onSlideShow"
-      @onSearchShow="onSearchShow"
-      :isSlideShow="isSlideShow"
-      :isSearchShow="isSearchShow"
-    />
+    <main-menu-bar @onSlideShow="onSlideShow" :isSlideShow="isSlideShow" />
 
     <!-- main tab -->
     <main-tab />
@@ -35,27 +30,27 @@ import SlideMenu from '@/components/MainSlideMenu.vue';
 import MainTab from '@/components/MainTab.vue';
 import MainSearch from '@/components/MainSearch.vue';
 import MainMenuBar from '@/components/MainMenuBar.vue';
+import { useMainStore } from '@/services/pinia/main';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'MainView',
   components: { SlideMenu, MainMenuBar, MainSearch, MainTab },
   setup() {
+    const store = useMainStore();
+
+    const { isSearchShow } = storeToRefs(store);
+
     const isSlideShow = ref(false);
-    const isSearchShow = ref(false);
 
     function onSlideShow(is: boolean) {
       isSlideShow.value = is;
-    }
-
-    function onSearchShow(is: boolean) {
-      isSearchShow.value = is;
     }
 
     return {
       isSlideShow,
       onSlideShow,
       isSearchShow,
-      onSearchShow,
     };
   },
 });

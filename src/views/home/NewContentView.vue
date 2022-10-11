@@ -18,12 +18,15 @@ export default defineComponent({
     const store = useStore();
     const category = ref('');
 
+    let page = 1;
+    let size = 20;
+
     function onCategory(item: string) {
       category.value = item;
     }
 
     onMounted(async () => {
-      await store.FETCH_PRODUCTS_INFO('test');
+      await store.FETCH_PRODUCTS_NEW('test', page, size);
     });
 
     return { onCategory, category };

@@ -2,19 +2,24 @@
   <div class="container-faq">
     <ul class="list-faq">
       <li
-        v-for="(item, index) in FAQ"
+        v-for="(item, index) in faq"
         :key="index"
-        @click="toggleShow"
-        :class="{ 'toggle-show': isShow }"
+        :class="{ 'toggle-show': visible_list[index] }"
       >
-        <div class="question-faq">
+        <div class="item-wrap">
           <span class="txt-tit">
             {{ item.title }}
           </span>
-          <span class="icon-down" :class="{ 'icon-up': isShow }">
+
+          <label
+            class="icon-down"
+            :class="{ icon__up__down: visible_list[index] }"
+          >
             <font-awesome-icon icon="fa-chevron-down" />
-          </span>
-          <div v-if="isShow" class="content-faq">
+            <input type="checkbox" v-model="visible_list[index]"
+          /></label>
+
+          <div v-if="visible_list[index]" class="content-faq">
             <span>
               {{ item.content }}
             </span>
@@ -34,28 +39,55 @@ export default defineComponent({
   name: 'FAQDetail',
   setup() {
     const store = useStore();
-    const { FAQ } = storeToRefs(store);
+    const { faq } = storeToRefs(store);
 
-    const isShow = ref(false);
+    const visible_list = ref<boolean[]>([]);
 
-    const toggleShow = () => {
-      isShow.value = !isShow.value;
-    };
+    function onVisible(index: number) {
+      const is_visible = visible_list.value[index];
+
+      visible_list.value[index] = !is_visible;
+
+      console.log(visible_list.value[index]);
+    }
 
     onMounted(async () => {
       await store.FETCH_FAQ();
+
+      for (let i = 0; i < faq.value.length; i++) {
+        visible_list.value.push(false);
+      }
     });
 
     return {
-      isShow,
-      toggleShow,
-      FAQ: FAQ,
+      faq,
+      visible_list,
+      onVisible,
     };
   },
 });
 </script>
 
 <style scoped lang="scss">
+.icon-down {
+  float: right;
+
+  transition: all 0.2s;
+
+  cursor: pointer;
+}
+
+input[type='checkbox'] {
+  display: none;
+  cursor: pointer;
+
+  opacity: 0;
+
+  filter: alpha(opacity=0);
+
+  background: transparent;
+}
+
 .container-faq {
   background: white;
   padding: 30px 50px;
@@ -76,17 +108,8 @@ ul {
     text-align: left;
   }
 }
-.question-faq {
+.item-wrap {
   padding: 22px 35px;
-  .icon-down {
-    float: right;
-
-    transition: all 0.2s;
-  }
-
-  &:hover {
-    cursor: pointer;
-  }
 
   .txt-tit:hover {
     font-weight: bold;
@@ -94,7 +117,7 @@ ul {
   }
 }
 
-.icon-up {
+.icon__up__down {
   transform: rotate(180deg);
 }
 

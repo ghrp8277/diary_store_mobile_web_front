@@ -92,6 +92,9 @@ export default defineComponent({
     const { elementX, elementY, isOutside, elementHeight, elementWidth } =
       useMouseInElement(target);
 
+    let page = 1;
+    let size = 20;
+
     const cardTransform = computed(() => {
       const MAX_ROTATION = 6;
 
@@ -111,7 +114,13 @@ export default defineComponent({
     });
 
     async function likeEmoji(e: Event) {
-      await store.FETCH_PRODUCT_BY_IS_INFO('test', id.value, !is_like.value);
+      await store.FETCH_PRODUCT_BY_IS_LIKE(
+        'test',
+        id.value,
+        !is_like.value,
+        page,
+        size
+      );
     }
 
     const active = ref(1);

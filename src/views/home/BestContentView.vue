@@ -35,19 +35,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, toRefs } from '@vue/composition-api';
+import { defineComponent, onMounted } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 import { storeToRefs } from 'pinia';
 
 export default defineComponent({
-  components: {},
+  name: 'BestContentView',
   setup() {
     const store = useStore();
+
+    let page = 1;
+    let size = 20;
 
     const { emoticon_ranks } = storeToRefs(store);
 
     onMounted(async () => {
-      await store.FETCH_PRODUCT_BY_RANK();
+      await store.FETCH_PRODUCTS_RANK(page, size);
     });
 
     return {

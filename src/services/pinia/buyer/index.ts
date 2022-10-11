@@ -2,11 +2,11 @@ import { defineStore } from 'pinia';
 import { state } from './state';
 import { getters } from './getters';
 import {
-  fetchCategories,
+  fetchNewCategories,
   fetchFavoritesInfo,
   fetchProductByIsLike,
-  fetchProductsInfo,
-  fetchProductRank,
+  fetchNewProducts,
+  fetchRankProducts,
   fetchNotices,
   fetchStoreNoticeInfo,
   fecthStoreFAQ,
@@ -16,17 +16,25 @@ import {
 export const useStore = defineStore('buyer', {
   state: () => state,
   actions: {
-    async FETCH_PRODUCTS_INFO(username: string) {
-      const data = await fetchProductsInfo(username);
+    async FETCH_PRODUCTS_NEW(username: string, page: number, size: number) {
+      const data = await fetchNewProducts(username, page, size);
 
       this.products = data;
     },
-    async FETCH_PRODUCT_BY_IS_INFO(
+    async FETCH_PRODUCT_BY_IS_LIKE(
       username: string,
       id: number,
-      is_like: boolean
+      is_like: boolean,
+      page: number,
+      size: number
     ) {
-      const data = await fetchProductByIsLike(username, id, is_like);
+      const data = await fetchProductByIsLike(
+        username,
+        id,
+        is_like,
+        page,
+        size
+      );
 
       this.products = data;
     },
@@ -36,12 +44,12 @@ export const useStore = defineStore('buyer', {
       this.favorites = data;
     },
     async FETCH_CATEGORY_INFO() {
-      const data = await fetchCategories();
+      const data = await fetchNewCategories();
 
       this.categories = data;
     },
-    async FETCH_PRODUCT_BY_RANK() {
-      const data = await fetchProductRank();
+    async FETCH_PRODUCTS_RANK(page: number, size: number) {
+      const data = await fetchRankProducts(page, size);
 
       this.ranks = data;
     },
@@ -59,7 +67,7 @@ export const useStore = defineStore('buyer', {
     async FETCH_FAQ() {
       const data = await fecthStoreFAQ();
 
-      this.FAQ = data;
+      this.faq = data;
     },
     async FETCH_PRODUCTS_SEARCH(query: string, page: number, size: number) {
       const data = await fetchProductsSearch(query, page, size);
@@ -72,7 +80,7 @@ export const useStore = defineStore('buyer', {
   getters,
   persist: {
     storage: sessionStorage,
-    key: 'products',
-    paths: ['products'],
+    key: 'buyer',
+    paths: ['products', 'notices'],
   },
 });

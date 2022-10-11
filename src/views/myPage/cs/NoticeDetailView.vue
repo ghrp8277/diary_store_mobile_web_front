@@ -5,7 +5,6 @@
         <span v-if="is_important" class="txt-tag">중요</span>
         <strong>{{ title }}</strong>
       </div>
-      <!-- <span class="txt-date">{{ createAtToMoment }}</span> -->
     </div>
     <div class="content" v-html="html"></div>
 
@@ -125,5 +124,32 @@ export default defineComponent({
   color: #2d2e32;
 
   font-size: 13px;
+}
+
+/** 미디어 쿼리 */
+@media all and (max-width: 600px) {
+  .container-detail {
+    padding: 0;
+  }
+
+  .paging-recent {
+    box-sizing: border-box;
+
+    padding: 10px;
+
+    width: 100%;
+
+    border-bottom: 1px solid #e6e6e6;
+
+    span {
+      &:hover {
+        color: gray;
+      }
+    }
+  }
+
+  .content {
+    margin: 0;
+  }
 }
 </style>

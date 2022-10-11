@@ -4,12 +4,11 @@
       <div class="inner-wrap">
         <h2 class="title">고객센터</h2>
         <ul>
-          <router-link to="/service/list">
-            <li>공지사항</li>
-          </router-link>
-          <router-link to="/service/faq">
-            <li>자주 묻는 질문</li>
-          </router-link>
+          <li v-for="(item, index) in list" :key="index">
+            <router-link :to="item.to">
+              <span>{{ item.name }}</span>
+            </router-link>
+          </li>
         </ul>
       </div>
     </div>
@@ -21,10 +20,22 @@
 import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
-  components: {},
-  data() {
+  name: 'ServiceCenterView',
+
+  setup() {
+    const list = [
+      {
+        to: '/service/list',
+        name: '공지사항',
+      },
+      {
+        to: '/service/faq',
+        name: '자주 묻는 질문',
+      },
+    ];
+
     return {
-      comp: 'FaqView',
+      list,
     };
   },
 });
@@ -41,36 +52,57 @@ export default defineComponent({
   padding: 30px 0;
 
   .inner-wrap {
+    max-width: 700px;
     margin: 0 auto;
-    padding: 0 100px;
-    width: 700px;
 
-    text-align: left;
+    box-sizing: border-box;
 
-    .title {
-      margin-top: 10px;
-    }
+    // .title {
+    //   width
+    // }
 
     ul {
-      padding: 0;
-      margin: 10px 0 0 0;
+      box-sizing: border-box;
+      padding: 0 10px;
+      margin: 0;
+
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+
+      overflow-x: auto;
+      overflow-y: hidden;
+
+      &::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera*/
+      }
     }
 
     li {
       display: inline-block;
-      height: 30px;
-      margin: 0 10px 0 0;
-      padding: 0 15px;
+      white-space: nowrap;
+
+      margin-right: 10px;
+      padding: 0 10px;
 
       border: 1px solid gray;
       border-radius: 50px;
-      color: black;
-      background: 0;
 
-      font-size: 14px;
-      line-height: 29px;
+      background: 0;
       cursor: pointer;
-      text-decoration: none;
+
+      a {
+        text-decoration: none;
+
+        color: black;
+
+        font-size: 13px;
+        line-height: 29px;
+      }
+
+      &:hover {
+        background: rgba(gray, 0.1);
+      }
     }
   }
 }

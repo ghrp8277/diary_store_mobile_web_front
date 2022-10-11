@@ -46,12 +46,15 @@ export default defineComponent({
 
     const { emoticon_favorites } = storeToRefs(store);
 
+    let page = 1;
+    let size = 20;
+
     onMounted(async () => {
       await store.FETCH_FAVORITES_INFO('test');
     });
 
     async function likeEmoji(id: number) {
-      await store.FETCH_PRODUCT_BY_IS_INFO('test', id, false);
+      await store.FETCH_PRODUCT_BY_IS_LIKE('test', id, false, page, size);
       await store.FETCH_FAVORITES_INFO('test');
     }
 

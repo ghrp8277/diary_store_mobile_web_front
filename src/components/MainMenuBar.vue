@@ -7,9 +7,15 @@
     <button @click="onSlideShow">
       <font-awesome-icon icon="fa-bars" style="width: 50%; height: auto" />
     </button>
-    <router-link :to="{ name: 'home' }" class="title" tag="span">
+    <router-link
+      :to="{ name: 'home' }"
+      class="title"
+      tag="span"
+      @click.native="onRouterClick"
+    >
       <span>이모티콘 스토어</span>
     </router-link>
+
     <button class="btn-search" @click="onSearchShow">
       <font-awesome-icon class="icon" icon="fa-magnifying-glass" />
     </button>
@@ -18,6 +24,8 @@
 
 <script lang="ts">
 import { defineComponent, toRefs } from '@vue/composition-api';
+import { useMainStore } from '@/services/pinia/main';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'MainMenu',
@@ -27,15 +35,14 @@ export default defineComponent({
       required: true,
       default: false,
     },
-    isSearchShow: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
   },
-  emits: ['onSlideShow', 'onSearchShow'],
+  emits: ['onSlideShow'],
   setup(props, { emit }) {
-    const { isSlideShow, isSearchShow } = toRefs(props);
+    const store = useMainStore();
+
+    const { isSearchShow } = storeToRefs(store);
+
+    const { isSlideShow } = toRefs(props);
 
     // 메뉴버튼 클릭 함수
     function onSlideShow() {
@@ -43,12 +50,17 @@ export default defineComponent({
     }
 
     function onSearchShow() {
-      emit('onSearchShow', !isSearchShow.value);
+      isSearchShow.value = !isSearchShow.value;
+    }
+
+    function onRouterClick() {
+      isSearchShow.value = false;
     }
 
     return {
       onSlideShow,
       onSearchShow,
+      onRouterClick,
     };
   },
 });

@@ -151,7 +151,9 @@ const getters = {
       category: string;
       author: string;
       price: number;
+      discount: number;
       count: number;
+      isNewCreated: boolean;
     }[];
 
     const products = state.search_products;
@@ -180,7 +182,13 @@ const getters = {
 
       const count = product.count;
 
-      const obj = {
+      const now = moment(new Date());
+      const created_at = emoji_confirm.createdAt;
+      const duration = moment.duration(now.diff(created_at));
+
+      const isNewCreated = duration.asDays() <= 7;
+
+      arr.push({
         id,
         is_like,
         product_name,
@@ -191,9 +199,8 @@ const getters = {
         price,
         discount,
         count,
-      };
-
-      arr.push(obj);
+        isNewCreated,
+      });
     }
 
     return arr;

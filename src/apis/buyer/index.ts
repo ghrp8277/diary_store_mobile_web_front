@@ -1,9 +1,44 @@
 import { instance } from '@/apis';
 import { Product } from '@/types/product';
 
-// 이모티콘 정보를 가져온다.
-export async function fetchProductsInfo(username: string): Promise<Product[]> {
-  const { data } = await instance.buyer.get(`${username}/products`);
+// (신규탭) 이모티콘 정보를 가져온다.
+export async function fetchNewProducts(
+  username: string,
+  page: number,
+  size: number
+): Promise<Product[]> {
+  const { data } = await instance.buyer.get(`/new/${username}`, {
+    params: {
+      page,
+      size,
+    },
+  });
+
+  return data;
+}
+
+// (신규탭) 카테고리 정보를 가져온다.
+export async function fetchNewCategories() {
+  const { data } = await instance.buyer.get('new/products/category');
+
+  return data;
+}
+
+// (인기탭) 이모티콘 정보를 가져온다.
+export async function fetchRankProducts(page: number, size: number) {
+  const { data } = await instance.buyer.get(`rank`, {
+    params: {
+      page,
+      size,
+    },
+  });
+
+  return data;
+}
+
+// (스타일탭) 이모티콘 정보를 가져온다.
+export async function fetchStyleProducts() {
+  const { data } = await instance.buyer.get(`style`);
 
   return data;
 }
@@ -12,11 +47,15 @@ export async function fetchProductsInfo(username: string): Promise<Product[]> {
 export async function fetchProductByIsLike(
   username: string,
   id: number,
-  is_like: boolean
+  is_like: boolean,
+  page: number,
+  size: number
 ): Promise<Product[]> {
-  const { data } = await instance.buyer.patch(`${username}/products/${id}`, {
+  const { data } = await instance.buyer.put(`new/${username}/products/${id}`, {
     params: {
       is_like,
+      page,
+      size,
     },
   });
 
@@ -26,20 +65,6 @@ export async function fetchProductByIsLike(
 // 즐겨찾기 이모티콘 정보를 가져온다.
 export async function fetchFavoritesInfo(username: string) {
   const { data } = await instance.buyer.get(`${username}/products/favorite`);
-
-  return data;
-}
-
-// 카테고리를 가져온다.
-export async function fetchCategories() {
-  const { data } = await instance.buyer.get(`products/category`);
-
-  return data;
-}
-
-// 인기순 이모티콘 정보를 가져온다.
-export async function fetchProductRank() {
-  const { data } = await instance.buyer.get(`products/rank`);
 
   return data;
 }

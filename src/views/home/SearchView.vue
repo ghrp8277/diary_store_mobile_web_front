@@ -1,35 +1,29 @@
 <template>
-  <div class="search-result__list">
-    <strong class="title">인기 이모티콘</strong>
-
+  <div
+    class="search-result__list"
+    :class="{ 'search-keyboard__hide': !isSearchShow }"
+  >
     <h5 class="search-result__list_leng">
       검색결과 <em>{{ count }}</em>
     </h5>
 
-    <ol>
-      <li
-        class="product-info"
-        v-for="(emoticon, index) in emoticons"
-        :key="index"
-      >
-        <!--테두리-->
-        <div class="img-wrap">
-          <!--이모티콘 썸네일-->
-          <img :src="emoticon.title_image" alt="" />
-        </div>
-        <!--이모티콘 제목-->
-        <div class="info-wrap">
-          <h4 class="product-info__name">{{ emoticon.product_name }}</h4>
-          <span class="product-info__author">{{ emoticon.author }}</span>
-        </div>
-      </li>
-    </ol>
+    <div v-if="dynamicComponent">
+      <component :is="dynamicComponent" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from '@vue/composition-api';
+import {
+  computed,
+  defineComponent,
+  ref,
+  watch,
+  defineAsyncComponent,
+  onMounted,
+} from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
+import { useMainStore } from '@/services/pinia/main';
 import { storeToRefs } from 'pinia';
 
 export default defineComponent({
@@ -42,6 +36,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const mainStore = useMainStore();
     const store = useStore();
 
     const { search_emoticons, searchCount } = storeToRefs(store);
@@ -58,9 +53,25 @@ export default defineComponent({
       }
     );
 
+    const dynamicComponent = computed(() => {
+      let componentName =
+        search_emoticons.value.length > 0 ? 'Content' : 'NotContent';
+
+      return defineAsyncComponent({
+        loader: () => import(`@/components/search/${componentName}.vue`),
+        timeout: 3000,
+      });
+    });
+
+    onMounted(async () => {
+      await store.FETCH_PRODUCTS_SEARCH(keyword.value, page.value, size);
+    });
+
     return {
+      dynamicComponent,
       emoticons: computed(() => search_emoticons.value),
       count: computed(() => searchCount.value),
+      isSearchShow: computed(() => mainStore.isSearchShow),
     };
   },
 });
@@ -95,85 +106,26 @@ export default defineComponent({
 .search-result__list {
   text-align: left;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 200px);
 
   max-width: 900px;
-  margin: auto;
+  margin: 0 auto;
   position: relative;
 
-  // padding: 240px 0 0 30px;
+  padding-top: 200px;
 
-  ol {
-    padding-inline-start: 0;
+  transition: all 0.5s;
 
-    list-style: none;
-    clear: both;
-
-    .product-info {
-      margin: 2em 0;
-      display: block;
-      position: relative;
-      counter-increment: inst;
-      padding: 20px;
-
-      &::before {
-        content: counter(inst);
-        background: rgba(255, 150, 0, 0.35);
-        color: #fff;
-
-        font-size: 1em;
-        font-weight: 700;
-        font-style: italic;
-        text-shadow: 1px 1px rgba(255, 150, 0, 0.5);
-
-        border-radius: 0 0.675em 0.675em 0;
-        font-size: 1.5em;
-        text-align: center;
-
-        padding-top: 0;
-        padding-left: 2.25%;
-        left: -5%;
-        top: -0.65em;
-        height: 1.35em;
-        width: 1.35em;
-        position: absolute;
-
-        transition: all 0.2s ease-in-out;
-
-        z-index: -1;
-      }
-
-      .img-wrap {
-        width: 100px;
-        height: 100px;
-
-        img {
-          width: 100%;
-          height: 100%;
-        }
-      }
-
-      .info-wrap {
-        .product-info__name {
-          font-size: 17px;
-          font-weight: bold;
-          color: black;
-
-          margin: 5px 0;
-        }
-
-        .product-info__author {
-          font-size: 13px;
-          color: gray;
-        }
-      }
-    }
-  }
+  overflow: hidden;
 }
 
 .title {
   font-size: 20px;
   font-weight: bold;
   margin: 20px 0;
+}
+
+.search-keyboard__hide {
+  padding-top: 120px;
 }
 </style>

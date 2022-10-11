@@ -78,10 +78,14 @@ export default defineComponent({
   text-align: left;
 
   td {
+    box-sizing: border-box;
     border-bottom: 1px solid lightgray;
-    padding: 10px;
+    padding: 15px;
 
     font-size: 14px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .txt-title {

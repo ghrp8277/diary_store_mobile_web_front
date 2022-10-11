@@ -65,8 +65,17 @@ export default defineComponent({
       image_files,
     } = emoticon(props.id);
 
+    let page = 1;
+    let size = 20;
+
     async function likeEmoji() {
-      await store.FETCH_PRODUCT_BY_IS_INFO('test', id.value, !is_like.value);
+      await store.FETCH_PRODUCT_BY_IS_LIKE(
+        'test',
+        id.value,
+        !is_like.value,
+        page,
+        size
+      );
     }
 
     async function onClickLiked(e: InputEvent) {
@@ -95,9 +104,11 @@ export default defineComponent({
 /** 기본 */
 .detail-container {
   width: 100%;
+  height: calc(100% - 120px);
   margin: 0 auto;
 
   padding-top: 120px;
+  overflow: hidden;
 }
 .emoji-wrap {
   width: 100%;
@@ -213,9 +224,9 @@ export default defineComponent({
 
 .wrap-box {
   width: 100%;
-  height: calc(100% - 350px);
-  position: absolute;
-  left: 0;
+  height: 100%;
+  // position: absolute;
+  // left: 0;
 
   background: #fafafa;
 }

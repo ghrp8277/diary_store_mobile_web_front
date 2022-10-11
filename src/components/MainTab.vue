@@ -3,39 +3,14 @@
   <div class="nav-wrap">
     <nav class="link-nav">
       <router-link
-        :to="{ name: 'home' }"
+        v-for="(item, index) in list"
+        :key="index"
+        :to="{ name: item.name }"
         custom
         v-slot="{ navigate, href, isExactActive }"
       >
-        <li :class="isExactActive && 'router-link-active'">
-          <a :href="href" @click="navigate">홈</a>
-        </li>
-      </router-link>
-      <router-link
-        :to="{ name: 'best' }"
-        custom
-        v-slot="{ navigate, href, isExactActive }"
-      >
-        <li :class="isExactActive && 'router-link-active'">
-          <a :href="href" @click="navigate">인기</a>
-        </li>
-      </router-link>
-      <router-link
-        :to="{ name: 'new' }"
-        custom
-        v-slot="{ navigate, href, isExactActive }"
-      >
-        <li :class="isExactActive && 'router-link-active'">
-          <a :href="href" @click="navigate">신규</a>
-        </li>
-      </router-link>
-      <router-link
-        :to="{ name: 'style' }"
-        custom
-        v-slot="{ navigate, href, isExactActive }"
-      >
-        <li :class="isExactActive && 'router-link-active'">
-          <a :href="href" @click="navigate">스타일</a>
+        <li :class="isExactActive && 'router-link-active'" @click="item.click">
+          <a :href="href" @click="navigate">{{ item.title }}</a>
         </li>
       </router-link>
     </nav>
@@ -44,11 +19,56 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import { useMainStore } from '@/services/pinia/main';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'MainTab',
   setup() {
-    return {};
+    const store = useMainStore();
+
+    const { isSearchShow } = storeToRefs(store);
+
+    function onClick(e: Event) {
+      const target = e.target as HTMLElement;
+
+      const childs = target.childNodes;
+
+      for (let child of childs) {
+        if (child.nodeName == '#text') {
+          if (isSearchShow.value) {
+            isSearchShow.value = false;
+          }
+        }
+      }
+    }
+
+    const list = [
+      {
+        name: 'home',
+        title: '홈',
+        click: (e: Event) => onClick(e),
+      },
+      {
+        name: 'best',
+        title: '인기',
+        click: (e: Event) => onClick(e),
+      },
+      {
+        name: 'new',
+        title: '신규',
+        click: (e: Event) => onClick(e),
+      },
+      {
+        name: 'style',
+        title: '스타일',
+        click: (e: Event) => onClick(e),
+      },
+    ];
+
+    return {
+      list,
+    };
   },
 });
 </script>

@@ -11,12 +11,14 @@ export const useMainStore = defineStore('main', () => {
   // const refreshToken = ref(getRefreshFromCookie() || '');
 
   const isLoading = ref(false);
+  const isSearchShow = ref(false);
 
   return {
     // username,
     // token,
     // refreshToken,
     isLoading,
+    isSearchShow,
     // isLogin: computed(() => username.value.length != 0),
   };
 });

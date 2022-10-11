@@ -101,8 +101,8 @@ export default defineComponent({
     const { emoticon_ranks } = storeToRefs(store);
 
     onMounted(async () => {
-      await store.FETCH_PRODUCT_BY_RANK();
-      await store.FETCH_PRODUCTS_INFO('test');
+      // await store.FETCH_PRODUCT_BY_RANK();
+      // await store.FETCH_PRODUCTS_INFO('test');
     });
 
     return {

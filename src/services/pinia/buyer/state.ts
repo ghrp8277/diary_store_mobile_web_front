@@ -11,7 +11,7 @@ const state = {
   ranks: [] as Product[],
   notices: [] as Notice[],
   totalPage: 0,
-  FAQ: [] as FAQ[],
+  faq: [] as FAQ[],
   searchCount: 0,
   search_products: [] as Product[],
 };

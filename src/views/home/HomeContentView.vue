@@ -1,16 +1,16 @@
 <template>
   <div class="home-container">
-    <home-item />
+    <home-content />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import HomeItem from '@/components/HomeItem.vue';
+import HomeContent from '@/components/tabs/home/HomeContent.vue';
 
 export default defineComponent({
   name: 'MainTabView',
-  components: { HomeItem },
+  components: { HomeContent },
   setup() {
     return {};
   },

@@ -13,12 +13,15 @@ export function debounce(fn: any, delay = 0, immediate = false) {
   };
 }
 
+export const initialValue = ref('');
+
 export function useDebouncedRef(
-  initialValue: string,
+  // initialValue: string,
   delay: number,
   immediate?: any
 ) {
-  const state = ref(initialValue);
+  const state = initialValue;
+  // const state = ref(initialValue);
   const debouncedRef = customRef((track, trigger) => ({
     get() {
       track();

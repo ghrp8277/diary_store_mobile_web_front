@@ -17,15 +17,21 @@
         type="text"
       />
 
+      <!-- 검색 키워드 초기화 버튼 -->
+      <div class="keyword-wrap__clear" @click="onKeywordClear">
+        <span>X</span>
+      </div>
+
       <!-- 이전 검색 내역 -->
-      <!-- <div
+      <div
         @mouseover="isMouseOver = true"
         @mouseleave="isMouseOver = false"
         class="keywords-wrap"
         :class="[isFocus ? 'keywords-wrap__show' : 'keywords-wrap__not_show']"
       >
         <strong class="keywords-title">최근 검색어</strong>
-        <ul>
+
+        <ul v-if="keywordSearch.length > 0">
           <li
             v-for="keyword in keywordSearch"
             :key="keyword"
@@ -39,40 +45,66 @@
           <span class="keywords-delete" @click="onDeleteKeywords"
             >전체 삭제</span
           >
-          <span class="keywords-save__auto" @click="isSaveKeywords"
-            >최근 검색어 끄기</span
-          >
+          <span class="keywords-save__auto" @click="onSaveKeywords">{{
+            saveKeywordMatched
+          }}</span>
         </div>
-      </div> -->
+      </div>
+
+      <!-- 검색 바 닫기 버튼 -->
+      <div class="search-wrap__close" @click="onSearchShow">
+        <button class="btn-close">
+          <span>▲</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from '@vue/composition-api';
-import { useDebouncedRef } from '@/composables/debounced';
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  ref,
+  watch,
+} from '@vue/composition-api';
+import { useDebouncedRef, initialValue } from '@/composables/debounced';
 import {
   saveSearchKeywordToCookie,
+  saveIsSaveKeywordToCookie,
   getSearchKeywordFromCookie,
+  getIsSaveKeywordFromCookie,
   deleteCookie,
 } from '@/services/cookies';
 import router from '@/router';
+import { useMainStore } from '@/services/pinia/main';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'SearchKeywordBar',
   emits: ['search'],
   setup(props, { emit }) {
+    const store = useMainStore();
+
+    const { isSearchShow } = storeToRefs(store);
+
     const isFocus = ref(false);
     const isMouseOver = ref(false);
 
-    const isSaveKeywords = ref(true);
+    const isSaveKeywords = ref(false);
 
     const keywordSearch = ref<string[]>([]);
+
+    const saveKeywordMatched = computed(() => {
+      if (isSaveKeywords.value) return '최근 검색어 끄기';
+      else return '최근 검색어 켜기';
+    });
 
     // 이전 검색 키워드 쿠키에 저장
     // searchKeywordType {"초밥":0}|{"메론소다":0}|{"환타 메론소다":0}|{"커피":0}|{"커피머신":0}|{"컴퓨터 의자":0}|{"매직 트랙패드2":0}|{"매직 키보드 1세대":0}|{"매직 키보드":0}
     function saveSearchKeyword(keyword: string) {
-      if (isSaveKeywords) {
+      if (isSaveKeywords.value) {
         keywordSearch.value.push(keyword);
 
         // 중복 제거
@@ -89,7 +121,7 @@ export default defineComponent({
     }
 
     // 디바운스 검색
-    const keyword = useDebouncedRef('', 500);
+    const keyword = useDebouncedRef(500);
 
     watch(keyword, async (newVal) => {
       // 2글자 이상 입력될 경우 검색 데이터를 보여준다.
@@ -125,13 +157,33 @@ export default defineComponent({
       deleteCookie('searchKeyword');
       // 배열 초기화
       keywordSearch.value.length = 0;
+
+      keywordSearch.value = [];
+    }
+
+    function onSearchShow() {
+      isSearchShow.value = false;
+    }
+
+    function onKeywordClear() {
+      initialValue.value = '';
+    }
+
+    function onSaveKeywords() {
+      isSaveKeywords.value = !isSaveKeywords.value;
+
+      saveIsSaveKeywordToCookie(isSaveKeywords.value);
     }
 
     function init() {
+      isSaveKeywords.value =
+        getIsSaveKeywordFromCookie() == 'true' ? true : false;
+
       // 쿠키에 저장된 키워드를 가져온다 (최근 검색어 목적)
       const getKeyword = getSearchKeywordFromCookie();
 
-      const stringToArray = getKeyword.split('|');
+      const stringToArray =
+        getKeyword[0] == undefined ? [] : getKeyword.split('|');
 
       keywordSearch.value.push(...stringToArray);
     }
@@ -139,20 +191,42 @@ export default defineComponent({
     onMounted(() => init());
 
     return {
-      onInputSearch,
+      saveKeywordMatched,
       keyword,
       keywordSearch,
       isMouseOver,
       isFocus,
       isSaveKeywords,
+      onInputSearch,
       onKeywordClick,
       onDeleteKeywords,
+      onKeywordClear,
+      onSearchShow,
+      onSaveKeywords,
     };
   },
 });
 </script>
 
 <style scoped lang="scss">
+/* 미디어 쿼리 */
+@media all and (max-width: 460px) {
+  .keywords-title {
+    font-size: 13px;
+  }
+
+  .keywords-delete,
+  .keywords-save__auto {
+    font-size: 1vw;
+  }
+}
+
+@media all and (min-width: 460px) {
+  .keywords-delete,
+  .keywords-save__auto {
+    font-size: 13px;
+  }
+}
 .search-inner {
   background: #f7f7f7;
 
@@ -210,7 +284,7 @@ export default defineComponent({
 .keywords-wrap {
   position: fixed;
 
-  width: calc(100% - 60px);
+  width: calc(100% - 70px);
   max-width: 904px;
 
   background: white;
@@ -264,8 +338,6 @@ export default defineComponent({
       color: #888;
       line-height: 30px;
 
-      font-size: 13px;
-
       cursor: pointer;
 
       &:hover {
@@ -277,8 +349,6 @@ export default defineComponent({
       color: #888;
       line-height: 30px;
 
-      font-size: 13px;
-
       cursor: pointer;
 
       float: right;
@@ -289,6 +359,77 @@ export default defineComponent({
         text-decoration: underline;
       }
     }
+  }
+}
+
+.search-wrap__close {
+  position: absolute;
+
+  left: 50%;
+  top: 37px;
+  transform: translateX(-50%);
+
+  width: 50px;
+  height: 50px;
+
+  transition: all 0.3s;
+  z-index: 999s;
+
+  &:hover {
+    width: 60px;
+    height: 60px;
+
+    button > span {
+      font-size: 17px;
+    }
+  }
+
+  button {
+    border-radius: 50%;
+
+    width: 100%;
+    height: 100%;
+
+    border: 1px solid #f5f5f5;
+
+    box-shadow: 1px 1px 1px #f1f1f1;
+
+    background: #f1f1f1;
+    position: relative;
+
+    cursor: pointer;
+
+    span {
+      position: absolute;
+      transition: all 0.3s;
+
+      font-size: 13px;
+
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.keyword-wrap__clear {
+  position: absolute;
+
+  right: 5px;
+  top: 50%;
+
+  transform: translateY(-50%);
+  font-size: 13px;
+
+  border-radius: 50%;
+  border: 1px solid #f1f1f1;
+  width: 20px;
+  height: 20px;
+
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(#888, 0.1);
   }
 }
 </style>
