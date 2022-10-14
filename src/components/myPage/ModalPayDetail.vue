@@ -55,7 +55,7 @@ export default {};
   top: 0;
   left: 0;
   width: 100%;
-  min-width: 410px;
+  // min-width: 410px;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
 }
@@ -63,7 +63,7 @@ export default {};
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
-  width: 400px;
+  max-width: 370px;
 }
 .modal-content {
   margin: 40px 30px;

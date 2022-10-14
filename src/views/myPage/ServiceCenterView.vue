@@ -57,10 +57,6 @@ export default defineComponent({
 
     box-sizing: border-box;
 
-    // .title {
-    //   width
-    // }
-
     ul {
       box-sizing: border-box;
       padding: 0 10px;

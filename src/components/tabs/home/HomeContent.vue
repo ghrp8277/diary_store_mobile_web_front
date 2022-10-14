@@ -98,27 +98,20 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const { emoticon_ranks } = storeToRefs(store);
+    let page = 1;
+    let size = 6;
+
+    const { emoticon_ranks, emoticons } = storeToRefs(store);
 
     onMounted(async () => {
-      // await store.FETCH_PRODUCT_BY_RANK();
-      // await store.FETCH_PRODUCTS_INFO('test');
+      await store.FETCH_PRODUCTS_NEW('test', page, size);
+      await store.FETCH_PRODUCTS_RANK(page, size);
     });
 
     return {
-      emoticons: computed(() => {
-        return store.emoticons;
-      }),
-      ranks: emoticon_ranks,
+      ranks: computed(() => emoticon_ranks.value),
+      emoticons: computed(() => emoticons.value),
     };
-  },
-  methods: {
-    likeEmoji() {
-      console.log('버튼 클릭됨');
-    },
-    emojiDetailPage() {
-      console.log('썸네일쓰 클릭');
-    },
   },
 });
 </script>
@@ -158,6 +151,8 @@ export default defineComponent({
     color: white;
     background: #008080;
     border-radius: 20px;
+    position: sticky;
+    left: 0;
 
     margin: 0;
     padding: 5px 0;
@@ -165,7 +160,7 @@ export default defineComponent({
     max-width: 200px;
   }
   .img-list {
-    float: left;
+    float: center;
     flex-basis: 0;
     display: flex;
 
@@ -256,11 +251,11 @@ export default defineComponent({
   border-bottom: 1px solid #d3d3d3;
 }
 
-.rankNumber,
 .emoji-title {
   font-size: 15px;
   font-weight: 400;
   color: black;
+  text-align: left;
 }
 
 .best-rank {
@@ -366,6 +361,12 @@ export default defineComponent({
   img {
     width: 100px;
     height: 100px;
+  }
+
+  @media all and (max-width: 820px) {
+    .img-list {
+      float: left;
+    }
   }
 }
 </style>

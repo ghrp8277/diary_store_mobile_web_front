@@ -42,9 +42,7 @@
               <img src="@/assets/logo.png" alt="" />
             </div>
             <div class="emoji-info">
-              <p class="emoji-title">
-                바람의 나라 바람의 나라~ㅇㅇㄹㄴㅇㄹㄴㅇㄹㅇㄴㅇ ㅇㄴㄹㅇ
-              </p>
+              <p class="emoji-title">바람의 나라 바람의 나라~</p>
               <p class="author">작가명명명</p>
               <p class="price">2000마넌</p>
             </div>
@@ -98,29 +96,28 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .container-payment {
+  width: 100%;
+
   background: white;
-  max-width: 1100px;
+  max-width: 900px;
   margin: 0 auto;
 
   padding-top: 120px;
 }
-.payment-wrap__info {
-  // padding: 0 100px;
-}
 .payment-title {
-  // height: 80px;
-  // line-height: 80px;
   text-align: left;
-  padding-bottom: 20px;
+  padding: 0 20px 10px 20px;
+  margin: 20px 0;
 }
 .list-payment {
   place-items: center;
+  width: 100%;
 }
 .grid-container {
   /**
      * User input values.
      */
-  --grid-layout-gap: 30px;
+  --grid-layout-gap: 10px;
   --grid-column-count: 2;
   --grid-item--min-width: 390px;
 
@@ -141,75 +138,93 @@ export default defineComponent({
   grid-gap: var(--grid-layout-gap);
 }
 .payment-content {
-  width: 390px;
+  // box-sizing: border-box;
+  // width: 390px;
+  width: calc(100% - 30px);
   height: 220px;
   border: 0px solid lightgray;
   border-radius: 10px;
   box-shadow: 0px 0px 7px lightgray;
-}
 
-/*
+  margin: 0 30px;
+
+  /*
     emoji info
   */
-.emoji {
-  display: flex;
-  margin: 5px 20px;
-}
-.img-container {
-  background: white;
-  line-height: 110px;
-}
-.emoji-info {
-  width: 270px;
-  margin-left: 10px;
-  align-items: center;
-  text-align: left;
-}
-.emoji-title {
-  width: 90%;
-  font-size: 16px;
-  font-weight: bold;
-  margin: 0;
 
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.author {
-  font-size: 12px;
-  color: gray;
-  margin: 0px;
-}
-.price {
-  font-size: 14px;
-  color: #dc143c;
-  margin: 10px 0;
-}
-.detail-btn {
-  width: 340px;
-  height: 35px;
-  background: white;
-  border: 1px solid gray;
-  border-radius: 10px;
-  margin: 5px 0;
-}
-/* emoji info End */
+  .emoji {
+    display: flex;
+    margin: 5px 20px;
+  }
+  .img-container {
+    flex: 1;
+    max-width: 100px;
+    max-height: 100px;
 
-p {
-  height: 25px;
-  margin: 10px 30px;
-  line-height: 25px;
-  text-align: left;
-  font-size: small;
+    img {
+      width: 100%;
+      height: 100%;
+      vertical-align: middle;
+    }
+  }
+
+  .emoji-info {
+    flex: 2;
+    margin-left: 10px;
+    align-items: center;
+    text-align: left;
+  }
+
+  .emoji-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .author {
+    font-size: 12px;
+    color: gray;
+    margin: 0px;
+  }
+  .price {
+    font-size: 14px;
+    color: #dc143c;
+    margin: 10px 0;
+  }
+  .detail-btn {
+    width: calc(100% - 50px);
+    height: 35px;
+    background: white;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin: 5px 10px;
+  }
+  /* emoji info End */
+
+  p {
+    height: 25px;
+    margin: 10px 30px;
+    line-height: 25px;
+    text-align: left;
+    font-size: small;
+  }
+
+  h3 {
+    height: 40px;
+    padding-left: 10px;
+    text-align: left;
+  }
 }
-img {
-  width: 100px;
-  height: 100px;
-  vertical-align: middle;
-}
-h3 {
-  height: 40px;
-  padding-left: 10px;
-  text-align: left;
+
+@media all and (max-width: 400px) {
+  .grid-container {
+    --grid-layout-gap: 0px;
+  }
+  .payment-content {
+    margin: 10px 0;
+  }
 }
 </style>
