@@ -6,9 +6,9 @@ import { FAQ } from '@/types/faq';
 
 const state = {
   products: [] as Product[],
+  product: {} as Product,
   favorites: [] as Favorite[],
   categories: [] as Category[],
-  ranks: [] as Product[],
   notices: [] as Notice[],
   totalPage: 0,
   faq: [] as FAQ[],

@@ -11,11 +11,17 @@ import {
   fetchStoreNoticeInfo,
   fecthStoreFAQ,
   fetchProductsSearch,
+  fetchDetailProduct,
 } from '@/apis/buyer';
 
 export const useStore = defineStore('buyer', {
   state: () => state,
   actions: {
+    async FETCH_PRODUCT_DETAIL(id: number, username: string) {
+      const data = await fetchDetailProduct(id, username);
+
+      this.product = data;
+    },
     async FETCH_PRODUCTS_NEW(username: string, page: number, size: number) {
       const data = await fetchNewProducts(username, page, size);
 
@@ -51,7 +57,7 @@ export const useStore = defineStore('buyer', {
     async FETCH_PRODUCTS_RANK(page: number, size: number) {
       const data = await fetchRankProducts(page, size);
 
-      this.ranks = data;
+      this.products = data;
     },
     async FETCH_NOTICES(page: number) {
       const data = await fetchNotices(page);

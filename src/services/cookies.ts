@@ -7,7 +7,7 @@ export function saveIsSaveKeywordToCookie(isSaveKeyword: boolean) {
 }
 
 export function saveUserToCookie(username: string) {
-  document.cookie = `til_user=${username}`;
+  document.cookie = `til_user=${username}; path=/;`;
 }
 
 export function getSearchKeywordFromCookie() {

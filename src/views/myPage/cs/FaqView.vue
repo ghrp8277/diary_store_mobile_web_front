@@ -98,6 +98,7 @@ input[type='checkbox'] {
 
 ul {
   list-style: none;
+  padding-inline-start: 0;
 
   li {
     width: 100%;

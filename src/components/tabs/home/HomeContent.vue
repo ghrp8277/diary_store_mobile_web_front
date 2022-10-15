@@ -91,6 +91,7 @@
 <script lang="ts">
 import { defineComponent, computed, onMounted } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
+import { useMainStore } from '@/services/pinia/main';
 import { storeToRefs } from 'pinia';
 
 export default defineComponent({
@@ -98,20 +99,27 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    let page = 1;
-    let size = 6;
-
-    const { emoticon_ranks, emoticons } = storeToRefs(store);
+    const { emoticon_ranks } = storeToRefs(store);
 
     onMounted(async () => {
-      await store.FETCH_PRODUCTS_NEW('test', page, size);
-      await store.FETCH_PRODUCTS_RANK(page, size);
+      // await store.FETCH_PRODUCT_BY_RANK();
+      // await store.FETCH_PRODUCTS_INFO('test');
     });
 
     return {
-      ranks: computed(() => emoticon_ranks.value),
-      emoticons: computed(() => emoticons.value),
+      emoticons: computed(() => {
+        return store.emoticons;
+      }),
+      ranks: emoticon_ranks,
     };
+  },
+  methods: {
+    likeEmoji() {
+      console.log('버튼 클릭됨');
+    },
+    emojiDetailPage() {
+      console.log('썸네일쓰 클릭');
+    },
   },
 });
 </script>
@@ -151,8 +159,6 @@ export default defineComponent({
     color: white;
     background: #008080;
     border-radius: 20px;
-    position: sticky;
-    left: 0;
 
     margin: 0;
     padding: 5px 0;
@@ -160,7 +166,7 @@ export default defineComponent({
     max-width: 200px;
   }
   .img-list {
-    float: center;
+    float: left;
     flex-basis: 0;
     display: flex;
 
@@ -251,11 +257,11 @@ export default defineComponent({
   border-bottom: 1px solid #d3d3d3;
 }
 
+.rankNumber,
 .emoji-title {
   font-size: 15px;
   font-weight: 400;
   color: black;
-  text-align: left;
 }
 
 .best-rank {
@@ -361,12 +367,6 @@ export default defineComponent({
   img {
     width: 100px;
     height: 100px;
-  }
-
-  @media all and (max-width: 820px) {
-    .img-list {
-      float: left;
-    }
   }
 }
 </style>

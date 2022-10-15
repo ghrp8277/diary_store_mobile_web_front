@@ -98,6 +98,11 @@ const routes: Array<RouteConfig> = [
       },
     ],
   },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('@/views/Test.vue'),
+  },
 ];
 
 const router = new VueRouter({

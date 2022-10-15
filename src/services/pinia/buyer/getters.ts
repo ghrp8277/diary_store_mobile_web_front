@@ -3,6 +3,40 @@ import { ImageFile } from '@/types/emojiConfirm';
 import moment from 'moment';
 
 const getters = {
+  emoticon: (state: State) => {
+    const product = state.product;
+
+    const id = product.id;
+
+    const count = product.count;
+
+    const price = product.price;
+
+    const is_like = product.is_like;
+
+    const emoji_confirm = product.emojiConfirm;
+
+    const emoji_info = emoji_confirm?.emojiInfo;
+
+    const product_name = emoji_info?.product_name;
+
+    const author_name = emoji_info?.author_name;
+
+    const image_files = emoji_confirm?.imageFiles;
+
+    const title_image = image_files ? image_files[0].image_url : '';
+
+    return {
+      id,
+      count,
+      price,
+      is_like,
+      product_name,
+      author_name,
+      image_files,
+      title_image,
+    };
+  },
   emoticons: (state: State) => {
     const arr = [] as {
       id: number;
@@ -70,17 +104,17 @@ const getters = {
       isNewCreated: boolean;
     }[];
 
-    const ranks = state.ranks;
+    const products = state.products;
 
-    for (const rank of ranks) {
-      const emoji_info = rank.emojiConfirm.emojiInfo;
-      const emoji_confirm = rank.emojiConfirm;
+    for (const product of products) {
+      const emoji_confirm = product.emojiConfirm;
+      const emoji_info = emoji_confirm.emojiInfo;
 
       const product_name = emoji_info.product_name;
 
       const image_files = emoji_confirm.imageFiles;
 
-      const id = rank.id;
+      const id = product.id;
 
       const author_name = emoji_info.author_name;
 

@@ -8,12 +8,15 @@
       <section class="buyer-box">
         <div class="emoji-info">
           <strong class="title">{{ product_name }}</strong>
-          <div class="author">{{ author }}</div>
+          <div class="author">{{ author_name }}</div>
           <div class="price">{{ price }}원</div>
         </div>
 
         <div class="emoji-btn-container">
-          <button class="payment-btn">구매하기</button>
+          <div class="payment-btn">
+            <span>구매하기</span>
+            <pay-button :totalPrice="'12000'" />
+          </div>
 
           <div class="btn-liked" @click="onClickLiked">
             <input type="checkbox" id="liked" />
@@ -39,12 +42,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api';
+import {
+  defineComponent,
+  onMounted,
+  toRefs,
+  computed,
+} from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
-import emoticon from '@/composables/emoticon';
+import { useMainStore } from '@/services/pinia/main';
+import PayButton from '@/components/tabs/detail/PayButton.vue';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
-  components: {},
+  components: { PayButton },
   props: {
     id: {
       type: Number,
@@ -53,29 +63,43 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore();
+    const mainStore = useMainStore();
 
-    const {
-      id,
-      is_like,
-      count,
-      title_image,
-      product_name,
-      author,
-      price,
-      image_files,
-    } = emoticon(props.id);
+    const { username } = storeToRefs(mainStore);
+
+    const { id } = toRefs(props);
+
+    const emoticon = computed(() => store.emoticon);
+
+    const price = computed(() => emoticon.value.price);
+
+    const is_like = computed(() => emoticon.value.is_like);
+
+    const createdAt = computed(() => emoticon.value.author_name);
+
+    const count = computed(() => emoticon.value.count);
+
+    const product_name = computed(() => emoticon.value.product_name);
+
+    const author_name = computed(() => emoticon.value.author_name);
+
+    const image_files = computed(() => emoticon.value.image_files);
+
+    const title_image = computed(() => emoticon.value.title_image);
 
     let page = 1;
     let size = 20;
 
     async function likeEmoji() {
       await store.FETCH_PRODUCT_BY_IS_LIKE(
-        'test',
+        username.value,
         id.value,
         !is_like.value,
         page,
         size
       );
+
+      await store.FETCH_PRODUCT_DETAIL(id.value, username.value);
     }
 
     async function onClickLiked(e: InputEvent) {
@@ -86,15 +110,19 @@ export default defineComponent({
       }
     }
 
+    onMounted(async () => {
+      await store.FETCH_PRODUCT_DETAIL(id.value, username.value);
+    });
+
     return {
       onClickLiked,
+      emoticon,
       is_like,
       title_image,
       product_name,
-      author,
+      author_name,
       price,
       image_files,
-      count,
     };
   },
 });
@@ -156,16 +184,22 @@ export default defineComponent({
   display: flex;
 }
 .payment-btn {
+  position: relative;
+  width: 100%;
   height: 40px;
   font-size: 14px;
   margin: 0 5px;
   background: white;
   border: 1px solid lightgray;
-  border-radius: 10px;
-}
 
-.payment-btn {
-  width: 100%;
+  border-radius: 10px;
+
+  cursor: pointer;
+  transition: all 0.5s;
+
+  span {
+    line-height: 38px;
+  }
 }
 
 // 좋아요 버튼
@@ -363,11 +397,6 @@ export default defineComponent({
         font-size: 16px;
       }
     }
-  }
-
-  .wrap-box {
-    // padding-top: 12px;
-    // height: calc(100% - 60px);
   }
 }
 </style>

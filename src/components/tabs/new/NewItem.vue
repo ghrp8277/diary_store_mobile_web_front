@@ -73,6 +73,8 @@ import {
 import { useMouseInElement } from '@vueuse/core';
 import { useStore } from '@/services/pinia/buyer';
 import emoticon from '@/composables/emoticon';
+import { useMainStore } from '@/services/pinia/main';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'HomeItemContent',
@@ -84,6 +86,10 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore();
+
+    const mainStore = useMainStore();
+
+    const { username } = storeToRefs(mainStore);
 
     const target = ref(null);
 
@@ -115,7 +121,7 @@ export default defineComponent({
 
     async function likeEmoji(e: Event) {
       await store.FETCH_PRODUCT_BY_IS_LIKE(
-        'test',
+        username.value,
         id.value,
         !is_like.value,
         page,

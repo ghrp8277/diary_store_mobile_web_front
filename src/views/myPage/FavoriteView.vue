@@ -1,6 +1,6 @@
 <template>
   <div class="container-fav">
-    <h2 class="fav-tit">즐겨찾기</h2>
+    <h2 class="txt-tit">즐겨찾기</h2>
     <ul class="product-list">
       <router-link
         v-for="(favorite, index) in favorites"
@@ -34,8 +34,8 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
+import { useMainStore } from '@/services/pinia/main';
 import { storeToRefs } from 'pinia';
-import { faV } from '@fortawesome/free-solid-svg-icons';
 // import emoticon from '@/composables/emoticon';
 // import favorite from '@/composables/favorite';
 
@@ -44,6 +44,7 @@ export default defineComponent({
   components: {},
   setup() {
     const store = useStore();
+    const mainStore = useMainStore();
 
     const { emoticon_favorites } = storeToRefs(store);
 
@@ -51,12 +52,18 @@ export default defineComponent({
     let size = 20;
 
     onMounted(async () => {
-      await store.FETCH_FAVORITES_INFO('test');
+      await store.FETCH_FAVORITES_INFO(mainStore.username);
     });
 
     async function likeEmoji(id: number) {
-      await store.FETCH_PRODUCT_BY_IS_LIKE('test', id, false, page, size);
-      await store.FETCH_FAVORITES_INFO('test');
+      await store.FETCH_PRODUCT_BY_IS_LIKE(
+        mainStore.username,
+        id,
+        false,
+        page,
+        size
+      );
+      await store.FETCH_FAVORITES_INFO(mainStore.username);
     }
 
     return {
@@ -70,16 +77,13 @@ export default defineComponent({
 <style lang="scss" scoped>
 .container-fav {
   width: 100%;
-
   margin: 0 auto;
   background: white;
   max-width: 900px;
-
   padding-top: 120px;
 }
 ul {
   list-style: none;
-
   padding-inline-start: 0;
   margin: 0;
 }
@@ -100,7 +104,6 @@ li {
   height: 200px;
   display: flex;
   flex-direction: column;
-
   box-sizing: border-box;
 }
 .unit-emot {
@@ -144,13 +147,11 @@ li {
   border: 1px solid lightgray;
   border-radius: 50px;
   float: right;
-
   cursor: pointer;
 }
 .heart-icon {
   color: #fa4637;
 }
-
 /** 미디어쿼리 */
 @media all and (max-width: 600px) {
   .container-fav {
@@ -171,22 +172,17 @@ li {
     .product {
       width: 100%;
       height: auto;
-
       padding: 0 20px;
-
       .inner-wrap {
         width: 100%;
         display: flex;
         flex-direction: row;
-
         border-bottom: 1px solid #f5f5f5;
       }
     }
-
     .unit-emot {
       width: 70px;
       height: 70px;
-
       img {
         width: 100%;
         height: 100%;

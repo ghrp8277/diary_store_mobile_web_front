@@ -4,11 +4,17 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent } from '@vue/composition-api';
+import { computed, defineComponent, onMounted } from '@vue/composition-api';
 import { useMainStore } from '@/services/pinia/main';
+import { saveUserToCookie } from './services/cookies';
+
 export default defineComponent({
   setup() {
     const mainStore = useMainStore();
+
+    onMounted(() => {
+      saveUserToCookie('test');
+    });
 
     return {
       isLoading: computed(() => mainStore.isLoading),

@@ -7,7 +7,7 @@ export async function fetchNewProducts(
   page: number,
   size: number
 ): Promise<Product[]> {
-  const { data } = await instance.buyer.get(`/new/${username}`, {
+  const { data } = await instance.buyer.get(`new/${username}`, {
     params: {
       page,
       size,
@@ -19,7 +19,7 @@ export async function fetchNewProducts(
 
 // (신규탭) 카테고리 정보를 가져온다.
 export async function fetchNewCategories() {
-  const { data } = await instance.buyer.get('new/products/category');
+  const { data } = await instance.buyer.get('category');
 
   return data;
 }
@@ -39,6 +39,15 @@ export async function fetchRankProducts(page: number, size: number) {
 // (스타일탭) 이모티콘 정보를 가져온다.
 export async function fetchStyleProducts() {
   const { data } = await instance.buyer.get(`style`);
+
+  return data;
+}
+
+// (디테일) 이모티콘 정보를 가져온다.
+export async function fetchDetailProduct(id: number, username: string) {
+  const { data } = await instance.buyer.get(
+    `detail/${username}/products/${id}`
+  );
 
   return data;
 }
@@ -64,7 +73,7 @@ export async function fetchProductByIsLike(
 
 // 즐겨찾기 이모티콘 정보를 가져온다.
 export async function fetchFavoritesInfo(username: string) {
-  const { data } = await instance.buyer.get(`${username}/products/favorite`);
+  const { data } = await instance.buyer.get(`favorite/${username}`);
 
   return data;
 }
@@ -102,7 +111,7 @@ export async function fetchProductsSearch(
     size,
   };
 
-  const { data } = await instance.buyer.get(`products/search`, {
+  const { data } = await instance.buyer.get(`search`, {
     params,
   });
 

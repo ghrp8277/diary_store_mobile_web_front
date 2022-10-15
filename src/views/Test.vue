@@ -1,248 +1,260 @@
 <template>
-  <div id="checkout">
-    <button id="buyButton" @click="onBuyClicked">Checkout</button>
+  <div class="example">
+    <div ref="googlePay" />
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent, ref, onMounted } from '@vue/composition-api';
-
-export default defineComponent({
-  name: 'MainView',
-  setup() {
-    // function onGooglePayLoaded() {
-    //   const googlePayClient = new google.payments.api.PaymentsClient({
-    //     environment: 'TEST',
-    //   });
-    // }
-    // const clientConfiguration = {
-    //   apiVersion: 2,
-    //   apiVersionMinor: 0,
-    //   allowedPaymentMethods: [cardPaymentMethod],
-    // };
-    // googlePayClient
-    //   .isReadyToPay(clientConfiguration)
-    //   .then(function (response: any) {
-    //     if (response.result) {
-    //       console.log(response.result);
-    //     }
-    //   })
-    //   .catch(function (err: string) {
-    //     console.log(err);
-    //   });
-    // googlePayClicent.createButton({
-    //   buttonColor: 'default',
-    //   bottonType: 'long',
-    //   onclick: onGOoglePaymentsButtonClicked,
-    // });
-    // return { onGooglePayLoaded };
-    // const allowedCardNetworks = new Array<google.payments.api.CardNetwork>(
-    //   'AMEX',
-    //   'DISCOVER',
-    //   'JCB',
-    //   'MASTERCARD',
-    //   'VISA',
-    //   'INTERAC'
-    // );
-    // const allowedPaymentMethods =
-    //   new Array<google.payments.api.PaymentMethodSpecification>({
-    //     type: 'CARD',
-    //     parameters: {
-    //       allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
-    //       allowedCardNetworks,
-    //       billingAddressRequired: true,
-    //       billingAddressParameters: {
-    //         format: 'MIN',
-    //       },
-    //     },
-    //     tokenizationSpecification: {
-    //       type: 'PAYMENT_GATEWAY',
-    //       parameters: {
-    //         gateway: 'example',
-    //         gatewayMerchantId: 'abc123',
-    //       },
-    //     },
-    //   });
-    // // @ts-expect-error
-    // allowedPaymentMethods[0].tokenizationSpecification = {
-    //   type: 'DIRECT',
-    //   parameters: {},
-    // };
-    // allowedPaymentMethods[0].tokenizationSpecification = {
-    //   type: 'DIRECT',
-    //   parameters: {
-    //     protocolVersion: 'ECv2',
-    //     publicKey: 'BOdoXP1aiNp.....kh3JUhiSZKHYF2Y=',
-    //   },
-    // };
-    // const getGooglePaymentsClient = (env?: google.payments.api.Environment) => {
-    //   return new google.payments.api.PaymentsClient({
-    //     environment: env,
-    //     paymentDataCallbacks: {
-    //       onPaymentAuthorized: (paymentData) => ({
-    //         transactionState: 'SUCCESS',
-    //       }),
-    //       onPaymentDataChanged: (paymentData) => {
-    //         const validCodes = ['abc'];
-    //         if (paymentData.callbackTrigger === 'OFFER') {
-    //           if (
-    //             paymentData.offerData &&
-    //             paymentData.offerData.redemptionCodes.every(
-    //               (code) => validCodes.indexOf(code) === -1
-    //             )
-    //           ) {
-    //             return {
-    //               newOfferInfo: {
-    //                 offers: paymentData.offerData.redemptionCodes.map(
-    //                   (code) => ({
-    //                     redemptionCode: code,
-    //                     description: `Save with ${code}`,
-    //                   })
-    //                 ),
-    //               },
-    //             };
-    //           }
-    //           return {
-    //             error: {
-    //               reason: 'OFFER_INVALID',
-    //               message: 'That is not a valid promo code.',
-    //               intent: 'OFFER',
-    //             },
-    //           };
-    //         }
-    //         return {};
-    //       },
-    //     },
-    //   });
-    // };
-    // function onGooglePayLoaded() {
-    //   const client = getGooglePaymentsClient();
-    //   client
-    //     .isReadyToPay({
-    //       apiVersion: 2,
-    //       apiVersionMinor: 0,
-    //       allowedPaymentMethods: [
-    //         {
-    //           type: 'CARD',
-    //           parameters: {
-    //             allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
-    //             allowedCardNetworks,
-    //           },
-    //         },
-    //       ],
-    //     })
-    //     .then((response) => {
-    //       if (response.result) {
-    //         addGooglePayButton();
-    //         prefetchGooglePaymentData();
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.error(err);
-    //     });
-    // }
-    // function addGooglePayButton() {
-    //   const buttonOptions: google.payments.api.ButtonOptions = {
-    //     onClick: onGooglePaymentButtonClick,
-    //     buttonColor: 'black',
-    //     allowedPaymentMethods: [
-    //       {
-    //         type: 'CARD',
-    //         parameters: {
-    //           allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
-    //           allowedCardNetworks,
-    //         },
-    //       },
-    //     ],
-    //   };
-    //   // @ts-expect-error
-    //   buttonOptions.buttonType = 'xyz';
-    //   buttonOptions.buttonType = 'book';
-    //   buttonOptions.buttonType = 'buy';
-    //   buttonOptions.buttonType = 'checkout';
-    //   buttonOptions.buttonType = 'donate';
-    //   buttonOptions.buttonType = 'order';
-    //   buttonOptions.buttonType = 'pay';
-    //   buttonOptions.buttonType = 'plain';
-    //   buttonOptions.buttonType = 'subscribe';
-    //   buttonOptions.buttonType = 'long';
-    //   buttonOptions.buttonType = 'short';
-    //   buttonOptions.buttonSizeMode = undefined;
-    //   buttonOptions.buttonSizeMode = 'fill';
-    //   buttonOptions.buttonSizeMode = 'static';
-    //   // @ts-expect-error
-    //   buttonOptions.buttonSizeMode = 'unknown';
-    //   buttonOptions.buttonRootNode = undefined;
-    //   buttonOptions.buttonRootNode = document;
-    //   const node = document.createElement('div').getRootNode() as ShadowRoot;
-    //   buttonOptions.buttonRootNode = node;
-    //   // @ts-expect-error
-    //   buttonOptions.buttonRootNode = document.createElement('div');
-    //   buttonOptions.buttonLocale = '';
-    //   buttonOptions.buttonLocale = undefined;
-    //   // @ts-expect-error
-    //   buttonOptions.buttonLocale = {};
-    //   buttonOptions.buttonLocale = 'en';
-    //   buttonOptions.buttonLocale = 'qw';
-    //   buttonOptions.buttonLocale = 'zh';
-    //   const client = getGooglePaymentsClient();
-    //   const button = client.createButton(buttonOptions);
-    //   document.appendChild(document.createElement('div').appendChild(button));
-    // }
-    // function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataRequest {
-    //   return {
-    //     apiVersion: 2,
-    //     apiVersionMinor: 0,
-    //     merchantInfo: {
-    //       merchantId: '01234567890123456789',
-    //       softwareInfo: {
-    //         id: 'my.softwareInfo.test',
-    //         version: '1.0.0',
-    //       },
-    //     },
-    //     transactionInfo: {
-    //       totalPriceStatus: 'FINAL',
-    //       totalPrice: '123.45',
-    //       currencyCode: 'USD',
-    //       countryCode: 'US',
-    //       transactionId: '0123456789',
-    //       displayItems: [
-    //         {
-    //           label: 'Subtotal',
-    //           type: 'SUBTOTAL',
-    //           price: '11.00',
-    //         },
-    //         {
-    //           label: 'Shipping',
-    //           type: 'LINE_ITEM',
-    //           price: '0',
-    //           status: 'PENDING',
-    //         },
-    //       ],
-    //       totalPriceLabel: 'Total',
-    //       checkoutOption: 'COMPLETE_IMMEDIATE_PURCHASE',
-    //     },
-    //     allowedPaymentMethods,
-    //     shippingAddressRequired: true,
-    //     callbackIntents: ['OFFER', 'PAYMENT_AUTHORIZATION', 'PAYMENT_METHOD'],
-    //   };
-    // }
-    // function prefetchGooglePaymentData() {
-    //   const client = getGooglePaymentsClient();
-    //   client.prefetchPaymentData(getGooglePaymentDataConfiguration());
-    // }
-    // function onGooglePaymentButtonClick() {
-    //   const request = getGooglePaymentDataConfiguration();
-    //   const client = getGooglePaymentsClient();
-    //   request.callbackIntents = ['PAYMENT_AUTHORIZATION'];
-    //   request.callbackIntents = ['OFFER'];
-    //   // @ts-expect-error
-    //   request.callbackIntents = ['OFFER_INFO'];
-    //   client
-    //     .loadPaymentData(request)
-    //     .then((data) => console.log(data))
-    //     .catch((err) => console.error(err));
-    // }
+<script>
+export default {
+  name: 'GooglePay',
+  props: {
+    totalPrice: {
+      type: String,
+      default: '0.00',
+      required: true,
+    },
   },
-});
+  data: () => ({
+    config: {
+      /**
+       * Define the version of the Google Pay API referenced when creating your
+       * configuration
+       *
+       * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#PaymentDataRequest|apiVersion in PaymentDataRequest}
+       */
+      baseRequest: {
+        apiVersion: 2,
+        apiVersionMinor: 0,
+      },
+      /**
+       * Identify your gateway and your site's gateway merchant identifier
+       *
+       * The Google Pay API response will return an encrypted payment method capable
+       * of being charged by a supported gateway after payer authorization
+       *
+       * @todo check with your gateway on the parameters to pass
+       * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#gateway|PaymentMethodTokenizationSpecification}
+       */
+      tokenizationSpecification: {
+        type: 'PAYMENT_GATEWAY',
+        parameters: {
+          gateway: 'example',
+          gatewayMerchantId: 'exampleGatewayMerchantId',
+        },
+      },
+      /**
+       * Card networks supported by your site and your gateway
+       *
+       * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#CardParameters|CardParameters}
+       * @todo confirm card networks supported by your site and gateway
+       */
+      allowedCardNetworks: [
+        'AMEX',
+        'DISCOVER',
+        'INTERAC',
+        'JCB',
+        'MASTERCARD',
+        'VISA',
+      ],
+      /**
+       * Card authentication methods supported by your site and your gateway
+       *
+       * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#CardParameters|CardParameters}
+       * @todo confirm your processor supports Android device tokens for your
+       * supported card networks
+       */
+      allowedCardAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+    },
+  }),
+  mounted() {
+    setTimeout(() => this.loadGooglePay(), 2000);
+  },
+  computed: {},
+  methods: {
+    loadGooglePay() {
+      /**
+       * Describe your site's support for the CARD payment method and its required
+       * fields
+       *
+       * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#CardParameters|CardParameters}
+       */
+      const baseCardPaymentMethod = {
+        type: 'CARD',
+        parameters: {
+          allowedAuthMethods: this.config.allowedCardAuthMethods,
+          allowedCardNetworks: this.config.allowedCardNetworks,
+        },
+      };
+
+      /**
+       * Describe your site's support for the CARD payment method including optional
+       * fields
+       *
+       * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#CardParameters|CardParameters}
+       */
+      const cardPaymentMethod = Object.assign({}, baseCardPaymentMethod, {
+        tokenizationSpecification: this.config.tokenizationSpecification,
+      });
+
+      /**
+       * An initialized google.payments.api.PaymentsClient object or null if not yet set
+       *
+       * @see {@link getGooglePaymentsClient}
+       */
+      let paymentsClient = null;
+
+      /**
+       * Configure your site's support for payment methods supported by the Google Pay
+       * API.
+       *
+       * Each member of allowedPaymentMethods should contain only the required fields,
+       * allowing reuse of this base request when determining a viewer's ability
+       * to pay and later requesting a supported payment method
+       *
+       * @returns {object} Google Pay API version, payment methods supported by the site
+       */
+      const getGoogleIsReadyToPayRequest = () => {
+        return Object.assign({}, this.config.baseRequest, {
+          allowedPaymentMethods: [baseCardPaymentMethod],
+        });
+      };
+
+      /**
+       * Configure support for the Google Pay API
+       *
+       * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#PaymentDataRequest|PaymentDataRequest}
+       * @returns {object} PaymentDataRequest fields
+       */
+      const getGooglePaymentDataRequest = () => {
+        const paymentDataRequest = Object.assign({}, this.config.baseRequest);
+        paymentDataRequest.allowedPaymentMethods = [cardPaymentMethod];
+        paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
+        paymentDataRequest.merchantInfo = {
+          // @todo a merchant ID is available for a production environment after approval by Google
+          // See {@link https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist|Integration checklist}
+          // merchantId: '12345678901234567890',
+          merchantName: 'Example Merchant',
+        };
+        return paymentDataRequest;
+      };
+
+      /**
+       * Return an active PaymentsClient or initialize
+       *
+       * @see {@link https://developers.google.com/pay/api/web/reference/client#PaymentsClient|PaymentsClient constructor}
+       * @returns {google.payments.api.PaymentsClient} Google Pay API client
+       */
+      function getGooglePaymentsClient() {
+        if (paymentsClient === null) {
+          paymentsClient = new google.payments.api.PaymentsClient({
+            // Alterar o environment para 'PRODUCTION' em prod
+            environment: 'TEST',
+          });
+        }
+        return paymentsClient;
+      }
+
+      /**
+       * Initialize Google PaymentsClient after Google-hosted JavaScript has loaded
+       *
+       * Display a Google Pay payment button after confirmation of the viewer's
+       * ability to pay.
+       */
+      function onGooglePayLoaded() {
+        const paymentsClient = getGooglePaymentsClient();
+        paymentsClient
+          .isReadyToPay(getGoogleIsReadyToPayRequest())
+          .then(function (response) {
+            if (response.result) {
+              addGooglePayButton();
+              // @todo prefetch payment data to improve performance after confirming site functionality
+              // prefetchGooglePaymentData();
+            }
+          })
+          .catch(function (err) {
+            // show error in developer console for debugging
+            console.error(err);
+          });
+      }
+
+      /**
+       * Add a Google Pay purchase button alongside an existing checkout button
+       *
+       * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#ButtonOptions|Button options}
+       * @see {@link https://developers.google.com/pay/api/web/guides/brand-guidelines|Google Pay brand guidelines}
+       */
+      const addGooglePayButton = () => {
+        const paymentsClient = getGooglePaymentsClient();
+        const button = paymentsClient.createButton({
+          onClick: onGooglePaymentButtonClicked,
+        });
+        this.$refs.googlePay.appendChild(button);
+      };
+
+      /**
+       * Provide Google Pay API with a payment amount, currency, and amount status
+       *
+       * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#TransactionInfo|TransactionInfo}
+       * @returns {object} transaction info, suitable for use as transactionInfo property of PaymentDataRequest
+       */
+      const getGoogleTransactionInfo = () => ({
+        countryCode: 'US',
+        currencyCode: 'USD',
+        totalPriceStatus: 'FINAL',
+        // set to cart total
+        totalPrice: this.totalPrice,
+      });
+
+      /**
+       * Prefetch payment data to improve performance
+       *
+       * @see {@link https://developers.google.com/pay/api/web/reference/client#prefetchPaymentData|prefetchPaymentData()}
+       */
+      // function prefetchGooglePaymentData() {
+      //   const paymentDataRequest = getGooglePaymentDataRequest();
+      //   // transactionInfo must be set but does not affect cache
+      //   paymentDataRequest.transactionInfo = {
+      //     totalPriceStatus: "NOT_CURRENTLY_KNOWN",
+      //     currencyCode: "USD",
+      //   };
+      //   const paymentsClient = getGooglePaymentsClient();
+      //   paymentsClient.prefetchPaymentData(paymentDataRequest);
+      // }
+
+      /**
+       * Show Google Pay payment sheet when Google Pay payment button is clicked
+       */
+      function onGooglePaymentButtonClicked() {
+        const paymentDataRequest = getGooglePaymentDataRequest();
+        paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
+
+        const paymentsClient = getGooglePaymentsClient();
+        paymentsClient
+          .loadPaymentData(paymentDataRequest)
+          .then(function (paymentData) {
+            // handle the response
+            processPayment(paymentData);
+          })
+          .catch(function (err) {
+            // show error in developer console for debugging
+            console.error(err);
+          });
+      }
+      /**
+       * Process payment data returned by the Google Pay API
+       *
+       * @param {object} paymentData response from Google Pay API after user approves payment
+       * @see {@link https://developers.google.com/pay/api/web/reference/response-objects#PaymentData|PaymentData object reference}
+       */
+      function processPayment(paymentData) {
+        // show returned data in developer console for debugging
+        console.log(paymentData);
+        // @todo pass payment token to your gateway to process payment
+        const paymentToken =
+          paymentData.paymentMethodData.tokenizationData.token;
+      }
+
+      onGooglePayLoaded();
+    },
+  },
+};
 </script>
