@@ -12,6 +12,7 @@ import {
   fecthStoreFAQ,
   fetchProductsSearch,
   fetchDetailProduct,
+  fetchStyleProducts,
 } from '@/apis/buyer';
 
 export const useStore = defineStore('buyer', {
@@ -58,6 +59,11 @@ export const useStore = defineStore('buyer', {
       const data = await fetchRankProducts(page, size);
 
       this.products = data;
+    },
+    async FETCH_PRODUCTS_STYLE() {
+      const data = await fetchStyleProducts();
+
+      this.style_products = data;
     },
     async FETCH_NOTICES(page: number) {
       const data = await fetchNotices(page);

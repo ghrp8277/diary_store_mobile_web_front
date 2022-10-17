@@ -122,9 +122,9 @@ function getGooglePaymentDataRequest() {
     // See {@link https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist|Integration checklist}
     // Google 판매자 ID
     // merchantId: '923398754258',
-    // merchantName: '이제현',
+    merchantName: '이제현',
     // merchantId: '12345678901234567890',
-    merchantName: 'Example Merchant',
+    // merchantName: 'Example Merchant',
   };
 
   paymentDataRequest.callbackIntents = ['PAYMENT_AUTHORIZATION'];

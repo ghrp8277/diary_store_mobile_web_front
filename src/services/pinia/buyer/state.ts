@@ -9,6 +9,7 @@ const state = {
   product: {} as Product,
   favorites: [] as Favorite[],
   categories: [] as Category[],
+  style_products: [] as any,
   notices: [] as Notice[],
   totalPage: 0,
   faq: [] as FAQ[],

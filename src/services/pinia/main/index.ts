@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, ref } from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 import { getUserFromCookie } from '@/services/cookies';
 
 export const useMainStore = defineStore('main', () => {

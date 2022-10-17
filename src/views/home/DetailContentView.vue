@@ -1,6 +1,6 @@
 <template>
   <div class="detail-container">
-    <div class="emoji-wrap">
+    <div class="emoji-wrap" v-if="!isLoading">
       <section class="thumbnail">
         <img :src="title_image" alt="" />
       </section>
@@ -31,18 +31,21 @@
       </section>
     </div>
 
-    <div class="wrap-box">
+    <div class="wrap-box" v-if="!isLoading">
       <ul class="img-list grid-container">
         <li v-for="(image, index) in image_files" :key="index">
           <img :src="image.image_url" alt="" />
         </li>
       </ul>
     </div>
+
+    <loading v-if="isLoading" />
   </div>
 </template>
 
 <script lang="ts">
 import {
+  ref,
   defineComponent,
   onMounted,
   toRefs,
@@ -52,9 +55,10 @@ import { useStore } from '@/services/pinia/buyer';
 import { useMainStore } from '@/services/pinia/main';
 import PayButton from '@/components/tabs/detail/PayButton.vue';
 import { storeToRefs } from 'pinia';
+import Loading from '@/components/Loading.vue';
 
 export default defineComponent({
-  components: { PayButton },
+  components: { PayButton, Loading },
   props: {
     id: {
       type: Number,
@@ -64,6 +68,8 @@ export default defineComponent({
   setup(props) {
     const store = useStore();
     const mainStore = useMainStore();
+
+    const isLoading = ref(false);
 
     const { username } = storeToRefs(mainStore);
 
@@ -111,7 +117,11 @@ export default defineComponent({
     }
 
     onMounted(async () => {
+      isLoading.value = true;
+
       await store.FETCH_PRODUCT_DETAIL(id.value, username.value);
+
+      isLoading.value = false;
     });
 
     return {
@@ -123,6 +133,7 @@ export default defineComponent({
       author_name,
       price,
       image_files,
+      isLoading,
     };
   },
 });
