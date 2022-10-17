@@ -99,11 +99,14 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
+    let page = 1;
+    let size = 6;
+
     const { emoticon_ranks } = storeToRefs(store);
 
     onMounted(async () => {
-      // await store.FETCH_PRODUCT_BY_RANK();
-      // await store.FETCH_PRODUCTS_INFO('test');
+      await store.FETCH_PRODUCTS_RANK(page, size);
+      await store.FETCH_PRODUCTS_NEW('test', page, size);
     });
 
     return {
@@ -166,7 +169,7 @@ export default defineComponent({
     max-width: 200px;
   }
   .img-list {
-    float: left;
+    float: center;
     flex-basis: 0;
     display: flex;
 
@@ -257,8 +260,8 @@ export default defineComponent({
   border-bottom: 1px solid #d3d3d3;
 }
 
-.rankNumber,
 .emoji-title {
+  text-align: left;
   font-size: 15px;
   font-weight: 400;
   color: black;
@@ -367,6 +370,12 @@ export default defineComponent({
   img {
     width: 100px;
     height: 100px;
+  }
+
+  @media all and (max-width: 800px) {
+    .img-list {
+      float: left;
+    }
   }
 }
 </style>
