@@ -6,7 +6,25 @@ import { FAQ } from '@/types/faq';
 
 const state = {
   products: [] as Product[],
-  product: {} as Product,
+  product: {} as {
+    id: number;
+    count: number;
+    price: number;
+    emojiConfirm: {
+      createdAt: string;
+      emojiInfo: { product_name: string; author_name: string };
+      imageFiles: [
+        {
+          image_url: string;
+        },
+        {
+          image_url: string;
+        }
+      ];
+    };
+    is_like: boolean;
+    is_buyer: boolean;
+  },
   favorites: [] as Favorite[],
   categories: [] as Category[],
   style_products: [] as any,

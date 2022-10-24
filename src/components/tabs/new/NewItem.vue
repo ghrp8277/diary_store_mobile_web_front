@@ -10,7 +10,7 @@
     <span class="heart" @click="likeEmoji">
       <font-awesome-icon
         class="heart-icon"
-        :class="{ 'is-click': is_like }"
+        :class="{ 'is-click': emoticon.is_like }"
         icon="fa-heart"
       />
     </span>
@@ -27,12 +27,12 @@
           <router-link
             class="image-box"
             tag="div"
-            v-for="(image, index) in image_files"
+            v-for="(image, index) in emoticon.image_files"
             :key="index"
             :to="{
               name: 'detail',
               params: {
-                id: product_id,
+                id: emoticon.id,
               },
             }"
           >
@@ -58,7 +58,7 @@
           />
         </ul>
       </div>
-      <div class="emoticon-title">{{ product_name }}</div>
+      <div class="emoticon-title">{{ emoticon.product_name }}</div>
     </div>
   </div>
 </template>
@@ -72,15 +72,24 @@ import {
 } from '@vue/composition-api';
 import { useMouseInElement } from '@vueuse/core';
 import { useStore } from '@/services/pinia/buyer';
-import emoticon from '@/composables/emoticon';
 import { useMainStore } from '@/services/pinia/main';
 import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'HomeItemContent',
   props: {
-    id: {
-      type: Number,
+    emoticon: {
+      type: Object as () => {
+        id: number;
+        is_like: boolean;
+        product_name: string;
+        image_files: { image_url: string }[];
+        title_image: string;
+        category: string;
+        author: string;
+        price: number;
+        count: number;
+      },
       required: true,
     },
   },
@@ -91,9 +100,9 @@ export default defineComponent({
 
     const { username } = storeToRefs(mainStore);
 
-    const target = ref(null);
+    const emoticon = computed(() => props.emoticon);
 
-    const { id, is_like, image_files, product_name } = emoticon(props.id);
+    const target = ref(null);
 
     const { elementX, elementY, isOutside, elementHeight, elementWidth } =
       useMouseInElement(target);
@@ -122,8 +131,8 @@ export default defineComponent({
     async function likeEmoji(e: Event) {
       await store.FETCH_PRODUCT_BY_IS_LIKE(
         username.value,
-        id.value,
-        !is_like.value,
+        emoticon.value.id,
+        !emoticon.value.is_like,
         page,
         size
       );
@@ -131,7 +140,7 @@ export default defineComponent({
 
     const active = ref(1);
     const slides = computed(() => {
-      const length = image_files.value.length;
+      const length = emoticon.value.image_files.length;
       if (length > 5) return 5;
 
       return length;
@@ -167,11 +176,6 @@ export default defineComponent({
       slides,
       jump,
       move,
-
-      product_name,
-      product_id: id,
-      image_files,
-      is_like,
     };
   },
 });
@@ -181,6 +185,7 @@ export default defineComponent({
 .emoticon-wrap {
   width: 210px;
   height: 210px;
+
   background: #fff;
   text-align: center;
   display: inline-block;

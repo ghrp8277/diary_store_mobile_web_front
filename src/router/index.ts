@@ -31,6 +31,22 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/views/home/StyleContentView.vue'),
       },
       {
+        path: 'style/:id',
+        name: 'styleDetail',
+        component: () => import('@/views/home/StyleDetailView.vue'),
+        props(route) {
+          const id = Number.parseInt(route.params.id);
+
+          if (Number.isNaN(id)) {
+            return 0;
+          }
+
+          return {
+            id,
+          };
+        },
+      },
+      {
         path: 'detail/:id',
         name: 'detail',
         component: () => import('@/views/home/DetailContentView.vue'),
@@ -99,9 +115,8 @@ const routes: Array<RouteConfig> = [
     ],
   },
   {
-    path: '/test',
-    name: 'test',
-    component: () => import('@/views/Test.vue'),
+    path: '/payment/ready',
+    component: () => import('@/views/myPage/payment/PaymentReadyView.vue'),
   },
 ];
 

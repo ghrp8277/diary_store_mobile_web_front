@@ -117,3 +117,19 @@ export async function fetchProductsSearch(
 
   return data;
 }
+
+export async function fetchZipFileDownload(id: number) {
+  const response = await instance.buyer.get(`download/file/${id}`, {
+    responseType: 'arraybuffer',
+  });
+
+  try {
+    const blob = new Blob([response.data], {
+      type: response.headers['content-type'],
+    });
+
+    return blob;
+  } catch (e) {
+    console.error(e);
+  }
+}

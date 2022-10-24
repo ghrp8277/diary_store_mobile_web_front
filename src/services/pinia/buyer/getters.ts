@@ -14,6 +14,8 @@ const getters = {
 
     const is_like = product.is_like;
 
+    const is_buyer = product.is_buyer;
+
     const emoji_confirm = product.emojiConfirm;
 
     const emoji_info = emoji_confirm?.emojiInfo;
@@ -31,6 +33,7 @@ const getters = {
       count,
       price,
       is_like,
+      is_buyer,
       product_name,
       author_name,
       image_files,

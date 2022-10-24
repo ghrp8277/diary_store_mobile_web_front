@@ -7,7 +7,7 @@
       검색결과 <em>{{ count }}</em>
     </h5>
 
-    <div v-if="dynamicComponent">
+    <div v-if="dynamicComponent && !isLoading">
       <component :is="dynamicComponent" />
     </div>
   </div>
@@ -46,6 +46,8 @@ export default defineComponent({
 
     const keyword = computed(() => props.q);
 
+    const isLoading = ref(false);
+
     watch(
       () => keyword.value,
       async (curVal) => {
@@ -59,12 +61,15 @@ export default defineComponent({
 
       return defineAsyncComponent({
         loader: () => import(`@/components/search/${componentName}.vue`),
-        timeout: 3000,
       });
     });
 
     onMounted(async () => {
+      isLoading.value = true;
+
       await store.FETCH_PRODUCTS_SEARCH(keyword.value, page.value, size);
+
+      isLoading.value = false;
     });
 
     return {
@@ -72,6 +77,7 @@ export default defineComponent({
       emoticons: computed(() => search_emoticons.value),
       count: computed(() => searchCount.value),
       isSearchShow: computed(() => mainStore.isSearchShow),
+      isLoading,
     };
   },
 });

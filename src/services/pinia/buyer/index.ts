@@ -93,6 +93,6 @@ export const useStore = defineStore('buyer', {
   persist: {
     storage: sessionStorage,
     key: 'buyer',
-    paths: ['products', 'notices'],
+    paths: ['style_products'],
   },
 });

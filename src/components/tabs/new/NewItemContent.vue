@@ -1,17 +1,19 @@
 <template>
-  <transition-group class="grid-container" name="list-complete" tag="div">
-    <div
-      class="outer-wrap list-complete-item"
-      v-for="(emoticon, index) in emoticons"
-      :key="index"
-    >
-      <new-item :id="emoticon.id" />
-    </div>
-  </transition-group>
+  <div>
+    <transition-group class="grid-container" name="list-complete" tag="div">
+      <div
+        class="outer-wrap list-complete-item"
+        v-for="(emoticon, index) in emoticons"
+        :key="index"
+      >
+        <new-item :emoticon="emoticon" />
+      </div>
+    </transition-group>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, toRefs } from '@vue/composition-api';
+import { defineComponent, computed } from '@vue/composition-api';
 import { useStore } from '@/services/pinia/buyer';
 import { storeToRefs } from 'pinia';
 import NewItem from '@/components/tabs/new/NewItem.vue';
@@ -31,18 +33,20 @@ export default defineComponent({
     const store = useStore();
 
     const { emoticons } = storeToRefs(store);
-    const { category } = toRefs(props);
 
-    const emoticonsInfo = computed(() => {
-      if (category.value.length < 1) return emoticons.value;
-
-      return emoticons.value.filter(
-        (emoticon) => emoticon.category == category.value
-      );
-    });
+    const category = computed(() => props.category);
 
     return {
-      emoticons: emoticonsInfo,
+      emoticons: computed(() => {
+        if (!category.value) return emoticons.value;
+        else {
+          return emoticons.value.filter((emoticon) => {
+            if (emoticon.category === category.value) {
+              return emoticon;
+            }
+          });
+        }
+      }),
     };
   },
 });
@@ -69,7 +73,7 @@ export default defineComponent({
    */
   --grid-layout-gap: 15px;
   --grid-column-count: 4;
-  --grid-item--min-width: 220px;
+  --grid-item--min-width: 230px;
 
   /**
    * Calculated values.

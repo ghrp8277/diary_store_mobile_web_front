@@ -13,9 +13,9 @@
         </div>
 
         <div class="emoji-btn-container">
-          <div class="payment-btn">
-            <span>구매하기</span>
-            <pay-button :totalPrice="'12000'" />
+          <div class="payment-btn" :class="{ buyer: is_buyer }">
+            <span>{{ btnTitle }}</span>
+            <pay-button v-if="!is_buyer" :id="id" />
           </div>
 
           <div class="btn-liked" @click="onClickLiked">
@@ -38,8 +38,6 @@
         </li>
       </ul>
     </div>
-
-    <loading v-if="isLoading" />
   </div>
 </template>
 
@@ -55,10 +53,9 @@ import { useStore } from '@/services/pinia/buyer';
 import { useMainStore } from '@/services/pinia/main';
 import PayButton from '@/components/tabs/detail/PayButton.vue';
 import { storeToRefs } from 'pinia';
-import Loading from '@/components/Loading.vue';
 
 export default defineComponent({
-  components: { PayButton, Loading },
+  components: { PayButton },
   props: {
     id: {
       type: Number,
@@ -81,9 +78,7 @@ export default defineComponent({
 
     const is_like = computed(() => emoticon.value.is_like);
 
-    const createdAt = computed(() => emoticon.value.author_name);
-
-    const count = computed(() => emoticon.value.count);
+    const is_buyer = computed(() => emoticon.value.is_buyer);
 
     const product_name = computed(() => emoticon.value.product_name);
 
@@ -92,6 +87,11 @@ export default defineComponent({
     const image_files = computed(() => emoticon.value.image_files);
 
     const title_image = computed(() => emoticon.value.title_image);
+
+    const btnTitle = computed(() => {
+      if (is_buyer.value) return '구매완료';
+      else return '구매하기';
+    });
 
     let page = 1;
     let size = 20;
@@ -134,6 +134,8 @@ export default defineComponent({
       price,
       image_files,
       isLoading,
+      is_buyer,
+      btnTitle,
     };
   },
 });
@@ -409,5 +411,13 @@ export default defineComponent({
       }
     }
   }
+}
+
+.buyer {
+  background: #777;
+
+  color: #fff;
+
+  cursor: default;
 }
 </style>

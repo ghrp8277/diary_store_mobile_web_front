@@ -7,15 +7,6 @@ import { createPinia, PiniaVuePlugin } from 'pinia';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import './services/fontAwesome';
-import { globalCookiesConfig } from 'vue3-cookies';
-
-globalCookiesConfig({
-  expireTimes: '30d',
-  path: '/',
-  domain: '',
-  secure: true,
-  sameSite: 'None',
-});
 
 Vue.config.productionTip = false;
 Vue.prototype.$Event = new Vue();

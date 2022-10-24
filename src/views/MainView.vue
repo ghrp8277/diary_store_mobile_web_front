@@ -25,13 +25,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api';
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  ref,
+} from '@vue/composition-api';
 import SlideMenu from '@/components/MainSlideMenu.vue';
 import MainTab from '@/components/MainTab.vue';
 import MainSearch from '@/components/MainSearch.vue';
 import MainMenuBar from '@/components/MainMenuBar.vue';
 import { useMainStore } from '@/services/pinia/main';
 import { storeToRefs } from 'pinia';
+import router from '@/router';
 
 export default defineComponent({
   name: 'MainView',
@@ -39,13 +45,30 @@ export default defineComponent({
   setup() {
     const store = useMainStore();
 
-    const { isSearchShow } = storeToRefs(store);
+    const { isSearchShow, username } = storeToRefs(store);
 
     const isSlideShow = ref(false);
 
     function onSlideShow(is: boolean) {
       isSlideShow.value = is;
     }
+
+    function onPaymentCheck() {
+      const query = router.currentRoute.query;
+
+      const pg_token = query.pg_token as string;
+
+      if (pg_token) {
+        router.push({
+          path: 'payment/ready',
+          query: { pg_token, username: username.value },
+        });
+      }
+    }
+
+    onMounted(() => {
+      onPaymentCheck();
+    });
 
     return {
       isSlideShow,

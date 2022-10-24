@@ -10,6 +10,10 @@ export function saveUserToCookie(username: string) {
   document.cookie = `til_user=${username}; path=/;`;
 }
 
+export function savePaymentToCookie(payment_info: string) {
+  document.cookie = `payment_info=${payment_info}; path=/;`;
+}
+
 export function getSearchKeywordFromCookie() {
   return document.cookie.replace(
     /(?:(?:^|.*;\s*)searchKeyword\s*=([^;]*).*$)|^.*$/,
@@ -29,6 +33,20 @@ export function getUserFromCookie() {
     /(?:(?:^|.*;\s*)til_user\s*=([^;]*).*$)|^.*$/,
     '$1'
   );
+}
+
+export function getSavePaymentFromCookie(): {
+  tid: string;
+  partner_order_id: string;
+  quantity: number;
+  total_amount: number;
+} {
+  const cookie = document.cookie.replace(
+    /(?:(?:^|.*;\s*)payment_info\s*=([^;]*).*$)|^.*$/,
+    '$1'
+  );
+
+  return JSON.parse(cookie);
 }
 
 export function deleteCookie(value: string) {

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="user-info">
         <img class="user-img" src="@/assets/logo.png" alt="" />
-        <div class="user-name">유저이름</div>
+        <div class="user-name">{{ username }}</div>
       </div>
       <ul class="menu">
         <li v-for="(link, index) in link_list" :key="index" @click="link.click">
@@ -24,11 +24,17 @@
 
 <script lang="ts">
 import { defineComponent, toRefs } from '@vue/composition-api';
+import { useMainStore } from '@/services/pinia/main';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'MainSlideMenu',
   emits: ['onSlideShow'],
   setup(props, { emit }) {
+    const store = useMainStore();
+
+    const { username } = storeToRefs(store);
+
     function onShowClose() {
       emit('onSlideShow', false);
     }
@@ -66,6 +72,7 @@ export default defineComponent({
     return {
       link_list,
       onShowClose,
+      username,
     };
   },
 });

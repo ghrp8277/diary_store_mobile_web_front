@@ -10,6 +10,7 @@ class Emoticon {
   public product_name: string;
   public author: string;
   public price: number;
+  public category: string;
   public image_files: ImageFile[];
 
   constructor() {
@@ -20,6 +21,7 @@ class Emoticon {
     this.product_name = '';
     this.author = '';
     this.price = 0;
+    this.category = '';
     this.image_files = [];
   }
 }
@@ -31,6 +33,8 @@ export default (id: number) => {
     const emoticon = store.emoticons.find((emoticon) => emoticon.id == id);
     return emoticon ? emoticon : new Emoticon();
   });
+
+  const category = computed(() => emoticon.value.category);
 
   const product_id = computed(() => emoticon.value.id);
   const is_like = computed(() => emoticon.value.is_like);
@@ -51,5 +55,6 @@ export default (id: number) => {
     author,
     price,
     image_files,
+    category,
   };
 };

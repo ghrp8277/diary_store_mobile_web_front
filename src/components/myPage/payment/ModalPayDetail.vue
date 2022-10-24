@@ -1,32 +1,35 @@
 <template>
   <transition name="modal" appear>
-    <div class="modal modal-overlay" @click.self="$emit('close')">
+    <div
+      class="modal modal-overlay"
+      @click.self="$emit('close', { index, is_show: false })"
+    >
       <div class="modal-window">
         <div class="modal-content">
-          <!-- default 슬롯 콘텐츠 -->
           <h3>구매내역 상세</h3>
-          <!--이모티콘 정보-->
           <div class="emoji">
             <div class="img-container">
               <img src="@/assets/logo.png" alt="" />
             </div>
             <div class="emoji-info">
-              <p class="emoji-title">이모티콘 상품명</p>
-              <p class="author">작가명</p>
+              <p class="emoji-title">{{ history.product.product_name }}</p>
+              <p class="author">{{ history.product.author_name }}</p>
             </div>
           </div>
           <div class="payment-box">
             <div class="payment-item">
               <div class="info-title">결제금액</div>
-              <div class="info-content">5000만원</div>
+              <div class="info-content">{{ history.price }}</div>
             </div>
             <div class="payment-item">
               <div class="info-title">결제수단</div>
-              <div class="info-content">신용카드</div>
+              <div class="info-content">{{ history.card_info }}</div>
             </div>
             <div class="payment-item">
               <div class="info-title">결제일시</div>
-              <div class="info-content">2022.09.01</div>
+              <div class="info-content">
+                {{ moment(history.createdAt).format('YYYY-MM-DD') }}
+              </div>
             </div>
           </div>
           <div><button id="refund">환불하기</button></div>
@@ -40,8 +43,27 @@
   </transition>
 </template>
 
-<script>
-export default {};
+<script lang="ts">
+import { PaymentHistoryInterface } from '@/types/paymentHistory';
+import { defineComponent } from '@vue/composition-api';
+import moment from 'moment';
+
+export default defineComponent({
+  name: 'ModalPayDetail',
+  props: {
+    index: {
+      type: Number,
+      required: true,
+    },
+    history: {
+      type: Object as () => PaymentHistoryInterface,
+      required: true,
+    },
+  },
+  setup(props) {
+    return { moment };
+  },
+});
 </script>
 
 <style lang="scss" scoped>

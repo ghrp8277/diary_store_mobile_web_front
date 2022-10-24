@@ -8,19 +8,18 @@ import {
 import { useMainStore } from '@/services/pinia/main';
 import { storeToRefs } from 'pinia';
 
-// const DEBUG = process.env.NODE_ENV === 'development';
-const DEBUG = false;
+const DEBUG = process.env.NODE_ENV === 'development';
 
 const store = useMainStore();
-// const { token, isLoading } = storeToRefs(store);
+const { isLoading } = storeToRefs(store);
 
-// const startLoading = () => {
-//   isLoading.value = true;
-// };
+const startLoading = () => {
+  isLoading.value = true;
+};
 
-// const endLoading = () => {
-//   isLoading.value = false;
-// };
+const endLoading = () => {
+  isLoading.value = false;
+};
 
 export function setInterceptors(instance: AxiosInstance) {
   instance.interceptors.request.use(
@@ -37,14 +36,14 @@ export function setInterceptors(instance: AxiosInstance) {
 
       // headers.Authorization = `Bearer ${token.value}`;
 
-      // startLoading();
+      startLoading();
       return config;
     },
     (error: AxiosError): Promise<AxiosError> => {
       if (DEBUG) {
         console.error(`[request error] [${JSON.stringify(error)}]`);
       }
-      // endLoading();
+      endLoading();
       return Promise.reject(error);
     }
   );
@@ -59,7 +58,7 @@ export function setInterceptors(instance: AxiosInstance) {
                       [data] [${JSON.stringify(response.data)}]
                   `);
       }
-      // endLoading();
+      endLoading();
       return response;
     },
     (error: AxiosError): Promise<AxiosError> => {
@@ -70,7 +69,7 @@ export function setInterceptors(instance: AxiosInstance) {
                       [responseStatusCode] [${error.response?.status}]
                   `);
       }
-      // endLoading();
+      endLoading();
       return Promise.reject({ error });
     }
   );

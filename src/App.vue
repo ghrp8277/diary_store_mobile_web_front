@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <div :class="{ 'layer-dimmed': isLoading }"></div>
+
+    <loading v-if="isLoading" />
+
     <router-view />
   </div>
 </template>
@@ -7,17 +11,25 @@
 import { computed, defineComponent, onMounted } from '@vue/composition-api';
 import { useMainStore } from '@/services/pinia/main';
 import { saveUserToCookie } from './services/cookies';
+import Loading from '@/components/Loading.vue';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
+  name: 'App',
+  components: {
+    Loading,
+  },
   setup() {
     const mainStore = useMainStore();
+
+    const { isLoading } = storeToRefs(mainStore);
 
     onMounted(() => {
       saveUserToCookie('test');
     });
 
     return {
-      isLoading: computed(() => mainStore.isLoading),
+      isLoading: computed(() => isLoading.value),
     };
   },
 });
@@ -43,5 +55,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.layer-dimmed {
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.66);
+  z-index: 1000;
+
+  transition: all 0.2s;
 }
 </style>

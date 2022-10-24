@@ -22,5 +22,5 @@ function createInstanceWithAuth(url: string) {
 
 export const instance = {
   buyer: createInstanceWithAuth('buyer'),
-  auth: createInstanceWithAuth('auth'),
+  payment: createInstanceWithAuth('payment'),
 };

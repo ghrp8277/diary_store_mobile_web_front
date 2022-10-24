@@ -2,8 +2,8 @@
   <div class="favorite-not__info">
     <img src="@/assets/logo.png" alt="" />
 
-    <strong class="tit-empty">즐겨찾기 상품이 없습니다.</strong>
-    <p class="sub-tit">아래 버튼을 눌러 상품을 담으러 가보세요.</p>
+    <strong class="tit-empty">구매한 상품이 없습니다.</strong>
+    <p class="sub-tit">아래 버튼을 눌러 상품을 구매하러 가보세요.</p>
     <router-link class="home-btn" tag="button" :to="{ name: 'home' }"
       >홈으로 가기</router-link
     >

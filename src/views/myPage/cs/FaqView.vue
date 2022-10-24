@@ -47,8 +47,6 @@ export default defineComponent({
       const is_visible = visible_list.value[index];
 
       visible_list.value[index] = !is_visible;
-
-      console.log(visible_list.value[index]);
     }
 
     onMounted(async () => {

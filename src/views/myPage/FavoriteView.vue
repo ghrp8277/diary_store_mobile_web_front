@@ -5,8 +5,6 @@
     <div v-if="dynamicComponent && !isLoading">
       <component :is="dynamicComponent" />
     </div>
-
-    <loading v-else />
   </div>
 </template>
 
@@ -21,13 +19,9 @@ import {
 import { useStore } from '@/services/pinia/buyer';
 import { useMainStore } from '@/services/pinia/main';
 import { storeToRefs } from 'pinia';
-import Loading from '@/components/Loading.vue';
 
 export default defineComponent({
   name: 'FavoriteView',
-  components: {
-    Loading,
-  },
   setup() {
     const store = useStore();
     const mainStore = useMainStore();
@@ -36,14 +30,6 @@ export default defineComponent({
 
     const { emoticon_favorites } = storeToRefs(store);
 
-    onMounted(async () => {
-      isLoading.value = true;
-
-      await store.FETCH_FAVORITES_INFO(mainStore.username);
-
-      isLoading.value = false;
-    });
-
     const dynamicComponent = computed(() => {
       let componentName =
         emoticon_favorites.value.length > 0 ? 'Content' : 'NotContent';
@@ -51,8 +37,15 @@ export default defineComponent({
       return defineAsyncComponent({
         loader: () =>
           import(`@/components/myPage/favorite/${componentName}.vue`),
-        timeout: 3000,
       });
+    });
+
+    onMounted(async () => {
+      isLoading.value = true;
+
+      await store.FETCH_FAVORITES_INFO(mainStore.username);
+
+      isLoading.value = false;
     });
 
     return {

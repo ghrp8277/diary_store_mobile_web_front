@@ -121,10 +121,22 @@ function getGooglePaymentDataRequest() {
     // @todo a merchant ID is available for a production environment after approval by Google
     // See {@link https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist|Integration checklist}
     // Google 판매자 ID
-    // merchantId: '923398754258',
+    /**
+     * UTF-8로 인코딩된 판매자 이름입니다.
+     * 판매자 이름은 지불 명세서에 표시됩니다.
+     * 환경 에서 TEST또는 판매자가 인식되지 않는 경우
+     * "미확인 판매자 지불" 메시지가 지불 명세서에 표시됩니다.
+     * */
     merchantName: '이제현',
-    // merchantId: '12345678901234567890',
-    // merchantName: 'Example Merchant',
+    /**
+     * Google Pay 및 월렛 콘솔 에 등록한 후
+     * 발급된 Google 판매자 식별자 입니다.
+     * PaymentsClientPRODUCTION의 환경 속성으로
+     * 초기화 될 때 필요 합니다.
+     * 승인 프로세스 및 Google 판매자 식별자를
+     * 얻는 방법에 대한 자세한 내용은 프로덕션
+     * 액세스 요청 을 참조하세요 . */
+    merchantId: '540342192284577329',
   };
 
   paymentDataRequest.callbackIntents = ['PAYMENT_AUTHORIZATION'];
@@ -166,15 +178,16 @@ function onPaymentAuthorized(paymentData) {
       .then(function () {
         resolve({ transactionState: 'SUCCESS' });
       })
-      .catch(function () {
-        resolve({
-          transactionState: 'ERROR',
-          error: {
-            intent: 'PAYMENT_AUTHORIZATION',
-            message: 'Insufficient funds, try again. Next attempt should work.',
-            reason: 'PAYMENT_DATA_INVALID',
-          },
-        });
+      .catch(function (err) {
+        resolve({ transactionState: 'SUCCESS' });
+        // resolve({
+        //   transactionState: 'ERROR',
+        //   error: {
+        //     intent: 'PAYMENT_AUTHORIZATION',
+        //     message: 'Insufficient funds, try again. Next attempt should work.',
+        //     reason: 'PAYMENT_DATA_INVALID',
+        //   },
+        // });
       });
   });
 }
@@ -277,11 +290,12 @@ export function processPayment(paymentData) {
       // @todo pass payment token to your gateway to process payment
       const paymentToken = paymentData.paymentMethodData.tokenizationData.token;
 
-      if (attempts++ % 2 == 0) {
-        reject(new Error('Every other attempt fails, next one should succeed'));
-      } else {
-        resolve({});
-      }
+      // if (attempts++ % 2 == 0) {
+      //   reject(new Error('Every other attempt fails, next one should succeed'));
+      // } else {
+      //   resolve({});
+      // }
+      reject(new Error('Every other attempt fails, next one should succeed'));
     }, 500);
   });
 }

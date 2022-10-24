@@ -16,8 +16,13 @@
 
 <script lang="ts">
 import { fetchStoreNoticeInfo } from '@/apis/buyer';
-import { defineComponent, onMounted, toRefs, ref } from '@vue/composition-api';
-import notice from '@/composables/notice';
+import {
+  defineComponent,
+  onMounted,
+  toRefs,
+  ref,
+  computed,
+} from '@vue/composition-api';
 import moment from 'moment';
 
 export default defineComponent({
@@ -31,19 +36,30 @@ export default defineComponent({
   setup(props) {
     const { id } = toRefs(props);
     const html = ref('');
+    const result = ref<{
+      id: number;
+      is_important: boolean;
+      title: string;
+      createdAt: Date;
+    }>({ id: 0, is_important: false, title: '', createdAt: new Date() });
 
-    const { is_important, title, createdAt } = notice(id.value);
+    const createdAt = computed(() => result.value.createdAt);
+    const title = computed(() => result.value.title);
+    const is_important = computed(() => result.value.is_important);
 
     onMounted(async () => {
       const data = await fetchStoreNoticeInfo(id.value);
 
-      html.value = data;
+      html.value = data.html;
+
+      result.value = data.notice;
     });
 
     return {
       html,
-      is_important,
+      result,
       title,
+      is_important,
       createAtToMoment: moment(createdAt.value).format('YYYY-MM-DD'),
     };
   },

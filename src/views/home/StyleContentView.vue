@@ -1,10 +1,24 @@
 <template>
   <div class="style-container">
-    <ul>
+    <ul class="list-style">
       <li v-for="(product, index) in style_products" :key="index">
-        <strong>#{{ product.title }}<em>></em></strong>
+        <router-link
+          :to="{
+            name: 'styleDetail',
+            params: {
+              id: product.id,
+            },
+          }"
+          ><strong class="link-tit"
+            >#{{ product.match_title }}<em>></em></strong
+          ></router-link
+        >
 
-        <image-list :bgColor="product.bgColor" :groups="product.groups" />
+        <image-list
+          :bgColor="product.bgColor"
+          :textColor="product.textColor"
+          :groups="product.groups"
+        />
       </li>
     </ul>
   </div>
@@ -37,38 +51,42 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .style-container {
+  max-width: 1100px;
+  height: calc(100% - 120px);
+
   padding-top: 120px;
+  margin: 0 auto;
 }
 
-ul {
+.list-style {
+  width: 100%;
   list-style: none;
-
   padding-inline-start: 0;
-
-  margin: 20px;
+  padding: 12px 15px 30px;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
 
   li {
-    margin: 20px 0;
-
     padding: 10px;
     box-sizing: border-box;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 
-    strong {
-      display: block;
-      width: auto;
+    .link-tit {
+      display: inline-block;
+      color: #191919;
 
-      text-align: left;
+      padding: 0 15px;
+      margin: 24px 0 5px;
+      text-decoration: none;
 
-      font-size: 20px;
-
-      margin: 5px 0;
-      padding: 5px 10px;
-
-      box-sizing: border-box;
-
+      line-height: 36px;
       font-weight: 500;
-
-      cursor: pointer;
+      font-size: 24px;
+      margin-right: 8px;
+      font-family: 'notokr-bold', sans-serif;
 
       em {
         font-style: normal;
