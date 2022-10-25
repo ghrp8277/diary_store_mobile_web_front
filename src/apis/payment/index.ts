@@ -1,5 +1,4 @@
 import { instance } from '@/apis';
-import { AxiosPromise } from 'axios';
 
 export async function fetchPayment(formData: {
   quantity: number;
@@ -33,6 +32,12 @@ export async function fetchApprove(
 
 export async function fetchHistory(username: string) {
   const { data } = await instance.payment.get(`history/${username}`);
+
+  return data;
+}
+
+export async function fetchCancel(id: number) {
+  const { data } = await instance.payment.post(`cancel/${id}`);
 
   return data;
 }

@@ -16,8 +16,9 @@
 <script lang="ts">
 import { defineComponent, onMounted } from '@vue/composition-api';
 import router from '@/router';
-import { getSavePaymentFromCookie, deleteCookie } from '@/services/cookies';
+import { getPaymentFromCookie, deleteCookie } from '@/services/cookies';
 import { fetchApprove } from '@/apis/payment';
+import { fetchZipFileDownload } from '@/apis/buyer';
 
 export default defineComponent({
   name: 'PaymentReadyView',
@@ -29,7 +30,7 @@ export default defineComponent({
 
       const username = query.username as string;
 
-      const payment = getSavePaymentFromCookie();
+      const payment = getPaymentFromCookie();
 
       await fetchApprove(username, {
         tid: payment.tid,
@@ -38,6 +39,8 @@ export default defineComponent({
         partner_order_id: payment.partner_order_id,
       });
 
+      await onZipFildDownload(Number(payment.partner_order_id));
+
       setTimeout(() => {
         deleteCookie('payment_info');
 
@@ -45,6 +48,26 @@ export default defineComponent({
           name: 'home',
         });
       }, 3000);
+    }
+
+    async function onZipFildDownload(id: number) {
+      const blob = await fetchZipFileDownload(id);
+
+      if (blob) {
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+
+        link.href = url;
+
+        link.setAttribute('download', 'emoji.zip');
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+      }
     }
 
     onMounted(async () => {

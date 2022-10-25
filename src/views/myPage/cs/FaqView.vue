@@ -88,9 +88,9 @@ input[type='checkbox'] {
 
 .container-faq {
   background: white;
-  padding: 30px 50px;
+  padding: 30px 100px;
 
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
 }
 

@@ -6,12 +6,11 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, toRefs } from '@vue/composition-api';
-import { fetchZipFileDownload } from '@/apis/buyer';
-import { savePaymentToCookie } from '@/services/cookies';
+import { savePaymentToCookie, getPaymentFromCookie } from '@/services/cookies';
 import { fetchPayment } from '@/apis/payment';
 
 export default defineComponent({
-  name: 'GooglePay',
+  name: 'PayButton',
   props: {
     id: {
       type: Number,
@@ -46,29 +45,17 @@ export default defineComponent({
 
       payment_info.tid = result.tid;
 
-      savePaymentToCookie(JSON.stringify(payment_info));
+      while (true) {
+        savePaymentToCookie(JSON.stringify(payment_info));
+
+        const payment = getPaymentFromCookie();
+
+        if (payment) break;
+      }
 
       setTimeout(() => {
         window.location.href = result.next_redirect_pc_url;
       }, 500);
-
-      // window.open(data.next_redirect_pc_url);
-
-      // const blob = await fetchZipFileDownload(id.value);
-
-      // const url = window.URL.createObjectURL(blob);
-
-      // const link = document.createElement('a');
-
-      // link.href = url;
-
-      // link.setAttribute('download', 'emoji.zip');
-
-      // document.body.appendChild(link);
-
-      // link.click();
-
-      // document.body.removeChild(link);
     }
 
     return {

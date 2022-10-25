@@ -32,7 +32,7 @@
               </div>
             </div>
           </div>
-          <div><button id="refund">환불하기</button></div>
+          <div><button id="refund" @click="onRefund">환불하기</button></div>
 
           <span
             >구매 후 다운로드나 이용하지 않았을 경우 환불이 가능합니다.</span
@@ -45,8 +45,10 @@
 
 <script lang="ts">
 import { PaymentHistoryInterface } from '@/types/paymentHistory';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, toRefs } from '@vue/composition-api';
 import moment from 'moment';
+import { fetchCancel } from '@/apis/payment';
+import router from '@/router';
 
 export default defineComponent({
   name: 'ModalPayDetail',
@@ -61,7 +63,19 @@ export default defineComponent({
     },
   },
   setup(props) {
-    return { moment };
+    const { history } = toRefs(props);
+
+    const { id } = history.value;
+
+    async function onRefund() {
+      await fetchCancel(id);
+
+      router.push({
+        name: 'home',
+      });
+    }
+
+    return { moment, onRefund };
   },
 });
 </script>
@@ -197,9 +211,10 @@ img {
   background: white;
   font-size: 14px;
   margin: 10px 0;
-}
-#refund :hover {
   cursor: pointer;
-  font-weight: bold;
+
+  &:hover {
+    font-weight: bold;
+  }
 }
 </style>

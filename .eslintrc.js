@@ -18,6 +18,7 @@ module.exports = {
     'no-undef': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    'no-constant-condition': 'off',
     'prettier/prettier': [
       'error',
       {

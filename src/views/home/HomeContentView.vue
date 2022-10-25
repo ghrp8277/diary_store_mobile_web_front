@@ -15,7 +15,10 @@ import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'MainTabView',
-  components: { HomeBestContent, HomeNewContent },
+  components: {
+    HomeBestContent,
+    HomeNewContent,
+  },
   setup() {
     const store = useStore();
     const mainStroe = useMainStore();
@@ -23,7 +26,7 @@ export default defineComponent({
     const { username } = storeToRefs(mainStroe);
 
     let page = 1;
-    let size = 6;
+    let size = 20;
 
     onMounted(async () => {
       await store.FETCH_PRODUCTS_RANK(page, size);

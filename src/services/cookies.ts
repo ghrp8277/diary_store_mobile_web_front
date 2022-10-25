@@ -35,7 +35,7 @@ export function getUserFromCookie() {
   );
 }
 
-export function getSavePaymentFromCookie(): {
+export function getPaymentFromCookie(): {
   tid: string;
   partner_order_id: string;
   quantity: number;
@@ -50,5 +50,5 @@ export function getSavePaymentFromCookie(): {
 }
 
 export function deleteCookie(value: string) {
-  document.cookie = `${value}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+  document.cookie = `${value}=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 }
