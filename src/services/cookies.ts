@@ -14,6 +14,17 @@ export function savePaymentToCookie(payment_info: string) {
   document.cookie = `payment_info=${payment_info}; path=/;`;
 }
 
+export function saveAccessTokenToCookie(token: string) {
+  document.cookie = `til_access=${token}; path=/;`;
+}
+
+export function getAccessFromCookie() {
+  return document.cookie.replace(
+    /(?:(?:^|.*;\s*)til_access\s*=([^;]*).*$)|^.*$/,
+    '$1'
+  );
+}
+
 export function getSearchKeywordFromCookie() {
   return document.cookie.replace(
     /(?:(?:^|.*;\s*)searchKeyword\s*=([^;]*).*$)|^.*$/,

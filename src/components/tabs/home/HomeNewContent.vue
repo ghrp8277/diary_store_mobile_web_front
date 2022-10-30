@@ -81,19 +81,19 @@ export default defineComponent({
     box-sizing: border-box;
     padding: 12px 0 12px 16px;
     cursor: pointer;
-
-    .product__info_wrap {
-      width: 210px;
-      padding: 0 0 20px 0;
-      background-color: #fff;
-      display: block;
-      border-radius: 10px;
-      position: relative;
-      box-shadow: 0 2px 10px 0 rgb(0 0 0 / 6%);
-
-      text-align: center;
-    }
   }
+}
+
+.product__info_wrap {
+  width: 210px;
+  padding: 0 0 20px 0;
+  background-color: #fff;
+  display: block;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 6%);
+
+  text-align: center;
 }
 
 .img-wrap {
@@ -155,5 +155,34 @@ export default defineComponent({
     minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr)
   );
   grid-gap: var(--grid-layout-gap);
+}
+
+/* 미디어 쿼리 */
+@media all and (max-width: 920px) {
+  .new__info_wrap {
+    padding: 0 10px;
+  }
+}
+
+@media all and (max-width: 511px) {
+  .product__info_wrap {
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .product-title {
+    .tit-item {
+      font-size: 18px;
+
+      font-weight: bold;
+    }
+  }
+
+  .new-products {
+    li {
+      padding: 0;
+    }
+  }
 }
 </style>

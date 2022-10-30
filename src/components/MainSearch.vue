@@ -19,7 +19,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .search-wrap {
-  width: calc(100% - 15px);
+  width: 100%;
 
   position: fixed;
   margin-top: 120px;

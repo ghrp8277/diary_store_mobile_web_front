@@ -8,10 +8,11 @@ import {
 import { useMainStore } from '@/services/pinia/main';
 import { storeToRefs } from 'pinia';
 
-const DEBUG = process.env.NODE_ENV === 'development';
+// const DEBUG = process.env.NODE_ENV === 'development';
+const DEBUG = false;
 
 const store = useMainStore();
-const { isLoading } = storeToRefs(store);
+const { isLoading, token } = storeToRefs(store);
 
 const startLoading = () => {
   isLoading.value = true;
@@ -34,7 +35,7 @@ export function setInterceptors(instance: AxiosInstance) {
 
       const headers = config.headers as AxiosRequestHeaders;
 
-      // headers.Authorization = `Bearer ${token.value}`;
+      headers.Authorization = `Bearer ${token.value}`;
 
       startLoading();
       return config;

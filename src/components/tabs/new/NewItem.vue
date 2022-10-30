@@ -14,7 +14,7 @@
         icon="fa-heart"
       />
     </span>
-    <div class="emojiThumb">
+    <div class="emoji-thumb">
       <div class="img-slides">
         <transition-group
           name="slide"
@@ -403,11 +403,29 @@ export default defineComponent({
 }
 
 /* 미디어 쿼리 */
-// @media all and (max-width: 440px) {
-//   .emoticon-wrap {
-//     width: 100%;
+@media all and (max-width: 474px) {
+  .emoticon-wrap {
+    width: calc(100% - 40px);
+    height: 250px;
+  }
 
-//     background: ;
-//   }
-// }
+  .emoji-thumb {
+    height: 100%;
+
+    padding: 10px;
+  }
+
+  .emoticon-title {
+    font-size: 18px;
+  }
+
+  .heart-icon {
+    right: 0;
+    left: 10px;
+  }
+
+  .emociton-image {
+    height: auto;
+  }
+}
 </style>

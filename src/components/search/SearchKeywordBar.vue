@@ -217,7 +217,7 @@ export default defineComponent({
 
   .keywords-delete,
   .keywords-save__auto {
-    font-size: 1vw;
+    font-size: 10px;
   }
 }
 
@@ -284,7 +284,7 @@ export default defineComponent({
 .keywords-wrap {
   position: fixed;
 
-  width: calc(100% - 70px);
+  width: calc(100% - 57px);
   max-width: 904px;
 
   background: white;

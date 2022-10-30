@@ -2,7 +2,7 @@
   <div class="container-payment">
     <h2 class="payment-title">구매내역</h2>
 
-    <div v-if="dynamicComponent && !is_loading">
+    <div class="payment-content" v-if="dynamicComponent && !is_loading">
       <component :is="dynamicComponent" />
     </div>
   </div>
@@ -61,8 +61,7 @@ export default defineComponent({
 <style scoped lang="scss">
 .container-payment {
   width: 100%;
-
-  background: white;
+  height: calc(100% - 120px);
   max-width: 900px;
   margin: 0 auto;
 

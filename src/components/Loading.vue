@@ -22,9 +22,11 @@ export default defineComponent({
   font-weight: bold;
   letter-spacing: 4px;
   text-transform: capitalize;
-  position: absolute;
+  position: fixed;
   overflow: hidden;
   transform: translate(-50%, -50%);
+
+  z-index: 99999;
 }
 
 .loading::before {

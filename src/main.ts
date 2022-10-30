@@ -8,6 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import './services/fontAwesome';
 
+declare global {
+  interface Window {
+    tokenSave: (token: string) => void;
+  }
+}
+
 Vue.config.productionTip = false;
 Vue.prototype.$Event = new Vue();
 

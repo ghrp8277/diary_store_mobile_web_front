@@ -8,9 +8,8 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onMounted } from '@vue/composition-api';
+import { computed, defineComponent } from '@vue/composition-api';
 import { useMainStore } from '@/services/pinia/main';
-import { saveUserToCookie } from './services/cookies';
 import Loading from '@/components/Loading.vue';
 import { storeToRefs } from 'pinia';
 
@@ -24,10 +23,6 @@ export default defineComponent({
 
     const { isLoading } = storeToRefs(mainStore);
 
-    onMounted(() => {
-      saveUserToCookie('test');
-    });
-
     return {
       isLoading: computed(() => isLoading.value),
     };
@@ -38,12 +33,30 @@ export default defineComponent({
 html,
 body {
   margin: 0;
-  // 가로 스크롤 없앤다
-  overflow: hidden;
   width: 100%;
   height: 100%;
 
   min-width: 300px;
+}
+
+/* width */
+html::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+/* Track */
+html::-webkit-scrollbar-track {
+  background: #f1f1f1;
+
+  width: 15px;
+}
+
+/* Handle */
+html::-webkit-scrollbar-thumb {
+  background-color: rgba(50, 50, 50, 0.5);
+  border: 3px solid transparent;
+  border-radius: 9px;
+  background-clip: content-box;
 }
 
 #app {

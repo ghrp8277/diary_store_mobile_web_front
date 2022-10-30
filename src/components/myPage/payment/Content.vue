@@ -95,10 +95,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.list-payment {
-  place-items: center;
-  width: 100%;
-}
 .grid-container {
   /**
      * User input values.
@@ -211,15 +207,6 @@ export default defineComponent({
     height: 40px;
     padding-left: 10px;
     text-align: left;
-  }
-}
-
-@media all and (max-width: 400px) {
-  .grid-container {
-    --grid-layout-gap: 0px;
-  }
-  .payment-content {
-    margin: 10px 0;
   }
 }
 </style>

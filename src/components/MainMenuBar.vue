@@ -68,7 +68,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .menu-bar-container {
-  width: calc(100% - 15px);
+  width: 100%;
   height: 60px;
   display: grid;
   grid-template-columns: 0.5fr 2fr 0.5fr;

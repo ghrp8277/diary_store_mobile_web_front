@@ -203,4 +203,11 @@ export default defineComponent({
   );
   grid-gap: var(--grid-layout-gap);
 }
+
+/* 미디어 쿼리 */
+@media all and (max-width: 920px) {
+  .best__info_wrap {
+    padding: 0 10px;
+  }
+}
 </style>

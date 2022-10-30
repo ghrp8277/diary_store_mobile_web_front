@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, toRefs } from '@vue/composition-api';
+import { defineComponent, toRefs } from '@vue/composition-api';
 import { savePaymentToCookie, getPaymentFromCookie } from '@/services/cookies';
 import { fetchPayment } from '@/apis/payment';
 
@@ -54,7 +54,15 @@ export default defineComponent({
       }
 
       setTimeout(() => {
-        window.location.href = result.next_redirect_pc_url;
+        if (
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          )
+        ) {
+          window.location.href = result.next_redirect_mobile_url;
+        } else {
+          window.location.href = result.next_redirect_pc_url;
+        }
       }, 500);
     }
 

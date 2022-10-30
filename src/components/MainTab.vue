@@ -85,7 +85,7 @@ export default defineComponent({
 
   height: 60px;
 
-  width: calc(100% - 15px);
+  width: 100%;
 
   background: white;
 
