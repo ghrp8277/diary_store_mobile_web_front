@@ -23,4 +23,4 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-[다이어리 스튜디오 모바일 웹 링크](http://leejehyeon.synology.me:5432)
+다이어리 스튜디오 모바일 [Diary Studio Mobile](http://leejehyeon.synology.me:5432)
