@@ -26,6 +26,7 @@
 import { defineComponent, toRefs } from '@vue/composition-api';
 import { useMainStore } from '@/services/pinia/main';
 import { storeToRefs } from 'pinia';
+import { allDeleteCookie } from '@/services/cookies';
 
 export default defineComponent({
   name: 'MainSlideMenu',
@@ -66,6 +67,21 @@ export default defineComponent({
         to: '/service',
         click: (e: Event) => {
           onShowClose();
+        },
+      },
+      {
+        name: '로그아웃',
+        to: '/login',
+        click: (e: Event) => {
+          const store = useMainStore();
+
+          const { username, token, refreshToken } = storeToRefs(store);
+
+          username.value = '';
+          token.value = '';
+          refreshToken.value = '';
+
+          allDeleteCookie();
         },
       },
     ];

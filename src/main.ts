@@ -7,6 +7,7 @@ import { createPinia, PiniaVuePlugin } from 'pinia';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import './services/fontAwesome';
+import { useMainStore } from './services/pinia/main';
 
 declare global {
   interface Window {
@@ -23,6 +24,8 @@ Vue.use(PiniaVuePlugin);
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
+
+useMainStore(pinia);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

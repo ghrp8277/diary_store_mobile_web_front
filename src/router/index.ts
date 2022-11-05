@@ -6,6 +6,8 @@ import {
   getAccessFromCookie,
   getUserFromCookie,
 } from '@/services/cookies';
+import { useMainStore } from '@/services/pinia/main';
+import { storeToRefs } from 'pinia';
 
 Vue.use(VueRouter);
 
@@ -22,25 +24,44 @@ export function requireAuth(
   from: Route,
   next: NavigationGuardNext<Vue>
 ) {
-  const username = to.query.username as string;
-  const token = to.query.token as string;
+  const store = useMainStore();
+  const { isLogin } = storeToRefs(store);
 
-  if (getCookieToMatched()) {
-    next();
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    const username = to.query.username as string;
+    const token = to.query.token as string;
+
+    if (getCookieToMatched()) {
+      next();
+    } else {
+      if (
+        to.meta &&
+        to.matched.some((record) => record.meta.authRequired) &&
+        !username &&
+        !token
+      ) {
+        next('/404');
+        return;
+      }
+
+      saveUserToCookie(username);
+      saveAccessTokenToCookie(token);
+
+      next();
+    }
   } else {
     if (
       to.meta &&
       to.matched.some((record) => record.meta.authRequired) &&
-      !username &&
-      !token
+      !isLogin.value
     ) {
-      next('/404');
+      next('/login');
       return;
     }
-
-    saveUserToCookie(username);
-    saveAccessTokenToCookie(token);
-
     next();
   }
 }
@@ -157,6 +178,16 @@ const routes: Array<RouteConfig> = [
         ],
       },
     ],
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/LoginView.vue'),
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => import('@/views/SignUpView.vue'),
   },
   {
     path: '/payment/ready',

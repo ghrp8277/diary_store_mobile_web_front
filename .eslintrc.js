@@ -19,6 +19,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'no-constant-condition': 'off',
+    'no-useless-escape': 'off',
     'prettier/prettier': [
       'error',
       {

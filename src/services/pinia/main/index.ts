@@ -1,11 +1,15 @@
 import { defineStore } from 'pinia';
-import { ref } from '@vue/composition-api';
-import { getUserFromCookie, getAccessFromCookie } from '@/services/cookies';
+import { ref, computed } from '@vue/composition-api';
+import {
+  getUserFromCookie,
+  getAccessFromCookie,
+  getRefreshFromCookie,
+} from '@/services/cookies';
 
 export const useMainStore = defineStore('main', () => {
   const username = ref(getUserFromCookie() || '');
   const token = ref(getAccessFromCookie() || '');
-  // const refreshToken = ref(getRefreshFromCookie() || '');
+  const refreshToken = ref(getRefreshFromCookie() || '');
 
   const isLoading = ref(false);
   const isSearchShow = ref(false);
@@ -13,9 +17,9 @@ export const useMainStore = defineStore('main', () => {
   return {
     username,
     token,
-    // refreshToken,
+    refreshToken,
     isLoading,
     isSearchShow,
-    // isLogin: computed(() => username.value.length != 0),
+    isLogin: computed(() => username.value.length != 0),
   };
 });
