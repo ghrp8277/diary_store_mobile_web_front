@@ -1,26 +1,37 @@
-# front
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
+* ## 프로젝트 계획이유
+  > 나만의 일기를 작성하고 그날의 기분을 이모티콘으로 표현하는 앱
+  > 
+  > 또한 사용자가 이모티콘을 그려 공유할 수 도 있고 수익창출까지 할 수 있습니다.
+  > 
+  > 공유된 다양한 이모티콘을 가지고 나의 기분을 다양하게 표현할 수 있습니다.
+------------
+* ## 개발환경
+  1. Vue JS
+  2. Typescript
+  3. Pinia
+  4. Axios
+  5. FontAwesome
+  6. composition-api
+------------
+* ## 기능 설명
+  > 이모티콘 구매자가 되어 스토어에 등록된 이모티콘을 확인하고 구입, 환불, 즐겨찾기 등 다양한 기능을 활용할 수 있습니다.
+  
+  * 이모티콘 스토어
+    1. 제안 승인된 이모티콘 상품을 확인 (홈)
+    2. 인기 순으로 정렬된 이모티콘 상품을 확인 (인기)
+    3. 가장 최근에 승인된 이모티콘 상품을 확인 (신규)
+    4. 이모티콘 상품을 선택된 태그대로 나열한 상품을 확인 (스타일)
+    5. 상품 검색 기능
+  * 개인
+    1. 이모티콘 상품 즐겨찾기 리스트 항목 확인
+    2. 구매내역 
+------------
+* ## 프로젝트 참여 인원
+  > 2명 
+  >
+  > 역할 : 백엔드(기여도 100%), 프론트엔드(기여도 80%)
+  >
+  > 해당 프로젝트 기여도 80%
+------------
+* ## 링크
 다이어리 스튜디오 모바일 [Diary Studio Mobile](http://leejehyeon.synology.me:5432)
